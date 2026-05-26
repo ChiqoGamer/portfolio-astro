@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.tsx';
+import Hero from '../components/Hero.tsx';
+import Experience from '../components/Experience.tsx';
+import Projects from '../components/Projects.tsx';
+import Education from '../components/Education.tsx';
+import Skills from '../components/Skills.tsx';
+import Contact from '../components/Contact.tsx';
+import Footer from '../components/Footer.tsx';
+import AIChat from '../components/AIChat.tsx';
+---
+
+<Layout>
+  <Header client:load />
+  <main>
+    <Hero client:load />
+    <Experience />
+    <Projects />
+    <Education />
+    <Skills client:load />
+    <Contact client:load />
+  </main>
+  <Footer />
+  <AIChat client:load />
+</Layout>

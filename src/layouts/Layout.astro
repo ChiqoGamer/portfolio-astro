@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Joel Moran - FullStack Developer',
+  description = 'Porfolio de Joel Nicolas Moran - Software Developer',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="shortcut icon" href="/icono.png" type="image/x-icon" />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Joel Moran - Desarrollador FrontEnd" />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/ChiqoGamer/JoelMoran/refs/heads/master/perfil-SEO.png"
+    />
+    <meta property="og:url" content="https://chiqogamer.github.io/JoelMoran" />
+    <meta property="og:type" content="website" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- EmailJS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      emailjs.init('n5R3fiRRMyiPp10nv');
+    </script>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Google Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
