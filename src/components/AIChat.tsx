@@ -205,7 +205,7 @@ export default function AIChat() {
         style={{
           position: 'fixed',
           bottom: 0,          // <- pegado al borde inferior
-          right: -15,          // <- más a la derecha
+          right: 0,          // <- más a la derecha
           zIndex: 9000,
           background: 'none',
           border: 'none',
