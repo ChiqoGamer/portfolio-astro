@@ -31,6 +31,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
 }
 
 body {
@@ -40,6 +41,7 @@ body {
   background-image: url(https://thelokin.dev/images/grainy.png);
   background-color: var(--bg-dark);
   color: var(--text-primary);
+  overflow-x: hidden;
 }
 
 /* ========== NAVBAR ========== */
@@ -616,4 +618,33 @@ body {
 /* ========== 2K ========== */
 @media (min-width: 2000px) {
   body { padding: 0 19%; }
+}
+
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+
+  /* background: rgba(0, 254, 155, 0.5);
+  border-radius: 10px; */
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--bg-dark);
 }
