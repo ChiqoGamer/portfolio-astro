@@ -66,28 +66,50 @@ export default function Header() {
   useEffect(() => {
     const sections = document.querySelectorAll('section');
 
+    // const observer = new IntersectionObserver(
+    //   (entries) => {
+    //     let topSection: Element | null = null;
+    //     let minDistance = window.innerHeight;
+
+    //     entries.forEach((entry) => {
+    //       if (entry.isIntersecting) {
+    //         const rect = entry.target.getBoundingClientRect();
+    //         const distance = Math.abs(rect.top);
+    //         if (distance < minDistance) {
+    //           minDistance = distance;
+    //           topSection = entry.target;
+    //         }
+    //       }
+    //     });
+
+    //     if (topSection) {
+    //       setActiveSection(topSection.getAttribute('id') || '');
+    //     }
+    //   },
+    //   { threshold: [0.4] }
+    // );
     const observer = new IntersectionObserver(
-      (entries) => {
-        let topSection = null;
-        let minDistance = window.innerHeight;
+  (entries) => {
+    let topSection: Element | null = null;
+    let minDistance = window.innerHeight;
 
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const rect = entry.target.getBoundingClientRect();
-            const distance = Math.abs(rect.top);
-            if (distance < minDistance) {
-              minDistance = distance;
-              topSection = entry.target;
-            }
-          }
-        });
-
-        if (topSection) {
-          setActiveSection(topSection.getAttribute('id') || '');
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const rect = entry.target.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+        if (distance < minDistance) {
+          minDistance = distance;
+          topSection = entry.target as Element;
         }
-      },
-      { threshold: [0.4] }
-    );
+      }
+    });
+
+    if (topSection) {
+      setActiveSection((topSection as Element).getAttribute('id') || '');
+    }
+  },
+  { threshold: [0.4] }
+);
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
@@ -100,7 +122,7 @@ export default function Header() {
   return (
     <>
       <header
-        className="box-border w-full px-6 py-5 flex justify-start sticky top-0 z-10 mb-[8%]"
+        className="box-border w-full px-6 py-5 flex justify-start sticky top-0 z-10 mb-[4%]"
         style={{
           backgroundColor: 'var(--bg-dark-semi)',
           backgroundImage: 'url(https://thelokin.dev/images/grainy.png)',
