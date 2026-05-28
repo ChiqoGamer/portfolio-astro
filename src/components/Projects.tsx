@@ -108,7 +108,7 @@ const projects: Project[] = [
     { name: 'JavaScript' },
   ],
   description:
-    'Landing page institucional desarrollada para Colidevs, startup de servicios TI orientada a digitalización y automatización de negocios. Diseñada con foco en conversión y claridad de propuesta de valor, presenta los servicios de la empresa con navegación fluida, diseño responsivo y llamados a la acción estratégicos. Construida con Astro para máximo rendimiento y carga estática optimizada, y estilizada con Tailwind CSS para un diseño moderno y consistente.',
+    'Landing page institucional desarrollada para Colidevs, startup de servicios TI orientada a digitalización y automatización de negocios. Diseñada con foco en conversión y claridad de propuesta de valor, presenta los servicios de la empresa con navegación fluida, diseño responsivo y llamados a la acción estratégicos. ',
   githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
   liveUrl: 'https://www.coli.com.ar',
   image: '/colidevs.png',
@@ -119,11 +119,16 @@ const projects: Project[] = [
 function ProjectCard({ project }: { project: Project }) {
   return (
     <div
-      className="flex justify-between mb-12 gap-8"
-      style={{ flexDirection: project.reversed ? 'row-reverse' : 'row' }}
+    className={`flex justify-center mb-12 gap-4 flex-wrap ${
+    project.reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
+  } flex-col-reverse`}
+      // className="flex justify-between mb-12 gap-8"
+      // style={{ flexDirection: project.reversed ? 'row-reverse' : 'row',
+      //   flexWrap: 'wrap',
+      //  }}
     >
       {/* Info */}
-      <div className="proyecto-info" style={{ width: '45%' }}>
+      <div className="proyecto-info w-full lg:w-[45%] flex flex-col">
         <h3 style={{ fontSize: '1.5rem', margin: '0 0 5px' }}>{project.title}</h3>
         <p className="subtitulo" style={{ fontSize: '1rem', color: 'gray', margin: '0 0 10px' }}>
           {project.subtitle}
@@ -162,7 +167,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Image */}
-      <div className="proyecto-img" style={{ width: '40%' }}>
+      <div className="proyecto-img w-full lg:w-[40%]">
         <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
           <img src={project.image} alt={project.imageAlt} />
         </a>
