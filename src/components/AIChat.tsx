@@ -194,50 +194,86 @@ export default function AIChat() {
         .ai-suggestion:hover { background: rgba(0,254,155,0.12) !important; border-color: rgba(0,254,155,0.5) !important; }
         .ai-toggle-btn:hover { transform: scale(1.05); }
         .ai-toggle-btn { transition: transform 0.2s ease; }
+
+        // Dentro del <style> agregá al final
+.ai-toggle-btn {
+  transition: transform 0.2s ease;
+}
+
+@media (max-width: 1023px) {
+  .ai-toggle-btn-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 9000;
+  }
+  .ai-avatar-mobile {
+    width: 90px !important;
+    height: 135px !important;
+  }
+}
+
+.hidden-mobile { display: block; }
+.hidden-desktop { display: none; }
+
+@media (max-width: 600px) {
+  .hidden-mobile  { display: none; }
+  .hidden-desktop { display: block; }
+
+  /* El chat ocupa todo el ancho en mobile */
+  /* y el avatar se superpone arriba a la derecha */
+}
       `}</style>
 
-      {/* ── Sticky toggle button ── */}
 
-      <button
-        className="ai-toggle-btn"
-        onClick={() => setOpen(o => !o)}
-        aria-label="Chat con Joel IA"
-        style={{
-          position: 'fixed',
-          bottom: 0,          // <- pegado al borde inferior
-          right: 0,          // <- más a la derecha
-          zIndex: 9000,
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          padding: 0,
-          filter: open ? 'drop-shadow(0 0 14px rgba(0,254,155,0.6))' : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
-        }}
-      >
-        <JoelAvatar size={150} pulse={!open} />
-      </button>
+      {/* ── Sticky toggle button ── */}
+<button
+  className="ai-toggle-btn"
+  onClick={() => setOpen(o => !o)}
+  aria-label="Chat con Joel IA"
+  style={{
+    position: 'fixed',
+    bottom: 0,
+    right: 0,
+    zIndex: 9000,
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    padding: 0,
+    filter: open ? 'drop-shadow(0 0 14px rgba(0,254,155,0.6))' : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
+  }}
+>
+  {/* Desktop: tamaño grande */}
+  <div className="hidden-mobile">
+    <JoelAvatar size={150} pulse={!open} />
+  </div>
+  {/* Mobile: tamaño reducido */}
+  <div className="hidden-desktop">
+    <JoelAvatar size={100} pulse={!open} />
+  </div>
+</button>
 
       {/* ── Chat window ── */}
       {open && (
         <div
-          style={{
-            position: 'fixed',
-            bottom: 0,
-            right: 120,
-            width: 370,
-            maxWidth: 'calc(100vw - 40px)',
-            height: 520,
-            zIndex: 8999,
-            display: 'flex',
-            flexDirection: 'column',
-            borderRadius: 20,
-            overflow: 'hidden',
-            animation: 'chatSlideUp 0.3s ease',
-            background: '#16151e',
-            border: '1px solid rgba(0,254,155,0.2)',
-            boxShadow: '0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,254,155,0.06)',
-          }}
-        >
+    style={{
+      position: 'fixed',
+      bottom: window.innerWidth < 600 ? 120 : 30, // un poco más arriba en desktop para no tapar el botón
+      right: window.innerWidth < 600 ? '3vw' : 120,
+      width: 370,
+      maxWidth: '100vw',
+      height: 520,
+      zIndex: 8999,
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: '20px 20px 0 0',  // ← en mobile sin bordes abajo
+      overflow: 'hidden',
+      animation: 'chatSlideUp 0.3s ease',
+      background: '#16151e',
+      border: '1px solid rgba(0,254,155,0.2)',
+      boxShadow: '0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,254,155,0.06)',
+    }}
+  >
           {/* Header */}
           <div style={{
             display: 'flex',
