@@ -76,13 +76,13 @@ export default function Hero() {
           justify-content: space-between;
           align-items: center;
           padding: 0px 5% 4rem;
-          gap: 2rem;
-          min-height: 90vh;
+          gap: 1rem;
+          min-height: 70vh;
         }
 
         .hero-content {
           flex: 1;
-          max-width: 600px;
+          max-width: 700px;
           text-align: left;
         }
 

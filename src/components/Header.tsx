@@ -66,28 +66,6 @@ export default function Header() {
   useEffect(() => {
     const sections = document.querySelectorAll('section');
 
-    // const observer = new IntersectionObserver(
-    //   (entries) => {
-    //     let topSection: Element | null = null;
-    //     let minDistance = window.innerHeight;
-
-    //     entries.forEach((entry) => {
-    //       if (entry.isIntersecting) {
-    //         const rect = entry.target.getBoundingClientRect();
-    //         const distance = Math.abs(rect.top);
-    //         if (distance < minDistance) {
-    //           minDistance = distance;
-    //           topSection = entry.target;
-    //         }
-    //       }
-    //     });
-
-    //     if (topSection) {
-    //       setActiveSection(topSection.getAttribute('id') || '');
-    //     }
-    //   },
-    //   { threshold: [0.4] }
-    // );
     const observer = new IntersectionObserver(
   (entries) => {
     let topSection: Element | null = null;

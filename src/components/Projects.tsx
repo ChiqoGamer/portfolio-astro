@@ -147,12 +147,12 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <p className="descripcion" style={{ fontSize: '0.95rem', lineHeight: '1.8', margin: 0 }}>
+        <p className="descripcion" style={{ fontSize: '0.95rem', lineHeight: '1.8', margin: 0, marginBottom: '1rem' }}>
           {project.description}
         </p>
 
         {/* Buttons */}
-        <div className="contenedor-btn-proyectos mt-6 flex gap-8">
+        <div className="contenedor-btn-proyectos mt-auto mb-2 md:[mt-auto] flex gap-8">
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-github" style={{ width: '50%' }}>
             <GithubIcon />
             <span style={{ marginLeft: '0.5rem' }}>GitHub</span>

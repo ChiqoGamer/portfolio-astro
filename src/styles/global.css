@@ -45,11 +45,27 @@ body {
 }
 
 /* ========== NAVBAR ========== */
-.navbar-glass {
+/* .navbar-glass {
   position: fixed;
   top: 20px;
   left: 65%;
   transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(20, 20, 20, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 15px;
+  padding: 12px 22px;
+  box-shadow:
+    0 0 30px rgba(0, 253, 127, 0.18),
+    0 0 40px rgba(0, 253, 127, 0.12),
+    inset 0 0 5px rgba(255, 255, 255, 0.01);
+} */
+ .navbar-glass {
+  position: absolute;    /* relativo al header */
+  top: 50px;
+  right: 1rem;           /* pegado al borde derecho del header */
+  transform: translateY(-50%);
   z-index: 1000;
   background: rgba(20, 20, 20, 0.1);
   backdrop-filter: blur(14px);
@@ -617,8 +633,8 @@ body {
 }
 
 /* ========== 2K ========== */
-@media (min-width: 2000px) {
-  body { padding: 0 19%; }
+@media (min-width: 1900px) {
+  body { padding: 0 10%; }
 }
 
 
