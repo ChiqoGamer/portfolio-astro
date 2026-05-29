@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer
-      className="text-center mt-40 flex flex-col items-center"
+      className="text-center mt-20 lg:mt-40 flex flex-col items-center"
       style={{ color: 'white' }}
     >
       <div
@@ -9,13 +9,13 @@ export default function Footer() {
         style={{ borderTop: '1px solid var(--bg-secondary)', width: '88%' }}
       />
       <div
-        className="footer-container flex justify-between items-center"
+        className="footer-container flex flex-col lg:flex-row justify-between items-center"
         style={{ width: '88%' }}
       >
-        <p style={{ margin: '2rem 0' }}>
-          © 2025 Joel Nicolás Morán. Todos los derechos reservados.
+        <p className="mt-8 mb-0 lg:my-8 text-sm md:text-base">
+          © 2026 Joel Nicolás Morán. Todos los derechos reservados.
         </p>
-        <p style={{ margin: '2rem 0' }}>
+        <p className="mt-1 mb-8 lg:my-8 text-sm md:text-base">
           Diseñado y desarrollado con 💚 y mucho ☕!
         </p>
       </div>

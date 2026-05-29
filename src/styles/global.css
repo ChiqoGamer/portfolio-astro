@@ -211,6 +211,17 @@ body {
   .nav-links li:nth-child(4) { animation-delay: 0.8s; }
   .nav-links li:nth-child(5) { animation-delay: 1s; }
   .nav-links li:nth-child(6) { animation-delay: 1.2s; }
+
+  .contenedor-tecno {
+    grid-template-columns: 1fr !important;
+  }
+
+  .info-contacto,
+  .mensaje-contacto {
+    min-width: 100% !important;
+    max-width: 100% !important;
+  
+  }
 }
 
 @media (min-width: 1024px) {

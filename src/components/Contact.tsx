@@ -73,7 +73,7 @@ export default function Contact() {
 
       {/* Cards container */}
       <div
-        className="flex justify-between flex-wrap gap-0"
+        className="flex justify-between flex-wrap gap-y-8 w-full"
         style={{ height: 'auto' }}
       >
         {/* Contact info */}
