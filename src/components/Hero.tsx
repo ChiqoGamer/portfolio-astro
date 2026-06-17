@@ -7,11 +7,15 @@ export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pdfDocRef = useRef<any>(null);
+  const currentPdfUrlRef = useRef<string | null>(null);
   const scaleRef = useRef(1.4);
   const pageNum = 1;
 
   const lang = useStore(currentLang);
   const t = translations[lang].hero;
+  const cvUrl = lang === 'es'
+    ? '/JoelMoran_FullStackDeveloper.pdf'
+    : '/JoelMoran_FullStackDeveloper_EN.pdf';
 
   const loadPdf = (url: string) => {
     const pdfjsLib = (window as any).pdfjsLib;
@@ -23,6 +27,7 @@ export default function Hero() {
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     pdfjsLib.getDocument(url).promise.then((pdf: any) => {
       pdfDocRef.current = pdf;
+      currentPdfUrlRef.current = url;
       renderPage(pageNum);
     });
   };
@@ -49,8 +54,8 @@ export default function Hero() {
     e.preventDefault();
     scaleRef.current = window.innerWidth < 768 ? 0.6 : 1.4;
     setModalOpen(true);
-    if (!pdfDocRef.current) {
-      loadPdf('/JoelMoran_FullStackDeveloper.pdf');
+    if (!pdfDocRef.current || currentPdfUrlRef.current !== cvUrl) {
+      loadPdf(cvUrl);
     } else {
       renderPage(pageNum);
     }
@@ -71,6 +76,10 @@ export default function Hero() {
   useEffect(() => {
     if (modalOpen && pdfDocRef.current) renderPage(pageNum);
   }, [modalOpen]);
+
+  useEffect(() => {
+    if (modalOpen) loadPdf(cvUrl);
+  }, [cvUrl, modalOpen]);
 
   return (
     <>
@@ -279,8 +288,8 @@ export default function Hero() {
                 </button>
               </div>
               <div className="flex items-center gap-2">
-                <a href="/JoelMoran_FullStackDeveloper.pdf" download>
-                  <button aria-label="Descargar CV">
+                <a href={cvUrl} download>
+                  <button aria-label={t.downloadCV}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                       <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
                       <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
