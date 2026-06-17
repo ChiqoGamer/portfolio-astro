@@ -11,6 +11,24 @@ npm run dev
 
 Abre [http://localhost:4321](http://localhost:4321) en el navegador.
 
+### Chat IA en desarrollo
+
+Para probar el chat localmente, levantá el servidor del chat en otra terminal:
+
+```bash
+npm run dev:chat
+```
+
+Tu `.env` debe tener esta URL:
+
+```bash
+PUBLIC_CHAT_API_URL=http://localhost:3001/api/chat
+```
+
+Si agregás `GEMINI_API_KEY=tu_api_key_de_gemini`, el chat usa Gemini real en desarrollo. Si no hay API key, responde con un mock en el idioma activo para poder probar el cambio entre español e inglés sin subir a producción.
+
+Después de cambiar variables en `.env`, reiniciá `npm run dev:chat` para que el servidor local vuelva a leerlas. Si Gemini devuelve un error de cuota, key o red, el servidor local responde con un fallback en el idioma activo e incluye el motivo del error.
+
 ## 📁 Estructura
 
 ```

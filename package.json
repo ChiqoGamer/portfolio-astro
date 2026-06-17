@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:chat": "node scripts/dev-chat-server.mjs",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

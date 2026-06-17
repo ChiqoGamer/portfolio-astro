@@ -10,6 +10,11 @@ interface Message {
   content: string;
 }
 
+const responseLanguageInstructions = {
+  es: 'Responde siempre en español, aunque el usuario escriba en otro idioma.',
+  en: 'Always respond in English, even if the user writes in another language.',
+};
+
 function JoelAvatar({ size = 56, pulse = false }: { size?: number; pulse?: boolean }) {
   // Para el botón sticky usamos la imagen completa, para el header del chat un círculo recortado
   const isLarge = size >= 100;
@@ -133,10 +138,19 @@ const t = translations[lang].chat;
     setError('');
 
     try {
+      const apiMessages = newMessages.map((message, index) => {
+        if (index !== newMessages.length - 1 || message.role !== 'user') return message;
+
+        return {
+          ...message,
+          content: `${message.content}\n\n${responseLanguageInstructions[lang]}`,
+        };
+      });
+
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: apiMessages, lang }),
       });
 
       // Agregá estas dos líneas para ver qué devuelve el servidor
