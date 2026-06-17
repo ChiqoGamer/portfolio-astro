@@ -45,6 +45,24 @@ const projects: Project[] = [
     image: '/ecommerce-botines.png',
     imageAlt: 'Captura del proyecto React Botines',
   },
+   {
+  title: 'Portfolio Personal',
+  subtitle: 'Landing Page Corporativa | Startup de Servicios TI',
+  techs: [
+    { name: 'Astro' },
+    { name: 'React' },
+    { name: 'Tailwind CSS' },
+    { name: 'TypeScript' },
+    { name: 'Express' },
+    { name: 'API Gemini' },
+  ],
+  description:
+    'Portfolio personal desarrollado con Astro, React y Tailwind CSS, migrado desde JS Vanilla para maximizar el rendimiento con mínimo JS en el cliente. Integra un chat con IA potenciado por la API de Gemini con backend propio en Node.js y Express, junto con formulario de contacto vía EmailJS y visualización directa del CV en PDF. ',
+  githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
+  liveUrl: 'https://www.joelmoran.com.ar',
+  image: '/portfolio.jpeg', 
+  imageAlt: 'Captura de mi porfolio personal',
+},
   {
     title: 'Banco XYZ',
     subtitle: 'Sistema de gestión bancaria',
@@ -82,6 +100,21 @@ const projects: Project[] = [
     imageAlt: 'Captura del proyecto Hospital UTN FRGP',
   },
   {
+  title: 'Landing Colidevs',
+  subtitle: 'Landing Page Corporativa | Startup de Servicios TI',
+  techs: [
+    { name: 'Astro' },
+    { name: 'Tailwind CSS' },
+    { name: 'JavaScript' },
+  ],
+  description:
+    'Landing page institucional desarrollada para Colidevs, startup de servicios TI orientada a digitalización y automatización de negocios. Diseñada con foco en conversión y claridad de propuesta de valor, presenta los servicios de la empresa con navegación fluida, diseño responsivo y llamados a la acción estratégicos. ',
+  githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
+  liveUrl: 'https://www.coli.com.ar',
+  image: '/colidevs.png',
+  imageAlt: 'Captura de la landing page de Colidevs',
+},
+{
     title: 'APX Electronics',
     subtitle: 'E-Commerce - Proyecto Final | TalentoTech',
     techs: [
@@ -99,21 +132,6 @@ const projects: Project[] = [
     imageAlt: 'Captura del proyecto APX Electronics',
     reversed: true,
   },
-  {
-  title: 'Landing Colidevs',
-  subtitle: 'Landing Page Corporativa | Startup de Servicios TI',
-  techs: [
-    { name: 'Astro' },
-    { name: 'Tailwind CSS' },
-    { name: 'JavaScript' },
-  ],
-  description:
-    'Landing page institucional desarrollada para Colidevs, startup de servicios TI orientada a digitalización y automatización de negocios. Diseñada con foco en conversión y claridad de propuesta de valor, presenta los servicios de la empresa con navegación fluida, diseño responsivo y llamados a la acción estratégicos. ',
-  githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
-  liveUrl: 'https://www.coli.com.ar',
-  image: '/colidevs.png',
-  imageAlt: 'Captura de la landing page de Colidevs',
-},
 ];
 
 function ProjectCard({ project }: { project: Project }) {
