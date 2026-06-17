@@ -1,3 +1,7 @@
+import { useStore } from '@nanostores/react';
+import { currentLang } from '../i18n/store';
+import { translations } from '../i18n/translations';
+
 // SVG icons as strings for tech badges
 const GithubIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -16,10 +20,7 @@ interface Tech {
 }
 
 interface Project {
-  title: string;
-  subtitle: string;
   techs: Tech[];
-  description: string;
   githubUrl: string;
   liveUrl?: string;
   image: string;
@@ -29,8 +30,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'React Botines',
-    subtitle: 'E-Commerce',
     techs: [
       { name: 'React' },
       { name: 'JavaScript' },
@@ -38,8 +37,6 @@ const projects: Project[] = [
       { name: 'MockAPI' },
       { name: 'LocalStorage' },
     ],
-    description:
-      'Tienda en línea funcional enfocada en productos de fútbol, con catálogo dinámico y paginación, carrito de compras persistente, formulario de contacto operativo y navegación responsiva, diseñada como prototipo de e-commerce completo.',
     githubUrl: 'https://github.com/ChiqoGamer/React-Botines/tree/master',
     liveUrl: 'https://react-botines.vercel.app',
     image: '/ecommerce-botines.png',
@@ -47,8 +44,6 @@ const projects: Project[] = [
     reversed: true,
   },
    {
-  title: 'Portfolio Personal',
-  subtitle: 'Landing Page Corporativa | Startup de Servicios TI',
   techs: [
     { name: 'Astro' },
     { name: 'React' },
@@ -57,16 +52,13 @@ const projects: Project[] = [
     { name: 'Express' },
     { name: 'API Gemini' },
   ],
-  description:
-    'Portfolio personal desarrollado con Astro, React y Tailwind CSS, migrado desde JS Vanilla para maximizar el rendimiento con mínimo JS en el cliente. Integra un chat con IA potenciado por la API de Gemini con backend propio en Node.js y Express, junto con formulario de contacto vía EmailJS y visualización directa del CV en PDF. ',
+
   githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
   liveUrl: 'https://www.joelmoran.com.ar',
   image: '/portfolio.jpeg', 
   imageAlt: 'Captura de mi porfolio personal',
 },
   {
-    title: 'Banco XYZ',
-    subtitle: 'Sistema de gestión bancaria',
     techs: [
       { name: 'Java' },
       { name: 'MySQL' },
@@ -75,16 +67,13 @@ const projects: Project[] = [
       { name: 'CSS' },
       { name: 'JavaScript' },
     ],
-    description:
-      'Aplicación web desarrollada como trabajo integrador en la UTN FRGP para simular operaciones bancarias clave: manejo de clientes, cuentas corrientes y cajas de ahorro, gestión de depósitos, extracciones y transferencias, todo con una interfaz clara, organizada y validaciones en línea.',
+
     githubUrl: 'https://github.com/ChiqoGamer/Banco-XYZ',
     image: '/banco.png',
     imageAlt: 'Captura del proyecto Banco XYZ',
     reversed: true,
   },
   {
-    title: 'Hospital UTN FRGP',
-    subtitle: 'Sistema de gestión hospitalaria',
     techs: [
       { name: 'C#' },
       { name: 'Framework .NET' },
@@ -94,22 +83,18 @@ const projects: Project[] = [
       { name: 'JavaScript' },
       { name: 'Visual Basic' },
     ],
-    description:
-      'Aplicación web académica que permite administrar pacientes, médicos, especialidades y turnos, con vistas detalladas, formularios validados y navegación fluida entre pantallas; diseñada para simular un entorno funcional de gestión hospitalaria.',
+
     githubUrl: 'https://github.com/ChiqoGamer/Hospital-UTN-FRGP',
     image: '/hospital.png',
     imageAlt: 'Captura del proyecto Hospital UTN FRGP',
   },
   {
-  title: 'Landing Colidevs',
-  subtitle: 'Landing Page Corporativa | Startup de Servicios TI',
   techs: [
     { name: 'Astro' },
     { name: 'Tailwind CSS' },
     { name: 'JavaScript' },
   ],
-  description:
-    'Landing page institucional desarrollada para Colidevs, startup de servicios TI orientada a digitalización y automatización de negocios. Diseñada con foco en conversión y claridad de propuesta de valor, presenta los servicios de la empresa con navegación fluida, diseño responsivo y llamados a la acción estratégicos. ',
+
   githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
   liveUrl: 'https://www.coli.com.ar',
   image: '/colidevs.png',
@@ -117,8 +102,6 @@ const projects: Project[] = [
   reversed: true,
 },
 {
-    title: 'APX Electronics',
-    subtitle: 'E-Commerce - Proyecto Final | TalentoTech',
     techs: [
       { name: 'HTML' },
       { name: 'CSS' },
@@ -126,8 +109,7 @@ const projects: Project[] = [
       { name: 'DummyJson' },
       { name: 'LocalStorage' },
     ],
-    description:
-      'Tienda en línea funcional enfocada en productos tecnológicos, con catálogo dinámico y paginación, carrito de compras persistente, formulario de contacto operativo y navegación responsiva, diseñada como prototipo de e-commerce completo en entorno educativo.',
+
     githubUrl: 'https://github.com/ChiqoGamer/Ecommerce-Botines',
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.png',
@@ -135,7 +117,23 @@ const projects: Project[] = [
   },
 ];
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({
+  project,
+  translation,
+  websiteText,
+}: {
+  project: Project;
+  translation: {
+    title: string;
+    subtitle: string;
+    description: string;
+  };
+  websiteText: string;
+}) {
+
+/* const lang = useStore(currentLang);
+const t = translations[lang].projects; */
+
   return (
     <div
     className={`flex justify-center mb-12 gap-4 flex-wrap ${
@@ -148,9 +146,9 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Info */}
       <div className="proyecto-info w-full lg:w-[45%] flex flex-col">
-        <h3 style={{ fontSize: '1.5rem', margin: '0 0 5px' }}>{project.title}</h3>
+        <h3 style={{ fontSize: '1.5rem', margin: '0 0 5px' }}>{translation.title} </h3>
         <p className="subtitulo" style={{ fontSize: '1rem', color: 'gray', margin: '0 0 10px' }}>
-          {project.subtitle}
+          {translation.subtitle}
         </p>
 
         {/* Tech badges */}
@@ -167,7 +165,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <p className="descripcion" style={{ fontSize: '0.95rem', lineHeight: '1.8', margin: 0, marginBottom: '1rem' }}>
-          {project.description}
+          {translation.description}
         </p>
 
         {/* Buttons */}
@@ -179,7 +177,7 @@ function ProjectCard({ project }: { project: Project }) {
           {project.liveUrl && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-live" style={{ width: '50%' }}>
               <GlobeIcon />
-              <span style={{ marginLeft: '0.5rem' }}>Sitio Web</span>
+              <span style={{ marginLeft: '0.5rem' }}>{websiteText}</span>
             </a>
           )}
         </div>
@@ -196,6 +194,8 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function Projects() {
+  const lang = useStore(currentLang);
+const t = translations[lang].projects;
   return (
     <section id="proyectos" className="flex flex-col px-[5%] mb-16" style={{ height: 'auto' }}>
       {/* Title */}
@@ -209,12 +209,17 @@ export default function Projects() {
         >
           <path d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,178.57,87.73l-72-39.42Zm0,78.83L56,76,81.56,62l72,39.41ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l24-13.13V152a12,12,0,0,0,24,0V109.92l24-13.13v76.65Z" />
         </svg>
-        <h2 className="text-2xl font-bold">Proyectos</h2>
+        <h2 className="text-2xl font-bold">{t.title}</h2>
       </div>
 
-      {projects.map((project) => (
-        <ProjectCard key={project.title} project={project} />
-      ))}
+      {projects.map((project, index) => (
+  <ProjectCard
+    key={index}
+    project={project}
+    translation={t.items[index]}
+    websiteText={t.website}
+  />
+))}
     </section>
   );
 }

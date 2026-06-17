@@ -1,4 +1,7 @@
 import { useEffect } from 'react';
+import { useStore } from '@nanostores/react';
+import { currentLang } from '../i18n/store';
+import { translations } from '../i18n/translations';
 
 interface Tech {
   src: string;
@@ -19,9 +22,15 @@ const GitHubSvg = () => (
                             </svg>
 );
 
-const skillBoxes: SkillBox[] = [
+
+
+export default function Skills() {
+  const lang = useStore(currentLang);
+  const t = translations[lang].skill;
+
+  const skillBoxes: SkillBox[] = [
   {
-    title: 'Frontend',
+    title: t.title1,
     techs: [
       { src: 'https://img.icons8.com/?size=100&id=20909&format=png&color=000000', alt: 'HTML', label: 'HTML' },
       { src: 'https://img.icons8.com/?size=100&id=21278&format=png&color=000000', alt: 'CSS', label: 'CSS' },
@@ -32,7 +41,7 @@ const skillBoxes: SkillBox[] = [
     ],
   },
   {
-    title: 'Backend',
+    title: t.title2,
     techs: [
       { src: 'https://img.icons8.com/fluency/48/node-js.png', alt: 'NodeJS', label: 'Node JS' },
       { src: 'https://cdn.worldvectorlogo.com/logos/c--4.svg', alt: 'C#', label: 'C#' },
@@ -42,7 +51,7 @@ const skillBoxes: SkillBox[] = [
     ],
   },
   {
-    title: 'Bases de datos & Herramientas',
+    title: t.title3,
     techs: [
       { src: 'https://img.icons8.com/?size=100&id=20906&format=png&color=000000', alt: 'Git', label: 'Git' },
       { src: 'https://img.icons8.com/?size=48&id=laYYF3dV0Iew&format=png', alt: 'SQL', label: 'SQL' },
@@ -53,7 +62,7 @@ const skillBoxes: SkillBox[] = [
     ],
   },
   {
-    title: 'Aprendiendo',
+    title: t.title4,
     techs: [
       { src: 'https://expressjs.com/images/logos/logo-dark.svg', alt: 'Express.js', label: 'Express.js' },
       { src: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/nextjs.png', alt: 'Next.js', label: 'Next.js' },
@@ -62,9 +71,7 @@ const skillBoxes: SkillBox[] = [
       { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/3840px-Typescript_logo_2020.svg.png', alt: 'TS', label: 'TypeScript' },
     ],
   },
-];
-
-export default function Skills() {
+];  
   // Spotlight hover effect
   useEffect(() => {
     const cajas = document.querySelectorAll<HTMLDivElement>('.caja-tecno');

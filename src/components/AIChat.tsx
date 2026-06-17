@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
+import { useStore } from '@nanostores/react';
+import { currentLang } from '../i18n/store';
+import { translations } from '../i18n/translations';
 const API_URL = import.meta.env.PUBLIC_CHAT_API_URL;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -98,6 +101,9 @@ export default function AIChat() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const lang = useStore(currentLang);
+const t = translations[lang].chat;
+
   // Auto-scroll
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -110,7 +116,7 @@ export default function AIChat() {
       if (messages.length === 0) {
         setMessages([{
           role: 'assistant',
-          content: '¡Hola! Soy Plumita 🐾 la asistente virtual de Joel. Podés preguntarme sobre su experiencia, proyectos, tecnologías o cualquier cosa que quieras saber de él.'
+          content: t.welcome,
         }]);
       }
     }
@@ -138,11 +144,11 @@ export default function AIChat() {
       const data = await response.json();
       console.log('Data:', data);  // ← mirá esto en el DevTools
 
-      const reply = data.reply || 'No pude generar una respuesta.';
+      const reply = data.reply || t.errors.noResponse;
       setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
     } catch (err) {
       console.error('Error completo:', err);  // ← y esto
-      setError('Error de conexión. Intentá de nuevo.');
+      setError(t.errors.connection);
     } finally {
       setLoading(false);
     }
@@ -155,12 +161,7 @@ export default function AIChat() {
     }
   };
 
-  const suggestions = [
-    '¿En qué estás trabajando ahora?',
-    '¿Qué tecnologías dominás?',
-    '¿Qué proyectos tenés?',
-    '¿Cómo te contacto?',
-  ];
+  const suggestions = t.suggestions;
 
   return (
     <>
@@ -287,10 +288,10 @@ export default function AIChat() {
             <JoelAvatar size={36} />
             <div style={{ flex: 1 }}>
               <p style={{ margin: 0, fontWeight: 700, fontSize: 14, color: 'white', fontFamily: 'Raleway, sans-serif' }}>
-                Plumita 🐾
+                {t.header.title}
               </p>
               <p style={{ margin: 0, fontSize: 11, color: '#00fe9b', fontFamily: 'Raleway, sans-serif' }}>
-                ● Asistente virtual de Joel · IA activa
+                {t.header.status}
               </p>
             </div>
             <button
@@ -421,7 +422,7 @@ export default function AIChat() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Preguntame algo sobre mi perfil..."
+              placeholder={t.inputPlaceholder}
               rows={1}
               style={{
                 flex: 1,
@@ -477,7 +478,7 @@ export default function AIChat() {
             background: '#13121a',
             flexShrink: 0,
           }}>
-            Powered by · joel.dev
+            {t.footer}
           </div>
         </div>
       )}

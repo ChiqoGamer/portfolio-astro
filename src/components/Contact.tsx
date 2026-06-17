@@ -1,4 +1,9 @@
 import { useState, useRef } from 'react';
+import { useStore } from '@nanostores/react';
+import { currentLang } from '../i18n/store';
+import { translations } from '../i18n/translations';
+
+
 
 type AlertState = {
   message: string;
@@ -7,6 +12,9 @@ type AlertState = {
 };
 
 export default function Contact() {
+const lang = useStore(currentLang);
+const t = translations[lang].contact;
+
   const formRef = useRef<HTMLFormElement>(null);
   const [alert, setAlert] = useState<AlertState>({
     message: '',
@@ -32,15 +40,15 @@ export default function Contact() {
     const serviceID = 'default_service';
     const templateID = 'template_ryjs36n';
 
-    mostrarAlerta('Enviando mensaje...', 'loading');
+    mostrarAlerta(t.alerts.loading, 'loading');
 
     emailjs.sendForm(serviceID, templateID, formRef.current).then(
       () => {
-        mostrarAlerta('¡Mensaje enviado correctamente!', 'success');
+        mostrarAlerta(t.alerts.success, 'success');
         formRef.current?.reset();
       },
       (err: unknown) => {
-        mostrarAlerta('Error al enviar el mensaje. Inténtalo de nuevo más tarde.', 'error');
+        mostrarAlerta(t.alerts.error, 'error');
         console.error(err);
       }
     );
@@ -68,7 +76,7 @@ export default function Contact() {
         >
           <path d="M234.38,210a123.36,123.36,0,0,0-60.78-53.23,76,76,0,1,0-91.2,0A123.36,123.36,0,0,0,21.62,210a12,12,0,1,0,20.77,12c18.12-31.32,50.12-50,85.61-50s67.49,18.69,85.61,50a12,12,0,0,0,20.77-12ZM76,96a52,52,0,1,1,52,52A52.06,52.06,0,0,1,76,96Z" />
         </svg>
-        <h2 className="text-2xl font-bold">Contacto</h2>
+        <h2 className="text-2xl font-bold">{t.title}</h2>
       </div>
 
       {/* Cards container */}
@@ -90,7 +98,7 @@ export default function Contact() {
             height: 'auto',
           }}
         >
-          <h3 className="mt-0 mb-4">Información de contacto</h3>
+          <h3 className="mt-0 mb-4">{t.infoTitle}</h3>
 
           {/* Email */}
           <div className="flex items-center gap-4">
@@ -101,7 +109,7 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h4 style={{ margin: '8px' }}>Email</h4>
+              <h4 style={{ margin: '8px' }}>{t.email}</h4>
               <p style={{ margin: '8px', fontWeight: 'lighter', fontSize: '14px' }}>
                 joel.programador@hotmail.com
               </p>
@@ -117,7 +125,7 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h4 style={{ margin: '8px' }}>Teléfono</h4>
+              <h4 style={{ margin: '8px' }}>{t.phone}</h4>
               <p style={{ margin: '8px', fontWeight: 'lighter', fontSize: '14px' }}>+54 11 2544-2653</p>
             </div>
           </div>
@@ -132,8 +140,8 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h4 style={{ margin: '8px' }}>Ubicación</h4>
-              <p style={{ margin: '8px', fontWeight: 'lighter', fontSize: '14px' }}>Buenos Aires, Argentina</p>
+              <h4 style={{ margin: '8px' }}>{t.location}</h4>
+              <p style={{ margin: '8px', fontWeight: 'lighter', fontSize: '14px' }}>{t.city}</p>
             </div>
           </div>
         </div>
@@ -152,21 +160,21 @@ export default function Contact() {
             height: 'auto',
           }}
         >
-          <h3 className="mt-0 mb-4">Envíame un mensaje</h3>
+          <h3 className="mt-0 mb-4">{t.formTitle}</h3>
           <form
             ref={formRef}
             onSubmit={handleSubmit}
             className="flex flex-col h-full justify-start"
             style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}
           >
-            <label htmlFor="nombre" style={{ fontWeight: 'lighter' }}>Nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            <label htmlFor="nombre" style={{ fontWeight: 'lighter' }}>{t.name}</label>
+            <input type="text" id="nombre" name="nombre" placeholder={t.namePlaceholder} required />
 
-            <label htmlFor="correo" style={{ fontWeight: 'lighter' }}>Email</label>
-            <input type="email" id="correo" name="correo" placeholder="tuemail@ejemplo.com" required />
+            <label htmlFor="correo" style={{ fontWeight: 'lighter' }}>{t.emailLabel}</label>
+            <input type="email" id="correo" name="correo" placeholder={t.emailPlaceholder} required />
 
-            <label htmlFor="mensaje" style={{ fontWeight: 'lighter' }}>Mensaje</label>
-            <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí" required />
+            <label htmlFor="mensaje" style={{ fontWeight: 'lighter' }}>{t.message}</label>
+            <textarea id="mensaje" name="mensaje" placeholder={t.messagePlaceholder} required />
 
             <button
               type="submit"
@@ -186,7 +194,7 @@ export default function Contact() {
               onMouseEnter={(e) => (e.currentTarget.style.background = '#5a576b')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--bg-secondary)')}
             >
-              Enviar
+              {t.send}
             </button>
           </form>
         </div>

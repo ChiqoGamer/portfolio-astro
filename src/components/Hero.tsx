@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import { useStore } from '@nanostores/react';
+import { currentLang } from '../i18n/store';
+import { translations } from '../i18n/translations';
 
 export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -6,6 +9,9 @@ export default function Hero() {
   const pdfDocRef = useRef<any>(null);
   const scaleRef = useRef(1.4);
   const pageNum = 1;
+
+  const lang = useStore(currentLang);
+  const t = translations[lang].hero;
 
   const loadPdf = (url: string) => {
     const pdfjsLib = (window as any).pdfjsLib;
@@ -214,25 +220,22 @@ export default function Hero() {
         {/* Contenido */}
         <div className="hero-content">
           <h3 className="hero-subtitle relative hero-subtitle-text">
-            Full Stack Developer
+            {t.subtitle}
           </h3>
           <h1 className="hero-title relative hero-title-text">
-            Hola, soy
+            {t.greeting}
           </h1>
           <h1 className="hero-name relative hero-name-text">
             Joel Nicolás Morán
           </h1>
           <p className="hero-desc relative hero-desc-text">
-            Técnico Universitario en Programación (UTN FRGP) orientado al desarrollo web front-end y al
-            diseño de experiencias digitales. Apasionado por la lógica, la creación de interfaces intuitivas y
-            el trabajo en equipo. Actualmente aprendiendo UX/UI y Node js. Busco aportar soluciones
-            innovadoras en proyectos desafiantes.
+            {t.desc}
           </p>
 
           {/* Botones */}
           <div className="hero-buttons relative hero-buttons-row">
             <button onClick={openModal} className="btn-cv">
-              Visualizar CV
+              {t.cvBtn}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707m4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707" />
               </svg>
