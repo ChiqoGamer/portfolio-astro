@@ -44,6 +44,7 @@ const projects: Project[] = [
     liveUrl: 'https://react-botines.vercel.app',
     image: '/ecommerce-botines.png',
     imageAlt: 'Captura del proyecto React Botines',
+    reversed: true,
   },
    {
   title: 'Portfolio Personal',
@@ -113,6 +114,7 @@ const projects: Project[] = [
   liveUrl: 'https://www.coli.com.ar',
   image: '/colidevs.png',
   imageAlt: 'Captura de la landing page de Colidevs',
+  reversed: true,
 },
 {
     title: 'APX Electronics',
@@ -130,7 +132,6 @@ const projects: Project[] = [
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.png',
     imageAlt: 'Captura del proyecto APX Electronics',
-    reversed: true,
   },
 ];
 

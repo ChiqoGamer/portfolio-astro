@@ -1,8 +1,16 @@
 const educationItems = [
   {
+    title: 'Full Stack Developer',
+    institution: 'Fundacion Pescar',
+    date: 'JUN 2026 - DIC 2026',
+    description:
+      'Formación desde los fundamentos web hasta tecnologías como Python, Django, React, MongoDB e Ingeniería de Software con IA. Complementada con un enfoque integral en habilidades blandas: construcción de marca personal, autoconocimiento y desarrollo profesional..',
+    lineClass: 'linea',
+  },
+  {
     title: 'Node JS',
     institution: '<TalentoTech>',
-    date: 'MAR 2025 - Actualmente',
+    date: 'MAR 2026 - JUL 2026',
     description:
       'Formación en desarrollo backend con Node.js, Express, bases de datos, autenticación y despliegue.',
     lineClass: 'linea',
