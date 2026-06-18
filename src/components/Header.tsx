@@ -68,7 +68,7 @@ export default function Header() {
   ];
 
   // Intersection Observer
-  useEffect(() => {
+  /* useEffect(() => {
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(
     (entries) => {
@@ -86,6 +86,40 @@ export default function Header() {
 
   sections.forEach((section) => observer.observe(section));
   return () => observer.disconnect();
+}, []); */
+useEffect(() => {
+  const getSections = () => Array.from(document.querySelectorAll('section'));
+
+  const handleScroll = () => {
+    const sections = getSections();
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+
+    // Caso especial: si estamos casi al final de la página, activar la última sección
+    if (window.innerHeight + scrollY >= document.body.offsetHeight - 50) {
+      const last = sections[sections.length - 1];
+      if (last) setActiveSection(last.getAttribute('id') || '');
+      return;
+    }
+
+    // Buscar la sección cuyo top esté más cerca del 30% superior de la pantalla
+    const offset = windowHeight * 0.3;
+    let current = sections[0];
+
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= offset) {
+        current = section;
+      }
+    }
+
+    if (current) setActiveSection(current.getAttribute('id') || '');
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // ejecutar al montar para el estado inicial
+
+  return () => window.removeEventListener('scroll', handleScroll);
 }, []);
  
 
