@@ -62,10 +62,10 @@ body {
     inset 0 0 5px rgba(255, 255, 255, 0.01);
 } */
  .navbar-glass {
-  position: absolute;    /* relativo al header */
-  top: 50px;
+  position: fixed;    /* relativo al header */
+  top: 12px;
   right: 1rem;           /* pegado al borde derecho del header */
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
   z-index: 1000;
   background: rgba(20, 20, 20, 0.1);
   backdrop-filter: blur(14px);

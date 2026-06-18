@@ -69,33 +69,25 @@ export default function Header() {
 
   // Intersection Observer
   useEffect(() => {
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let topSection: Element | null = null;
-        let minDistance = window.innerHeight;
-
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const rect = entry.target.getBoundingClientRect();
-            const distance = Math.abs(rect.top);
-            if (distance < minDistance) {
-              minDistance = distance;
-              topSection = entry.target as Element;
-            }
-          }
-        });
-
-        if (topSection) {
-          setActiveSection((topSection as Element).getAttribute('id') || '');
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.getAttribute('id') || '');
         }
-      },
-      { threshold: [0.4] }
-    );
+      });
+    },
+    { 
+      threshold: 0,
+      rootMargin: '-40% 0px -55% 0px'  // activa cuando el top de la sección cruza el 40% de la pantalla
+    }
+  );
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+  sections.forEach((section) => observer.observe(section));
+  return () => observer.disconnect();
+}, []);
+ 
 
   const handleLinkClick = () => {
     setMenuOpen(false);
