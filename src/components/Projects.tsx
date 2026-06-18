@@ -49,8 +49,9 @@ const projects: Project[] = [
     { name: 'React' },
     { name: 'Tailwind CSS' },
     { name: 'TypeScript' },
-    { name: 'Express' },
     { name: 'API Gemini' },
+    { name: 'Node JS' },
+    { name: 'Express' },
   ],
 
   githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',

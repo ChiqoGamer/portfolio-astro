@@ -108,6 +108,7 @@ export default function AIChat() {
 
   const lang = useStore(currentLang);
 const t = translations[lang].chat;
+  const welcomeMessages = [translations.es.chat.welcome, translations.en.chat.welcome];
 
   // Auto-scroll
   useEffect(() => {
@@ -118,14 +119,23 @@ const t = translations[lang].chat;
   useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 300);
-      if (messages.length === 0) {
-        setMessages([{
+      setMessages(prev => prev.length === 0 ? [{
           role: 'assistant',
           content: t.welcome,
-        }]);
-      }
+        }] : prev);
     }
-  }, [open]);
+  }, [open, t.welcome]);
+
+  useEffect(() => {
+    setMessages(prev => {
+      const isOnlyWelcomeMessage =
+        prev.length === 1 &&
+        prev[0].role === 'assistant' &&
+        welcomeMessages.includes(prev[0].content);
+
+      return isOnlyWelcomeMessage ? [{ ...prev[0], content: t.welcome }] : prev;
+    });
+  }, [t.welcome]);
 
   const sendMessage = async () => {
     const text = input.trim();
