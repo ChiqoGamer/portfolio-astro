@@ -5,6 +5,7 @@ import { translations } from '../i18n/translations';
 
 export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [pageCount, setPageCount] = useState(1);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pdfDocRef = useRef<any>(null);
   const currentPdfUrlRef = useRef<string | null>(null);
@@ -16,6 +17,7 @@ export default function Hero() {
   const cvUrl = lang === 'es'
     ? '/JoelMoran_FullStackDeveloper.pdf'
     : '/JoelMoran_FullStackDeveloper_EN.pdf';
+  const cvFileName = cvUrl.replace('/', '');
 
   const loadPdf = (url: string) => {
     const pdfjsLib = (window as any).pdfjsLib;
@@ -28,6 +30,7 @@ export default function Hero() {
     pdfjsLib.getDocument(url).promise.then((pdf: any) => {
       pdfDocRef.current = pdf;
       currentPdfUrlRef.current = url;
+      setPageCount(pdf.numPages || 1);
       renderPage(pageNum);
     });
   };
@@ -65,9 +68,7 @@ export default function Hero() {
 
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
-    const canvas = canvasRef.current;
-    const toolbar = document.querySelector('.toolbar');
-    if (target !== canvas && !toolbar?.contains(target)) closeModal();
+    if (target.classList.contains('modal')) closeModal();
   };
 
   const zoomIn = () => { scaleRef.current += 0.2; renderPage(pageNum); };
@@ -274,37 +275,47 @@ export default function Hero() {
         {/* CV Modal */}
         <div className={`modal ${modalOpen ? 'open' : ''}`} onClick={handleModalClick}>
           <div className="modal-content">
-            <div className="toolbar">
-              <div className="flex items-center gap-2">
-                <button onClick={zoomOut} aria-label="Zoom out">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
-                  </svg>
-                </button>
-                <button onClick={zoomIn} aria-label="Zoom in">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex items-center gap-2">
-                <a href={cvUrl} download>
-                  <button aria-label={t.downloadCV}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
-                      <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
-                    </svg>
-                  </button>
-                </a>
-                <button onClick={closeModal} aria-label="Cerrar modal">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <div className="pdf-topbar">
+              <div className="pdf-file-info">
+                <button className="pdf-icon-button" onClick={closeModal} aria-label="Cerrar modal">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                   </svg>
                 </button>
+                <span className="pdf-badge">PDF</span>
+                <span className="pdf-file-name">{cvFileName}</span>
+              </div>
+
+              <div className="pdf-actions">
+                <a href={cvUrl} download className="pdf-icon-button" aria-label={t.downloadCV}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+                  </svg>
+                </a>
               </div>
             </div>
+
             <div className="pdf-viewer">
-              <canvas ref={canvasRef} id="pdfCanvas" />
+              <canvas ref={canvasRef} id="pdfCanvas" className="pdf-page-canvas" />
+            </div>
+
+            <div className="pdf-floating-controls">
+              <span className="pdf-page-label">Page</span>
+              <span className="pdf-page-current">{pageNum}</span>
+              <span className="pdf-page-separator">/</span>
+              <span className="pdf-page-total">{pageCount}</span>
+              <span className="pdf-control-divider" />
+              <button onClick={zoomOut} aria-label="Zoom out">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                  <path fillRule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
+                </svg>
+              </button>
+              <button onClick={zoomIn} aria-label="Zoom in">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                  <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

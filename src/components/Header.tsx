@@ -101,6 +101,78 @@ export default function Header() {
     setMenuOpen(false);
   };
 
+  const renderLanguageSwitch = (className: string) => (
+    <div
+      role="group"
+      aria-label="Seleccionar idioma"
+      className={`${className} transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg`}
+      style={{
+        position: 'relative',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        alignItems: 'center',
+        width: '124px',
+        height: '32px',
+        padding: '3px',
+        borderRadius: '999px',
+        border: '1px solid rgba(0, 254, 155, 0.75)',
+        background: 'var(--bg-dark-semi)',
+        boxShadow: 'inset 0 0 0 1px rgba(0, 254, 155, 0.12), 0 8px 22px rgba(0, 0, 0, 0.3)',
+      }}
+    >
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '3px',
+          left: '3px',
+          width: '58px',
+          height: '24px',
+          borderRadius: '999px',
+          background: 'var(--primary-color)',
+          boxShadow: '0 0 14px rgba(0, 254, 155, 0.45)',
+          transform: lang === 'es' ? 'translateX(0)' : 'translateX(60px)',
+          transition: 'transform 260ms ease, box-shadow 260ms ease',
+        }}
+      />
+      {(['es', 'en'] as const).map((option) => (
+        <button
+          key={option}
+          type="button"
+          onClick={() => setLanguage(option)}
+          aria-pressed={lang === option}
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            height: '24px',
+            border: 'none',
+            borderRadius: '999px',
+            background: 'transparent',
+            color: lang === option ? 'white' : 'rgba(0, 254, 155, 0.85)',
+            cursor: 'pointer',
+            fontSize: '11px',
+            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '4px',
+            lineHeight: 1,
+            letterSpacing: 0,
+            padding: 0,
+            transition: 'color 220ms ease',
+          }}
+        >
+          {lang === option && (
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+              <path d="M116,116V48a12,12,0,0,1,24,0v68a12,12,0,0,1-24,0Zm60.63-68.37a12,12,0,1,0-13.26,19.95C176.58,76.56,192,101.13,192,128a64,64,0,0,1-128,0c0-26.87,15.42-51.44,28.63-60.42A12,12,0,1,0,79.37,47.63C60.68,60.57,40,92.09,40,128a88,88,0,0,0,176,0C216,92.09,195.32,60.57,176.63,47.63Z" />
+            </svg>
+          )}
+          {option.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <>
       <header
@@ -121,75 +193,7 @@ export default function Header() {
         </div> */}
 
         {/* Botón de idioma */}
-        <div
-          role="group"
-          aria-label="Seleccionar idioma"
-          className="transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg"
-          style={{
-            position: 'relative',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            alignItems: 'center',
-            width: '124px',
-            height: '32px',
-            padding: '3px',
-            borderRadius: '999px',
-            border: '1px solid rgba(0, 254, 155, 0.75)',
-            background: 'var(--bg-dark-semi)',
-            boxShadow: 'inset 0 0 0 1px rgba(0, 254, 155, 0.12), 0 8px 22px rgba(0, 0, 0, 0.3)',
-          }}
-        >
-          <span
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: '3px',
-              left: '3px',
-              width: '58px',
-              height: '24px',
-              borderRadius: '999px',
-              background: 'var(--primary-color)',
-              boxShadow: '0 0 14px rgba(0, 254, 155, 0.45)',
-              transform: lang === 'es' ? 'translateX(0)' : 'translateX(60px)',
-              transition: 'transform 260ms ease, box-shadow 260ms ease',
-            }}
-          />
-          {(['es', 'en'] as const).map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => setLanguage(option)}
-              aria-pressed={lang === option}
-              style={{
-                position: 'relative',
-                zIndex: 1,
-                height: '24px',
-                border: 'none',
-                borderRadius: '999px',
-                background: 'transparent',
-                color: lang === option ? 'white' : 'rgba(0, 254, 155, 0.85)',
-                cursor: 'pointer',
-                fontSize: '11px',
-                fontWeight: 800,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '4px',
-                lineHeight: 1,
-                letterSpacing: 0,
-                padding: 0,
-                transition: 'color 220ms ease',
-              }}
-            >
-              {lang === option && (
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
-                  <path d="M116,116V48a12,12,0,0,1,24,0v68a12,12,0,0,1-24,0Zm60.63-68.37a12,12,0,1,0-13.26,19.95C176.58,76.56,192,101.13,192,128a64,64,0,0,1-128,0c0-26.87,15.42-51.44,28.63-60.42A12,12,0,1,0,79.37,47.63C60.68,60.57,40,92.09,40,128a88,88,0,0,0,176,0C216,92.09,195.32,60.57,176.63,47.63Z" />
-                </svg>
-              )}
-              {option.toUpperCase()}
-            </button>
-          ))}
-        </div>
+        {renderLanguageSwitch('lang-switch-desktop')}
 
         {/* Hamburger icon */}
         <div
@@ -204,6 +208,7 @@ export default function Header() {
 
         {/* Nav */}
         <nav className={`navbar-glass ${menuOpen ? 'open' : ''}`}>
+          {renderLanguageSwitch('lang-switch-mobile')}
           <ul className="nav-links">
             {navItems.map((item) => (
               <li key={item.href}>
