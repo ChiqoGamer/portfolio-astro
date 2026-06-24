@@ -2,9 +2,8 @@ import { useStore } from '@nanostores/react';
 import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
 
-
 export default function Experience() {
-   const lang = useStore(currentLang);
+  const lang = useStore(currentLang);
   const t = translations[lang].exp;
 
   return (
@@ -13,7 +12,7 @@ export default function Experience() {
       className="flex flex-col px-[5%] mb-16"
     >
       {/* Title */}
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-4 mb-6 reveal">
         <svg
           role="img"
           fill="currentColor"
@@ -28,7 +27,11 @@ export default function Experience() {
 
       {/* Timeline items */}
       {t.experiences.map((exp, index) => (
-        <div className="timeline-item" key={index}>
+        <div
+          className="timeline-item reveal"
+          key={index}
+          style={{ transitionDelay: `${index * 0.15}s` }}
+        >
           <div className="linea-tiempo">
             <div className="timeline-dot" />
             <div className={exp.lineClass} />

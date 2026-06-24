@@ -4,13 +4,13 @@ import { translations } from '../i18n/translations';
 
 
 export default function Education() {
-const lang = useStore(currentLang);
+  const lang = useStore(currentLang);
   const t = translations[lang].education;
 
   return (
     <section id="educacion" className="flex flex-col px-[5%] mb-16">
       {/* Title */}
-      <div className="flex items-center gap-4 mb-8">
+      <div className="flex items-center gap-4 mb-8 reveal">
         <svg
           role="img"
           fill="currentColor"
@@ -24,7 +24,11 @@ const lang = useStore(currentLang);
       </div>
 
       {t.educationItems.map((item, index) => (
-        <div className="timeline-item" key={index}>
+        <div
+          className="timeline-item reveal"
+          key={index}
+          style={{ transitionDelay: `${index * 0.15}s` }}
+        >
           <div className="linea-tiempo">
             <div className="timeline-dot" />
             <div className={item.lineClass} />

@@ -43,22 +43,21 @@ const projects: Project[] = [
     imageAlt: 'Captura del proyecto React Botines',
     reversed: true,
   },
-   {
-  techs: [
-    { name: 'Astro' },
-    { name: 'React' },
-    { name: 'Tailwind CSS' },
-    { name: 'TypeScript' },
-    { name: 'API Gemini' },
-    { name: 'Node JS' },
-    { name: 'Express' },
-  ],
-
-  githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
-  liveUrl: 'https://www.joelmoran.com.ar',
-  image: '/portfolio.jpeg', 
-  imageAlt: 'Captura de mi porfolio personal',
-},
+  {
+    techs: [
+      { name: 'Astro' },
+      { name: 'React' },
+      { name: 'Tailwind CSS' },
+      { name: 'TypeScript' },
+      { name: 'API Gemini' },
+      { name: 'Node JS' },
+      { name: 'Express' },
+    ],
+    githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
+    liveUrl: 'https://www.joelmoran.com.ar',
+    image: '/portfolio.jpeg',
+    imageAlt: 'Captura de mi porfolio personal',
+  },
   {
     techs: [
       { name: 'Java' },
@@ -68,7 +67,6 @@ const projects: Project[] = [
       { name: 'CSS' },
       { name: 'JavaScript' },
     ],
-
     githubUrl: 'https://github.com/ChiqoGamer/Banco-XYZ',
     image: '/banco.png',
     imageAlt: 'Captura del proyecto Banco XYZ',
@@ -84,25 +82,23 @@ const projects: Project[] = [
       { name: 'JavaScript' },
       { name: 'Visual Basic' },
     ],
-
     githubUrl: 'https://github.com/ChiqoGamer/Hospital-UTN-FRGP',
     image: '/hospital.png',
     imageAlt: 'Captura del proyecto Hospital UTN FRGP',
   },
   {
-  techs: [
-    { name: 'Astro' },
-    { name: 'Tailwind CSS' },
-    { name: 'JavaScript' },
-  ],
-
-  githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
-  liveUrl: 'https://www.coli.com.ar',
-  image: '/colidevs.png',
-  imageAlt: 'Captura de la landing page de Colidevs',
-  reversed: true,
-},
-{
+    techs: [
+      { name: 'Astro' },
+      { name: 'Tailwind CSS' },
+      { name: 'JavaScript' },
+    ],
+    githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
+    liveUrl: 'https://www.coli.com.ar',
+    image: '/colidevs.png',
+    imageAlt: 'Captura de la landing page de Colidevs',
+    reversed: true,
+  },
+  {
     techs: [
       { name: 'HTML' },
       { name: 'CSS' },
@@ -110,7 +106,6 @@ const projects: Project[] = [
       { name: 'DummyJson' },
       { name: 'LocalStorage' },
     ],
-
     githubUrl: 'https://github.com/ChiqoGamer/Ecommerce-Botines',
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.png',
@@ -122,6 +117,7 @@ function ProjectCard({
   project,
   translation,
   websiteText,
+  index,
 }: {
   project: Project;
   translation: {
@@ -130,24 +126,18 @@ function ProjectCard({
     description: string;
   };
   websiteText: string;
+  index: number;
 }) {
-
-/* const lang = useStore(currentLang);
-const t = translations[lang].projects; */
-
   return (
     <div
-    className={`flex justify-center mb-12 gap-4 flex-wrap ${
-    project.reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
-  } flex-col-reverse`}
-      // className="flex justify-between mb-12 gap-8"
-      // style={{ flexDirection: project.reversed ? 'row-reverse' : 'row',
-      //   flexWrap: 'wrap',
-      //  }}
+      className={`flex justify-center mb-12 gap-4 flex-wrap reveal ${
+        project.reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
+      } flex-col-reverse`}
+      style={{ transitionDelay: `${index * 0.15}s` }}
     >
       {/* Info */}
       <div className="proyecto-info w-full lg:w-[45%] flex flex-col">
-        <h3 style={{ fontSize: '1.5rem', margin: '0 0 5px' }}>{translation.title} </h3>
+        <h3 style={{ fontSize: '1.5rem', margin: '0 0 5px' }}>{translation.title}</h3>
         <p className="subtitulo" style={{ fontSize: '1rem', color: 'gray', margin: '0 0 10px' }}>
           {translation.subtitle}
         </p>
@@ -196,11 +186,12 @@ const t = translations[lang].projects; */
 
 export default function Projects() {
   const lang = useStore(currentLang);
-const t = translations[lang].projects;
+  const t = translations[lang].projects;
+
   return (
     <section id="proyectos" className="flex flex-col px-[5%] mb-16" style={{ height: 'auto' }}>
       {/* Title */}
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-4 mb-6 reveal">
         <svg
           role="img"
           fill="currentColor"
@@ -214,13 +205,14 @@ const t = translations[lang].projects;
       </div>
 
       {projects.map((project, index) => (
-  <ProjectCard
-    key={index}
-    project={project}
-    translation={t.items[index]}
-    websiteText={t.website}
-  />
-))}
+        <ProjectCard
+          key={index}
+          project={project}
+          translation={t.items[index]}
+          websiteText={t.website}
+          index={index}
+        />
+      ))}
     </section>
   );
 }

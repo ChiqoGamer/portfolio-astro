@@ -12,6 +12,8 @@ const {
 } = Astro.props;
 ---
 
+
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -51,5 +53,27 @@ const {
 
   <body>
     <slot />
+    <script>
+      function initReveal() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      }
+
+      // Esperá a que React hidrate los componentes
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(initReveal, 100);
+      });
+    </script>
   </body>
 </html>
