@@ -2,209 +2,110 @@ import { useStore } from '@nanostores/react';
 import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
 
-// SVG icons as strings for tech badges
-const GithubIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
-  </svg>
-);
-
-const GlobeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484q-.121.12-.242.234c-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
-  </svg>
-);
-
-interface Tech {
-  name: string;
-}
-
+interface Tech { name: string; }
 interface Project {
   techs: Tech[];
   githubUrl: string;
   liveUrl?: string;
   image: string;
-  imageAlt: string;
-  featured?: boolean;
 }
 
 const projects: Project[] = [
   {
-    techs: [
-      { name: 'React' },
-      { name: 'JavaScript' },
-      { name: 'Bootstrap' },
-      { name: 'MockAPI' },
-      { name: 'LocalStorage' },
-    ],
+    techs: [{ name: 'React' }, { name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'MockAPI' }, { name: 'LocalStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/React-Botines/tree/master',
     liveUrl: 'https://react-botines.vercel.app',
     image: '/ecommerce-botines.png',
-    imageAlt: 'Captura del proyecto React Botines',
   },
   {
-    techs: [
-      { name: 'Astro' },
-      { name: 'React' },
-      { name: 'Tailwind CSS' },
-      { name: 'TypeScript' },
-      { name: 'API Gemini' },
-      { name: 'Node JS' },
-      { name: 'Express' },
-    ],
+    techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'Tailwind CSS' }, { name: 'TypeScript' }, { name: 'API Gemini' }, { name: 'Node JS' }, { name: 'Express' }],
     githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
     liveUrl: 'https://www.joelmoran.com.ar',
     image: '/portfolio.jpeg',
-    imageAlt: 'Captura de mi porfolio personal',
-    featured: true,
   },
   {
-    techs: [
-      { name: 'Java' },
-      { name: 'MySQL' },
-      { name: 'Eclipse' },
-      { name: 'HTML' },
-      { name: 'CSS' },
-      { name: 'JavaScript' },
-    ],
+    techs: [{ name: 'Java' }, { name: 'MySQL' }, { name: 'Eclipse' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }],
     githubUrl: 'https://github.com/ChiqoGamer/Banco-XYZ',
     image: '/banco.png',
-    imageAlt: 'Captura del proyecto Banco XYZ',
   },
   {
-    techs: [
-      { name: 'C#' },
-      { name: 'Framework .NET' },
-      { name: 'SQL' },
-      { name: 'HTML' },
-      { name: 'CSS' },
-      { name: 'JavaScript' },
-      { name: 'Visual Basic' },
-    ],
+    techs: [{ name: 'C#' }, { name: 'Framework .NET' }, { name: 'SQL' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'Visual Basic' }],
     githubUrl: 'https://github.com/ChiqoGamer/Hospital-UTN-FRGP',
     image: '/hospital.png',
-    imageAlt: 'Captura del proyecto Hospital UTN FRGP',
   },
   {
-    techs: [
-      { name: 'Astro' },
-      { name: 'Tailwind CSS' },
-      { name: 'JavaScript' },
-    ],
+    techs: [{ name: 'Astro' }, { name: 'Tailwind CSS' }, { name: 'JavaScript' }],
     githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
     liveUrl: 'https://www.coli.com.ar',
     image: '/colidevs.png',
-    imageAlt: 'Captura de la landing page de Colidevs',
   },
   {
-    techs: [
-      { name: 'HTML' },
-      { name: 'CSS' },
-      { name: 'JavaScript' },
-      { name: 'DummyJson' },
-      { name: 'LocalStorage' },
-    ],
+    techs: [{ name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'DummyJson' }, { name: 'LocalStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/Ecommerce-Botines',
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.png',
-    imageAlt: 'Captura del proyecto APX Electronics',
   },
 ];
 
-function ProjectCard({
-  project,
-  translation,
-  websiteText,
-  index,
-}: {
-  project: Project;
-  translation: {
-    title: string;
-    subtitle: string;
-    description: string;
-  };
-  websiteText: string;
-  index: number;
-}) {
-  return (
-    <article
-      className={`proyecto-card reveal ${project.featured ? 'is-featured' : ''}`}
-      style={{ transitionDelay: `${index * 0.1}s` }}
-    >
-      {/* Image */}
-      <a
-        href={project.liveUrl ?? project.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="proyecto-card-media"
-      >
-        <img src={project.image} alt={project.imageAlt} loading="lazy" />
-      </a>
-
-      {/* Body */}
-      <div className="proyecto-card-body">
-        <h3 className="proyecto-card-title">{translation.title}</h3>
-        <p className="proyecto-card-subtitle">{translation.subtitle}</p>
-
-        <p className="proyecto-card-desc">{translation.description}</p>
-
-        {/* Tech badges */}
-        <div className="proyecto-card-techs">
-          {project.techs.map((tech) => (
-            <span key={tech.name} className="proyecto-tech">
-              {tech.name}
-            </span>
-          ))}
-        </div>
-
-        {/* Buttons */}
-        <div className="proyecto-card-actions">
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-github">
-            <GithubIcon />
-            <span>GitHub</span>
-          </a>
-          {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-live">
-              <GlobeIcon />
-              <span>{websiteText} ↗</span>
-            </a>
-          )}
-        </div>
-      </div>
-    </article>
-  );
-}
+const GithubIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.53-2.55-.29-5.23-1.28-5.23-5.69 0-1.25.45-2.28 1.19-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.35.77 1.05.77 2.12v3.14c0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+  </svg>
+);
+const GlobeIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M2 12h20M12 2c2.5 2.7 4 6.3 4 10s-1.5 7.3-4 10c-2.5-2.7-4-6.3-4-10s1.5-7.3 4-10Z" />
+  </svg>
+);
 
 export default function Projects() {
   const lang = useStore(currentLang);
   const t = translations[lang].projects;
+  const z = translations[lang].zen;
 
   return (
-    <section id="proyectos" className="flex flex-col px-[5%] mb-16" style={{ height: 'auto' }}>
-      {/* Title */}
-      <div className="flex items-center gap-4 mb-6 reveal">
-        <svg
-          role="img"
-          fill="currentColor"
-          style={{ width: '3rem', height: '2rem' }}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 256 256"
-        >
-          <path d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,178.57,87.73l-72-39.42Zm0,78.83L56,76,81.56,62l72,39.41ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l24-13.13V152a12,12,0,0,0,24,0V109.92l24-13.13v76.65Z" />
-        </svg>
-        <h2 className="text-2xl font-bold">{t.title}</h2>
-      </div>
+    <section id="proyectos" className="zen-section band">
+      <div className="zen-wrap wide">
+        <div className="zen-head reveal">
+          <span className="zen-kanji">水</span>
+          <div>
+            <div className="zen-ring-label">{z.ringWater}</div>
+            <h2 className="zen-h2">{t.title}</h2>
+          </div>
+        </div>
+        <div className="zen-headrule" />
 
-      <div className="proyectos-grid">
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={index}
-            project={project}
-            translation={t.items[index]}
-            websiteText={t.website}
-            index={index}
-          />
-        ))}
+        <div className="zen-proj-grid">
+          {projects.map((project, index) => {
+            const item = t.items[index];
+            return (
+              <div className="zen-proj-card reveal" key={index} style={{ transitionDelay: `${(index % 3) * 0.08}s` }}>
+                <div className="zen-proj-img" role="img" aria-label={item.title} style={{ backgroundImage: `url('${project.image}')` }} />
+                <div className="zen-proj-body">
+                  <h3 className="zen-proj-title">{item.title}</h3>
+                  <div className="zen-proj-type">{item.subtitle}</div>
+                  <p className="zen-proj-desc">{item.description}</p>
+                  <div className="zen-tags">
+                    {project.techs.map((tech) => (
+                      <span className="zen-tag" key={tech.name}>{tech.name}</span>
+                    ))}
+                  </div>
+                  <div className="zen-proj-actions">
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="zen-btn-ghost">
+                      <GithubIcon />GitHub
+                    </a>
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="zen-btn-accent">
+                        <GlobeIcon />{t.website}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

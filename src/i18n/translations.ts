@@ -18,6 +18,18 @@ export const translations = {
       downloadCV: 'Descargar CV',
     },
 
+    zen: {
+      ringEarth: 'El anillo de la Tierra · 01',
+      ringWater: 'El anillo del Agua · 02',
+      ringFire: 'El anillo del Fuego · 03',
+      ringWind: 'El anillo del Viento · 04',
+      ringVoid: 'El anillo del Vacío · 05',
+      scroll: 'SCROLL',
+      memTitle: 'En memoria de Plumita',
+      memText: 'Mi compañera de caminatas y montañas. Sus huellas siguen marcando cada uno de mis senderos.',
+      rings: 'Diseñado bajo los cinco anillos',
+    },
+
     education: {
       title: 'Educación',
 
@@ -227,6 +239,18 @@ chat: {
       desc: 'Full Stack Developer with a foundation in the University Technical Degree in Programming (UTN FRGP), who listens before coding: understanding how a team or a client works in order to then design the solution that truly fits their needs. My role as a teaching assistant at the university developed in me a skill uncommon among developers: explaining the complex with clarity and holding teamwork together under pressure. Today I aim to grow not only technically, but also in my ability to coordinate teams and bring a human perspective to software development.',
       cvBtn: 'View CV',
       downloadCV: 'Download CV',
+    },
+
+    zen: {
+      ringEarth: 'The Ring of Earth · 01',
+      ringWater: 'The Ring of Water · 02',
+      ringFire: 'The Ring of Fire · 03',
+      ringWind: 'The Ring of Wind · 04',
+      ringVoid: 'The Ring of Void · 05',
+      scroll: 'SCROLL',
+      memTitle: 'In memory of Plumita',
+      memText: 'My hiking and mountain companion. Her pawprints still mark every one of my trails.',
+      rings: 'Designed under the five rings',
     },
 
     exp: {

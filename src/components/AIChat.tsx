@@ -31,7 +31,7 @@ function JoelAvatar({ size = 56, pulse = false }: { size?: number; pulse?: boole
             width: size,
             height: size,
             borderRadius: '50%',
-            background: 'rgba(0,254,155,0.25)',
+            background: 'rgba(210,74,53,0.25)',
             animation: 'pulse-ring 2s ease-out infinite',
             zIndex: 0,
           }} />
@@ -59,8 +59,8 @@ function JoelAvatar({ size = 56, pulse = false }: { size?: number; pulse?: boole
       height: size,
       borderRadius: '50%',
       overflow: 'hidden',
-      background: '#1d1c22',
-      border: '1.5px solid rgba(0,254,155,0.4)',
+      background: '#161c24',
+      border: '1.5px solid rgba(210,74,53,0.4)',
       flexShrink: 0,
     }}>
       <img
@@ -86,7 +86,7 @@ function TypingDots() {
       {[0, 1, 2].map(i => (
         <span key={i} style={{
           width: 7, height: 7, borderRadius: '50%',
-          background: '#00fe9b',
+          background: '#d24a35',
           animation: `typingBounce 1.2s ease-in-out infinite`,
           animationDelay: `${i * 0.2}s`,
           display: 'block',
@@ -213,10 +213,10 @@ const t = translations[lang].chat;
         .ai-msg-user   { animation: msgFadeIn 0.25s ease; }
         .ai-msg-bot    { animation: msgFadeIn 0.25s ease; }
         .ai-input-area { resize: none; outline: none; }
-        .ai-input-area:focus { box-shadow: 0 0 0 1px rgba(0,254,155,0.4); }
-        .ai-send-btn:hover:not(:disabled) { background: #00d882 !important; }
+        .ai-input-area:focus { box-shadow: 0 0 0 1px rgba(210,74,53,0.4); }
+        .ai-send-btn:hover:not(:disabled) { background: #e0563f !important; }
         .ai-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .ai-suggestion:hover { background: rgba(0,254,155,0.12) !important; border-color: rgba(0,254,155,0.5) !important; }
+        .ai-suggestion:hover { background: rgba(210,74,53,0.12) !important; border-color: rgba(210,74,53,0.5) !important; }
         .ai-toggle-btn:hover { transform: scale(1.05); }
         .ai-toggle-btn { transition: transform 0.2s ease; }
 
@@ -265,7 +265,7 @@ const t = translations[lang].chat;
     border: 'none',
     cursor: 'pointer',
     padding: 0,
-    filter: open ? 'drop-shadow(0 0 14px rgba(0,254,155,0.6))' : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
+    filter: open ? 'drop-shadow(0 0 14px rgba(210,74,53,0.6))' : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
   }}
 >
   {/* Desktop: tamaño grande */}
@@ -294,9 +294,9 @@ const t = translations[lang].chat;
       borderRadius: '20px 20px 0 0',  // ← en mobile sin bordes abajo
       overflow: 'hidden',
       animation: 'chatSlideUp 0.3s ease',
-      background: '#16151e',
-      border: '1px solid rgba(0,254,155,0.2)',
-      boxShadow: '0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,254,155,0.06)',
+      background: '#161c24',
+      border: '1px solid rgba(210,74,53,0.2)',
+      boxShadow: '0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(210,74,53,0.06)',
     }}
   >
           {/* Header */}
@@ -305,8 +305,8 @@ const t = translations[lang].chat;
             alignItems: 'center',
             gap: 10,
             padding: '12px 16px',
-            background: 'rgba(0,254,155,0.05)',
-            borderBottom: '1px solid rgba(0,254,155,0.12)',
+            background: 'rgba(210,74,53,0.05)',
+            borderBottom: '1px solid rgba(210,74,53,0.12)',
             flexShrink: 0,
           }}>
             <JoelAvatar size={36} />
@@ -314,7 +314,7 @@ const t = translations[lang].chat;
               <p style={{ margin: 0, fontWeight: 700, fontSize: 14, color: 'white', fontFamily: 'Raleway, sans-serif' }}>
                 {t.header.title}
               </p>
-              <p style={{ margin: 0, fontSize: 11, color: '#00fe9b', fontFamily: 'Raleway, sans-serif' }}>
+              <p style={{ margin: 0, fontSize: 11, color: '#d24a35', fontFamily: 'Raleway, sans-serif' }}>
                 {t.header.status}
               </p>
             </div>
@@ -353,8 +353,8 @@ const t = translations[lang].chat;
                     className="ai-suggestion"
                     onClick={() => { setInput(s); inputRef.current?.focus(); }}
                     style={{
-                      background: 'rgba(0,254,155,0.06)',
-                      border: '1px solid rgba(0,254,155,0.25)',
+                      background: 'rgba(210,74,53,0.06)',
+                      border: '1px solid rgba(210,74,53,0.25)',
                       borderRadius: 20,
                       padding: '5px 12px',
                       fontSize: 11,
@@ -392,7 +392,7 @@ const t = translations[lang].chat;
                     padding: '9px 13px',
                     borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                     background: msg.role === 'user'
-                      ? 'linear-gradient(135deg, #00fe9b, #00d87a)'
+                      ? 'linear-gradient(135deg, #d24a35, #b8402c)'
                       : 'rgba(255,255,255,0.06)',
                     color: msg.role === 'user' ? '#0d1a12' : '#e8e8f0',
                     fontSize: 13,
@@ -437,7 +437,7 @@ const t = translations[lang].chat;
             display: 'flex',
             gap: 8,
             alignItems: 'flex-end',
-            background: '#13121a',
+            background: '#12161c',
             flexShrink: 0,
           }}>
             <textarea
@@ -472,7 +472,7 @@ const t = translations[lang].chat;
               onClick={sendMessage}
               disabled={loading || !input.trim()}
               style={{
-                background: '#00fe9b',
+                background: '#d24a35',
                 border: 'none',
                 borderRadius: 12,
                 width: 38,
@@ -499,7 +499,7 @@ const t = translations[lang].chat;
             fontSize: 10,
             color: '#444',
             fontFamily: 'Raleway, sans-serif',
-            background: '#13121a',
+            background: '#12161c',
             flexShrink: 0,
           }}>
             {t.footer}

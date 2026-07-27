@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
 
 :root {
+  /* ===== Tema "Portfolio Noche" (rediseño zen) ===== */
+  --bg: #0e1116;
+  --bg2: #12161c;
+  --panel: #161c24;
+  --line: #2a2f36;
+  --ink: #e9e4d8;
+  --muted: #a7a297;
+  --accent: #d24a35;
+  --mt1: #232b36;
+  --mt2: #1a212b;
+  --mt3: #121820;
+
   --primary-color: #00fe9b;
   --primary-dark: #014b2f85;
   --primary-light: #00fe9dfe;
@@ -35,12 +48,11 @@ html {
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url(https://thelokin.dev/images/grainy.png);
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--ink);
   overflow-x: hidden;
 }
 
@@ -1277,3 +1289,162 @@ body {
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════════════════════════
+   REDISEÑO "PORTFOLIO NOCHE" (estética zen · acento terracota)
+   ═══════════════════════════════════════════════════════════ */
+@keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes spinRing { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes waveSlide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+::selection { background: var(--accent); color: #0e1116; }
+a { color: var(--accent); text-decoration: none; }
+
+/* ---------- NAV ---------- */
+.zen-nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 50; display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px; background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(14px); border: 1px solid var(--line);
+  border-radius: 999px; box-shadow: 0 8px 30px rgba(0,0,0,.35);
+  max-width: calc(100vw - 24px); white-space: nowrap;
+  overflow-x: auto; scrollbar-width: none;
+}
+.zen-nav::-webkit-scrollbar { display: none; }
+.zen-navlink {
+  color: var(--muted); font-size: 13px; letter-spacing: .06em;
+  padding: 7px 11px; border-radius: 999px; white-space: nowrap;
+  flex-shrink: 0; transition: color .3s, background .3s; cursor: pointer;
+}
+.zen-navlink:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.zen-navlink.active { color: var(--ink); background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.zen-nav-divider { width: 1px; height: 20px; background: var(--line); margin: 0 4px; flex-shrink: 0; }
+.zen-lang { display: flex; align-items: center; flex-shrink: 0; border-radius: 999px; padding: 3px; background: color-mix(in srgb, var(--bg) 60%, transparent); }
+.zen-lang-btn {
+  display: flex; align-items: center; gap: 6px; border: none; border-radius: 999px;
+  padding: 6px 15px; font-family: inherit; font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; cursor: pointer; transition: background .3s, color .3s;
+  background: transparent; color: var(--ink);
+}
+.zen-lang-btn.on { background: var(--accent); color: #0e1116; }
+
+/* ---------- HERO ---------- */
+.zen-hero {
+  position: relative; min-height: 100vh; overflow: hidden; display: flex;
+  align-items: center; justify-content: space-between; flex-wrap: wrap;
+  padding-bottom: 26vh; box-sizing: border-box;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 70%, var(--bg) 100%);
+}
+.zen-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; }
+.zen-hero-kanji {
+  position: absolute; top: 8vh; right: 6vw; writing-mode: vertical-rl;
+  font-family: 'Outfit', sans-serif; font-size: min(22vh, 180px); font-weight: 800;
+  color: color-mix(in srgb, var(--ink) 6%, transparent); line-height: 1; user-select: none;
+}
+.zen-hero-text { position: relative; z-index: 2; flex: 1 1 480px; max-width: 680px; padding: 120px 28px 30px; margin-left: max(6vw, 28px); }
+.zen-eyebrow { font-size: 13px; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.zen-h1 { font-family: 'Outfit', sans-serif; font-size: clamp(44px, 6vw, 76px); line-height: 1.08; margin: 0; color: var(--ink); }
+.zen-rule { height: 3px; width: 140px; background: linear-gradient(90deg, var(--accent), transparent); border-radius: 2px; margin: 26px 0; }
+.zen-bio { font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 600px; margin: 0 0 32px; text-wrap: pretty; }
+.zen-cv { display: inline-block; background: var(--accent); color: #0e1116; font-weight: 700; padding: 13px 28px; border-radius: 4px; letter-spacing: .05em; border: none; cursor: pointer; font-family: inherit; font-size: 15px; transition: filter .3s; }
+.zen-cv:hover { filter: brightness(1.12); }
+.zen-photo-outer { position: relative; z-index: 2; flex: 0 0 auto; margin: 110px max(14vw, 60px) 40px auto; align-self: center; }
+.zen-photo-wrap { position: relative; width: clamp(190px, 24vw, 320px); }
+.zen-photo-ring { position: absolute; inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); animation: spinRing 12s linear infinite; }
+.zen-photo { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; animation: floatY 5s ease-in-out infinite; }
+.zen-mt { position: absolute; bottom: -2px; left: 0; width: 100%; }
+.zen-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 5; color: var(--muted); font-size: 12px; letter-spacing: .3em; animation: floatY 3s ease-in-out infinite; }
+
+/* ---------- SECCIÓN (encabezado con kanji) ---------- */
+.zen-section { position: relative; padding: 110px 28px; }
+.zen-section.band { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.zen-wrap { max-width: 1060px; margin: 0 auto; }
+.zen-wrap.wide { max-width: 1160px; }
+.zen-head { display: flex; align-items: baseline; gap: 18px; }
+.zen-kanji { font-family: 'Outfit', sans-serif; font-size: 62px; line-height: 1; color: var(--accent); }
+.zen-ring-label { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.zen-h2 { font-family: 'Outfit', sans-serif; font-size: 40px; margin: 4px 0 0; color: var(--ink); }
+.zen-headrule { height: 3px; width: 120px; background: linear-gradient(90deg, var(--accent), transparent); border-radius: 2px; margin: 16px 0 50px; }
+
+/* ---------- TIMELINE (experiencia / educación) ---------- */
+.zen-timeline { display: flex; flex-direction: column; border-left: 1px solid var(--line); margin-left: 8px; }
+.zen-titem { position: relative; padding: 0 0 44px 34px; }
+.zen-titem .zen-dot { position: absolute; left: -6px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); }
+.zen-tdate { font-size: 12px; letter-spacing: .2em; color: var(--accent); margin-bottom: 6px; }
+.zen-ttitle { font-family: 'Outfit', sans-serif; font-size: 22px; margin: 0; color: var(--ink); }
+.zen-tinst { font-size: 14px; color: var(--muted); margin: 4px 0 10px; }
+.zen-tdesc { margin: 0; line-height: 1.7; color: var(--muted); max-width: 640px; text-wrap: pretty; }
+
+/* ---------- PROYECTOS ---------- */
+.zen-proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; }
+.zen-proj-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .4s ease, border-color .4s; }
+.zen-proj-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+.zen-proj-img { width: 100%; aspect-ratio: 16/9; background-color: var(--bg); background-size: cover; background-position: top; filter: saturate(.9); }
+.zen-proj-body { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.zen-proj-title { font-family: 'Outfit', sans-serif; font-size: 21px; margin: 0; color: var(--ink); }
+.zen-proj-type { font-size: 12px; letter-spacing: .15em; color: var(--accent); text-transform: uppercase; }
+.zen-proj-desc { margin: 0; font-size: 14px; line-height: 1.65; color: var(--muted); flex: 1; text-wrap: pretty; }
+.zen-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.zen-tag { font-size: 11px; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; color: var(--muted); }
+.zen-proj-actions { display: flex; gap: 10px; font-size: 13px; font-weight: 700; margin-top: 4px; }
+.zen-btn-ghost, .zen-btn-accent { flex: 1; display: inline-flex; justify-content: center; align-items: center; gap: 8px; border-radius: 8px; padding: 8px 16px; transition: border-color .3s, background .3s, filter .3s; }
+.zen-btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+.zen-btn-ghost:hover { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.zen-btn-accent { border: 1px solid var(--accent); background: var(--accent); color: #0e1116; }
+.zen-btn-accent:hover { filter: brightness(1.15); }
+
+/* ---------- SKILLS ---------- */
+.zen-skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.zen-skill-card { position: relative; overflow: hidden; background: transparent; border: 1px solid var(--line); border-radius: 16px; padding: 28px 24px; transition: border-color .3s; }
+.zen-skill-card:hover { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.zen-skill-glow { position: absolute; top: 0; left: 0; width: 340px; height: 340px; margin: -170px 0 0 -170px; border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity .35s ease; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 42%, transparent) 0%, transparent 68%); }
+.zen-skill-title { font-family: 'Outfit', sans-serif; font-size: 19px; margin: 0 0 24px; color: var(--accent); text-align: center; }
+.zen-skill-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 12px; }
+.zen-skill-item { display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform .3s; }
+.zen-skill-item:hover { transform: translateY(-4px); }
+.zen-skill-icon { width: 44px; height: 44px; object-fit: contain; }
+.zen-skill-item span { font-size: 12.5px; color: var(--muted); text-align: center; }
+
+/* ---------- CONTACTO ---------- */
+.zen-contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch; }
+.zen-contact-col { display: flex; flex-direction: column; gap: 16px; align-self: stretch; }
+.zen-info-card { flex: 1; display: flex; align-items: center; gap: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; color: var(--ink); transition: border-color .3s; }
+.zen-info-card:hover { border-color: var(--accent); }
+.zen-info-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px; border: 1px solid var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.zen-info-label { font-size: 12px; letter-spacing: .25em; color: var(--accent); text-transform: uppercase; }
+.zen-info-value { font-size: 17px; color: var(--ink); word-break: break-word; }
+.zen-social-row { display: flex; gap: 14px; margin-top: 4px; }
+.zen-social { flex: 1; display: inline-flex; justify-content: center; align-items: center; gap: 9px; border: 1px solid var(--line); padding: 13px 20px; border-radius: 10px; color: var(--ink); font-size: 14px; font-weight: 700; transition: border-color .3s, background .3s; }
+.zen-social:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.zen-form { display: flex; flex-direction: column; gap: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 30px; }
+.zen-form-title { font-family: 'Outfit', sans-serif; font-size: 24px; margin: 0 0 8px; color: var(--ink); }
+.zen-input, .zen-textarea { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; color: var(--ink); font-family: inherit; font-size: 15px; box-sizing: border-box; width: 100%; }
+.zen-textarea { resize: vertical; min-height: 140px; }
+.zen-input:focus, .zen-textarea:focus { outline: none; border-color: var(--accent); }
+.zen-input::placeholder, .zen-textarea::placeholder { color: var(--muted); }
+.zen-submit { background: var(--accent); color: #0e1116; font-weight: 700; border: none; border-radius: 10px; padding: 15px; font-size: 15px; letter-spacing: .05em; cursor: pointer; font-family: inherit; transition: filter .3s; }
+.zen-submit:hover { filter: brightness(1.15); }
+
+/* ---------- FOOTER ---------- */
+.zen-footer { position: relative; padding: 0 0 40px; text-align: center; background: var(--bg2); }
+.zen-waves { position: relative; height: 240px; overflow: hidden; background: var(--bg); }
+.zen-wave { position: absolute; bottom: 0; left: 0; width: 200%; }
+.zen-foot-inner { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 40px; max-width: 1160px; margin: 0 auto; padding: 8px 28px 40px; text-align: left; }
+.zen-foot-name { font-family: 'Outfit', sans-serif; font-size: 30px; color: var(--ink); }
+.zen-foot-role { font-size: 13px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.zen-mem { display: flex; align-items: flex-end; gap: 18px; max-width: 460px; margin-right: min(150px, 15vw); text-align: right; }
+.zen-mem-title { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--ink); }
+.zen-mem-text { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.65; text-wrap: pretty; }
+.zen-foot-bottom { max-width: 1160px; margin: 0 auto; padding: 26px 28px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (min-width: 1900px) { body { padding: 0; } }
+@media (max-width: 860px) {
+  .zen-skill-grid { grid-template-columns: 1fr; }
+  .zen-h2 { font-size: 32px; }
+  .zen-kanji { font-size: 48px; }
+  .zen-section { padding: 80px 22px; }
+  .zen-hero-text { padding-top: 100px; }
+  .zen-mem { text-align: left; margin-right: 0; }
+  .zen-foot-inner { flex-direction: column; }
+}

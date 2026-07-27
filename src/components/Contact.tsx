@@ -3,54 +3,29 @@ import { useStore } from '@nanostores/react';
 import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
 
-
-
-type AlertState = {
-  message: string;
-  visible: boolean;
-  type: 'success' | 'error' | 'loading';
-};
+type AlertState = { message: string; visible: boolean; type: 'success' | 'error' | 'loading'; };
 
 export default function Contact() {
-const lang = useStore(currentLang);
-const t = translations[lang].contact;
+  const lang = useStore(currentLang);
+  const t = translations[lang].contact;
+  const z = translations[lang].zen;
 
   const formRef = useRef<HTMLFormElement>(null);
-  const [alert, setAlert] = useState<AlertState>({
-    message: '',
-    visible: false,
-    type: 'success',
-  });
+  const [alert, setAlert] = useState<AlertState>({ message: '', visible: false, type: 'success' });
 
   const mostrarAlerta = (mensaje: string, type: AlertState['type'] = 'success') => {
     setAlert({ message: mensaje, visible: true, type });
-
-    if (type !== 'loading') {
-      setTimeout(() => {
-        setAlert((prev) => ({ ...prev, visible: false }));
-      }, 3000);
-    }
+    if (type !== 'loading') setTimeout(() => setAlert((prev) => ({ ...prev, visible: false })), 3000);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const emailjs = (window as any).emailjs;
     if (!emailjs || !formRef.current) return;
-
-    const serviceID = 'default_service';
-    const templateID = 'template_ryjs36n';
-
     mostrarAlerta(t.alerts.loading, 'loading');
-
-    emailjs.sendForm(serviceID, templateID, formRef.current).then(
-      () => {
-        mostrarAlerta(t.alerts.success, 'success');
-        formRef.current?.reset();
-      },
-      (err: unknown) => {
-        mostrarAlerta(t.alerts.error, 'error');
-        console.error(err);
-      }
+    emailjs.sendForm('default_service', 'template_ryjs36n', formRef.current).then(
+      () => { mostrarAlerta(t.alerts.success, 'success'); formRef.current?.reset(); },
+      (err: unknown) => { mostrarAlerta(t.alerts.error, 'error'); console.error(err); }
     );
   };
 
@@ -59,107 +34,85 @@ const t = translations[lang].contact;
     alert.visible ? 'alerta-mostrar' : '',
     alert.type === 'error' ? 'alerta-error' : '',
     alert.type === 'loading' ? 'alerta-cargando' : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  ].filter(Boolean).join(' ');
 
   return (
-    <section id="contacto" className="flex flex-col px-[5%] mb-16" style={{ height: 'auto' }}>
-      {/* Title */}
-      <div className="flex items-center gap-4 mb-6">
-        <svg
-          role="img"
-          fill="currentColor"
-          style={{ width: '3rem', height: '2rem' }}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 256 256"
-        >
-          <path d="M234.38,210a123.36,123.36,0,0,0-60.78-53.23,76,76,0,1,0-91.2,0A123.36,123.36,0,0,0,21.62,210a12,12,0,1,0,20.77,12c18.12-31.32,50.12-50,85.61-50s67.49,18.69,85.61,50a12,12,0,0,0,20.77-12ZM76,96a52,52,0,1,1,52,52A52.06,52.06,0,0,1,76,96Z" />
-        </svg>
-        <h2 className="text-2xl font-bold">{t.title}</h2>
-      </div>
-
-      {/* Cards container */}
-      <div className="contact-grid">
-        {/* Contact info */}
-        <div className="contact-info">
-          <div className="contact-card">
-            <div className="contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-              </svg>
-            </div>
-            <div className="contact-card-text">
-              <span className="contact-label">{t.email}</span>
-              <p className="contact-value">joel.programador@hotmail.com</p>
-            </div>
-          </div>
-
-          <div className="contact-card">
-            <div className="contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-              </svg>
-            </div>
-            <div className="contact-card-text">
-              <span className="contact-label">{t.phone}</span>
-              <p className="contact-value">+54 11 2544-2653</p>
-            </div>
-          </div>
-
-          <div className="contact-card">
-            <div className="contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-              </svg>
-            </div>
-            <div className="contact-card-text">
-              <span className="contact-label">{t.location}</span>
-              <p className="contact-value">{t.city}</p>
-            </div>
+    <section id="contacto" className="zen-section">
+      <div className="zen-wrap">
+        <div className="zen-head reveal">
+          <span className="zen-kanji">空</span>
+          <div>
+            <div className="zen-ring-label">{z.ringVoid}</div>
+            <h2 className="zen-h2">{t.title}</h2>
           </div>
         </div>
+        <div className="zen-headrule" />
 
-        {/* Contact form */}
-        <div className="contact-form-card">
-          <h3 className="contact-form-title">{t.formTitle}</h3>
-          <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              placeholder={t.name}
-              aria-label={t.name}
-              required
-            />
-            <input
-              type="email"
-              id="correo"
-              name="correo"
-              placeholder={t.emailLabel}
-              aria-label={t.emailLabel}
-              required
-            />
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              placeholder={t.message}
-              aria-label={t.message}
-              required
-            />
+        <div className="zen-contact-grid">
+          {/* Info + redes */}
+          <div className="zen-contact-col reveal">
+            <a href="mailto:joel.programador@hotmail.com" className="zen-info-card">
+              <span className="zen-info-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="m3.5 7 8.5 6 8.5-6" />
+                </svg>
+              </span>
+              <span style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
+                <span className="zen-info-label">{t.email}</span>
+                <span className="zen-info-value">joel.programador@hotmail.com</span>
+              </span>
+            </a>
 
-            <button type="submit" className="contact-submit">
-              {t.send}
-            </button>
+            <div className="zen-info-card">
+              <span className="zen-info-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M6.5 3h-2A2.5 2.5 0 0 0 2 5.7C2 14.1 9.9 22 18.3 22a2.5 2.5 0 0 0 2.7-2.5v-2l-4.5-2-2.2 2.2a15.5 15.5 0 0 1-6-6L10.5 9.5 8.5 5Z" />
+                </svg>
+              </span>
+              <span style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <span className="zen-info-label">{t.phone}</span>
+                <span className="zen-info-value">+54 11 2544-2653</span>
+              </span>
+            </div>
+
+            <div className="zen-info-card">
+              <span className="zen-info-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s7.5-6.2 7.5-12A7.5 7.5 0 0 0 4.5 10c0 5.8 7.5 12 7.5 12Z" /><circle cx="12" cy="9.8" r="2.6" />
+                </svg>
+              </span>
+              <span style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <span className="zen-info-label">{t.location}</span>
+                <span className="zen-info-value">{t.city}</span>
+              </span>
+            </div>
+
+            <div className="zen-social-row">
+              <a href="https://www.linkedin.com/in/joel-moran" target="_blank" rel="noopener noreferrer" className="zen-social">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0Z" />
+                </svg>LinkedIn
+              </a>
+              <a href="https://github.com/ChiqoGamer" target="_blank" rel="noopener noreferrer" className="zen-social">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.53-2.55-.29-5.23-1.28-5.23-5.69 0-1.25.45-2.28 1.19-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.35.77 1.05.77 2.12v3.14c0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+                </svg>GitHub
+              </a>
+            </div>
+          </div>
+
+          {/* Formulario EmailJS */}
+          <form ref={formRef} onSubmit={handleSubmit} className="zen-form reveal">
+            <h3 className="zen-form-title">{t.formTitle}</h3>
+            <input className="zen-input" type="text" name="nombre" placeholder={t.name} aria-label={t.name} required />
+            <input className="zen-input" type="email" name="correo" placeholder={t.emailLabel} aria-label={t.emailLabel} required />
+            <textarea className="zen-textarea" name="mensaje" rows={6} placeholder={t.message} aria-label={t.message} required />
+            <button type="submit" className="zen-submit">{t.send}</button>
           </form>
         </div>
       </div>
 
-      {/* Toast alert */}
-      <div id="alerta" className={alertClass}>
-        {alert.message}
-      </div>
+      <div id="alerta" className={alertClass}>{alert.message}</div>
     </section>
   );
 }
