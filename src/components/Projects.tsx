@@ -25,7 +25,7 @@ interface Project {
   liveUrl?: string;
   image: string;
   imageAlt: string;
-  reversed?: boolean;
+  featured?: boolean;
 }
 
 const projects: Project[] = [
@@ -41,7 +41,6 @@ const projects: Project[] = [
     liveUrl: 'https://react-botines.vercel.app',
     image: '/ecommerce-botines.png',
     imageAlt: 'Captura del proyecto React Botines',
-    reversed: true,
   },
   {
     techs: [
@@ -57,6 +56,7 @@ const projects: Project[] = [
     liveUrl: 'https://www.joelmoran.com.ar',
     image: '/portfolio.jpeg',
     imageAlt: 'Captura de mi porfolio personal',
+    featured: true,
   },
   {
     techs: [
@@ -70,7 +70,6 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/ChiqoGamer/Banco-XYZ',
     image: '/banco.png',
     imageAlt: 'Captura del proyecto Banco XYZ',
-    reversed: true,
   },
   {
     techs: [
@@ -96,7 +95,6 @@ const projects: Project[] = [
     liveUrl: 'https://www.coli.com.ar',
     image: '/colidevs.png',
     imageAlt: 'Captura de la landing page de Colidevs',
-    reversed: true,
   },
   {
     techs: [
@@ -129,58 +127,51 @@ function ProjectCard({
   index: number;
 }) {
   return (
-    <div
-      className={`flex justify-center mb-12 gap-4 flex-wrap reveal ${
-        project.reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
-      } flex-col-reverse`}
-      style={{ transitionDelay: `${index * 0.15}s` }}
+    <article
+      className={`proyecto-card reveal ${project.featured ? 'is-featured' : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
     >
-      {/* Info */}
-      <div className="proyecto-info w-full lg:w-[45%] flex flex-col">
-        <h3 style={{ fontSize: '1.5rem', margin: '0 0 5px' }}>{translation.title}</h3>
-        <p className="subtitulo" style={{ fontSize: '1rem', color: 'gray', margin: '0 0 10px' }}>
-          {translation.subtitle}
-        </p>
+      {/* Image */}
+      <a
+        href={project.liveUrl ?? project.githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="proyecto-card-media"
+      >
+        <img src={project.image} alt={project.imageAlt} loading="lazy" />
+      </a>
+
+      {/* Body */}
+      <div className="proyecto-card-body">
+        <h3 className="proyecto-card-title">{translation.title}</h3>
+        <p className="proyecto-card-subtitle">{translation.subtitle}</p>
+
+        <p className="proyecto-card-desc">{translation.description}</p>
 
         {/* Tech badges */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="proyecto-card-techs">
           {project.techs.map((tech) => (
-            <span
-              key={tech.name}
-              className="flex items-center gap-2 px-4 py-2 rounded-2xl text-sm"
-              style={{ background: 'var(--bg-secondary)' }}
-            >
+            <span key={tech.name} className="proyecto-tech">
               {tech.name}
             </span>
           ))}
         </div>
 
-        <p className="descripcion" style={{ fontSize: '0.95rem', lineHeight: '1.8', margin: 0, marginBottom: '1rem' }}>
-          {translation.description}
-        </p>
-
         {/* Buttons */}
-        <div className="contenedor-btn-proyectos mt-auto mb-2 md:[mt-auto] flex gap-8">
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-github" style={{ width: '50%' }}>
+        <div className="proyecto-card-actions">
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-github">
             <GithubIcon />
-            <span style={{ marginLeft: '0.5rem' }}>GitHub</span>
+            <span>GitHub</span>
           </a>
           {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-live" style={{ width: '50%' }}>
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-live">
               <GlobeIcon />
-              <span style={{ marginLeft: '0.5rem' }}>{websiteText}</span>
+              <span>{websiteText} ↗</span>
             </a>
           )}
         </div>
       </div>
-
-      {/* Image */}
-      <div className="proyecto-img w-full lg:w-[40%]">
-        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-          <img src={project.image} alt={project.imageAlt} />
-        </a>
-      </div>
-    </div>
+    </article>
   );
 }
 
@@ -204,15 +195,17 @@ export default function Projects() {
         <h2 className="text-2xl font-bold">{t.title}</h2>
       </div>
 
-      {projects.map((project, index) => (
-        <ProjectCard
-          key={index}
-          project={project}
-          translation={t.items[index]}
-          websiteText={t.website}
-          index={index}
-        />
-      ))}
+      <div className="proyectos-grid">
+        {projects.map((project, index) => (
+          <ProjectCard
+            key={index}
+            project={project}
+            translation={t.items[index]}
+            websiteText={t.website}
+            index={index}
+          />
+        ))}
+      </div>
     </section>
   );
 }

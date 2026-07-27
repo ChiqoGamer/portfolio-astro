@@ -2,7 +2,6 @@ import { useStore } from '@nanostores/react';
 import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
 
-
 export default function Education() {
   const lang = useStore(currentLang);
   const t = translations[lang].education;
@@ -23,24 +22,30 @@ export default function Education() {
         <h2 className="text-2xl font-bold">{t.title}</h2>
       </div>
 
-      {t.educationItems.map((item, index) => (
-        <div
-          className="timeline-item reveal"
-          key={index}
-          style={{ transitionDelay: `${index * 0.15}s` }}
-        >
-          <div className="linea-tiempo">
-            <div className="timeline-dot" />
-            <div className={item.lineClass} />
+      <div className="edu-timeline">
+        {t.educationItems.map((item, index) => (
+          <div
+            className="edu-item reveal"
+            key={index}
+            style={{ transitionDelay: `${index * 0.12}s` }}
+          >
+            <span className="edu-line" />
+            <span className="edu-dot" />
+
+            <div className="edu-card">
+              <div className="edu-card-head">
+                <div className="edu-card-heading">
+                  <h3 className="edu-card-title">{item.title}</h3>
+                  <p className="edu-card-inst">{item.institution}</p>
+                </div>
+                <span className="edu-card-date">{item.date}</span>
+              </div>
+
+              <p className="edu-card-desc">{item.description}</p>
+            </div>
           </div>
-          <div className="timeline-content">
-            <h3>{item.title}</h3>
-            <p className="institution">{item.institution}</p>
-            <span className="date">{item.date}</span>
-            <p className="date">{item.description}</p>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }

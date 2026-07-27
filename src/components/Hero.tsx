@@ -92,15 +92,16 @@ export default function Hero() {
           justify-content: space-between;
           align-items: center;
           padding: 0px 5% 4rem;
-          gap: 1rem;
+          gap: 4rem;
           min-height: 70vh;
         }
 
         .hero-content {
           flex: 1;
-          max-width: 700px;
           text-align: left;
         }
+
+        .hero-photo-desktop { flex-shrink: 0; }
 
         .hero-photo-desktop { display: block; }
         .hero-photo-mobile  { display: none; }

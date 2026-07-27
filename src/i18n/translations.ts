@@ -13,7 +13,7 @@ export const translations = {
     hero: {
       subtitle: 'Full Stack Developer',
       greeting: 'Hola, soy',
-      desc: 'Técnico Universitario en Programación (UTN FRGP) orientado al desarrollo web front-end y al diseño de experiencias digitales. Apasionado por la lógica, la creación de interfaces intuitivas y el trabajo en equipo. Actualmente aprendiendo UX/UI y Node.js. Busco aportar soluciones innovadoras en proyectos desafiantes.',
+      desc: 'Full Stack Developer con base en la Tecnicatura Universitaria en Programación (UTN FRGP), que antes de programar busca escuchar: entender cómo trabaja un equipo o un cliente para diseñar después la solución que realmente se adapte a sus necesidades. Mi rol como docente auxiliar en la facultad desarrolló en mí una capacidad poco común en developers: explicar lo complejo con claridad y sostener el trabajo en equipo bajo presión. Hoy busco crecer no solo en lo técnico, sino en mi capacidad de coordinar equipos y aportar una mirada humana al desarrollo de software.',
       cvBtn: 'Visualizar CV',
       downloadCV: 'Descargar CV',
     },
@@ -69,9 +69,17 @@ export const translations = {
 
       experiences: [
         {
+          title: 'Data Analytics',
+          institution: '5411 LLC',
+          date: 'JUL 2026 — Actualmente',
+          description:
+            'Análisis de datos para la toma de decisiones del negocio: recolección, limpieza y modelado de datos, creación de dashboards y reportes, y generación de insights accionables para optimizar procesos y resultados.',
+          lineClass: 'linea-EXP',
+        },
+        {
           title: 'Docente Auxiliar – Programación I C++',
           institution: 'Universidad Tecnológica Nacional FRGP',
-          date: 'AGO 2023 - Actualmente',
+          date: 'AGO 2023 — Actualmente',
           description:
             'Colaboro en el dictado de clases teóricas y prácticas, asistencia a estudiantes, corrección de evaluaciones y resolución de dudas.',
           lineClass: 'linea-EXP',
@@ -79,7 +87,7 @@ export const translations = {
         {
           title: 'Profesor Particular de Programación',
           institution: 'Autónomo',
-          date: 'ABR 2024 - Actualmente',
+          date: 'ABR 2024 — Actualmente',
           description:
             'Brindo clases personalizadas a estudiantes universitarios, enfocadas en lógica de programación, diagramas de flujo y resolución de ejercicios prácticos, acompañando su formación académica.',
           lineClass: 'linea-EXP',
@@ -87,7 +95,7 @@ export const translations = {
         {
           title: 'Developer',
           institution: 'Colidevs Startup',
-          date: 'AGO 2024 - Actualmente',
+          date: 'AGO 2024 — DIC 2025',
           description:
             'Desarrollo la landing page de la empresa con Astro y Tailwind CSS, enfocada en performance, diseño responsive y posicionamiento SEO, dentro de un equipo con visión de crecimiento y desarrollo de productos digitales.',
           lineClass: 'linea3-EXP',
@@ -216,7 +224,7 @@ chat: {
     hero: {
       subtitle: 'Full Stack Developer',
       greeting: "Hi, I'm",
-      desc: 'University Technician in Programming (UTN FRGP) focused on front-end web development and digital experience design. Passionate about logic, intuitive interfaces, and teamwork. Currently learning UX/UI and Node.js. Looking to bring innovative solutions to challenging projects.',
+      desc: 'Full Stack Developer with a foundation in the University Technical Degree in Programming (UTN FRGP), who listens before coding: understanding how a team or a client works in order to then design the solution that truly fits their needs. My role as a teaching assistant at the university developed in me a skill uncommon among developers: explaining the complex with clarity and holding teamwork together under pressure. Today I aim to grow not only technically, but also in my ability to coordinate teams and bring a human perspective to software development.',
       cvBtn: 'View CV',
       downloadCV: 'Download CV',
     },
@@ -226,9 +234,17 @@ chat: {
 
       experiences: [
         {
+          title: 'Data Analytics',
+          institution: '5411 LLC',
+          date: 'JUL 2026 — Present',
+          description:
+            'Data analysis to support business decision-making: data collection, cleaning, and modeling, dashboard and report building, and generating actionable insights to optimize processes and outcomes.',
+          lineClass: 'linea-EXP',
+        },
+        {
           title: 'Teaching Assistant – Programming I (C++)',
           institution: 'National Technological University (UTN FRGP)',
-          date: 'AUG 2023 - Present',
+          date: 'AUG 2023 — Present',
           description:
             'Assist in delivering theoretical and practical classes, support students, grade assessments, and help solve programming-related questions.',
           lineClass: 'linea-EXP',
@@ -236,7 +252,7 @@ chat: {
         {
           title: 'Private Programming Tutor',
           institution: 'Freelance',
-          date: 'APR 2024 - Present',
+          date: 'APR 2024 — Present',
           description:
             'Provide personalized lessons to university students focused on programming logic, flowcharts, and practical problem-solving to support their academic progress.',
           lineClass: 'linea-EXP',
@@ -244,7 +260,7 @@ chat: {
         {
           title: 'Front-end Developer',
           institution: 'Colidevs Startup',
-          date: 'AUG 2024 - Present',
+          date: 'AUG 2024 — DEC 2025',
           description:
             'Develop the company landing page using Astro and Tailwind CSS, focusing on performance, responsive design, and SEO as part of a team building digital products.',
           lineClass: 'linea3-EXP',

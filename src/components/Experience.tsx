@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
@@ -5,6 +6,10 @@ import { translations } from '../i18n/translations';
 export default function Experience() {
   const lang = useStore(currentLang);
   const t = translations[lang].exp;
+  const [openIndexes, setOpenIndexes] = useState<Record<number, boolean>>({});
+
+  const toggle = (index: number) =>
+    setOpenIndexes((prev) => ({ ...prev, [index]: !prev[index] }));
 
   return (
     <section
@@ -25,25 +30,59 @@ export default function Experience() {
         <h2 className="text-2xl font-bold">{t.title}</h2>
       </div>
 
-      {/* Timeline items */}
-      {t.experiences.map((exp, index) => (
-        <div
-          className="timeline-item reveal"
-          key={index}
-          style={{ transitionDelay: `${index * 0.15}s` }}
-        >
-          <div className="linea-tiempo">
-            <div className="timeline-dot" />
-            <div className={exp.lineClass} />
-          </div>
-          <div className="timeline-content">
-            <h3>{exp.title}</h3>
-            <p className="institution">{exp.institution}</p>
-            <span className="date">{exp.date}</span>
-            <p className="date">{exp.description}</p>
-          </div>
-        </div>
-      ))}
+      {/* Experience cards */}
+      <div className="exp-timeline">
+        {t.experiences.map((exp, index) => {
+          const isOpen = !!openIndexes[index];
+          return (
+            <div
+              key={index}
+              className="exp-item reveal"
+              style={{ transitionDelay: `${index * 0.12}s` }}
+            >
+            <span className="exp-line" />
+            <span className="exp-dot" />
+            <button
+              type="button"
+              className={`exp-card ${isOpen ? 'is-open' : ''}`}
+              aria-expanded={isOpen}
+              onClick={() => toggle(index)}
+            >
+              <span className="exp-date">{exp.date}</span>
+
+              <div className="exp-main">
+                <div className="exp-card-top">
+                  <div className="exp-card-heading">
+                    <h3 className="exp-title">{exp.title}</h3>
+                    <p className="exp-inst">{exp.institution}</p>
+                  </div>
+                  <svg
+                    className="exp-chevron"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+
+                <div className="exp-desc">
+                  <div className="exp-desc-inner">
+                    <p>{exp.description}</p>
+                  </div>
+                </div>
+              </div>
+            </button>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }
