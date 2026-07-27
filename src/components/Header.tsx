@@ -4,6 +4,7 @@ import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
 
 const KANJI: Record<string, string> = {
+  inicio: '山',
   experiencia: '地',
   proyectos: '水',
   skills: '火',
@@ -28,7 +29,7 @@ export default function Header() {
 
   // Scroll-spy: resalta la sección activa
   useEffect(() => {
-    const ids = ['experiencia', 'proyectos', 'skills', 'educacion', 'contacto'];
+    const ids = ['inicio', 'experiencia', 'proyectos', 'skills', 'educacion', 'contacto'];
     const spy = new IntersectionObserver(
       (entries) => {
         entries.forEach((en) => {
@@ -45,6 +46,7 @@ export default function Header() {
   }, []);
 
   const navItems = [
+    { href: '#inicio', id: 'inicio', label: t.inicio },
     { href: '#experiencia', id: 'experiencia', label: t.experiencia },
     { href: '#proyectos', id: 'proyectos', label: t.proyectos },
     { href: '#skills', id: 'skills', label: t.skills },
@@ -54,15 +56,6 @@ export default function Header() {
 
   return (
     <nav className="zen-nav" aria-label="Navegación principal">
-      <a href="#inicio" title="Inicio" style={{ display: 'flex', alignItems: 'center', padding: '6px 8px 6px 6px' }}>
-        <svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true">
-          <circle cx="20" cy="20" r="18" fill="var(--ink)" />
-          <path d="M20 2 a18 18 0 0 1 0 36 a9 9 0 0 1 0 -18 a9 9 0 0 0 0 -18 Z" fill="var(--bg)" />
-          <circle cx="20" cy="11" r="3" fill="var(--ink)" />
-          <circle cx="20" cy="29" r="3" fill="var(--bg)" />
-        </svg>
-      </a>
-
       {navItems.map((item) => (
         <a
           key={item.href}

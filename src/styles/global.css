@@ -42,7 +42,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 100px;
   font-family: 'Raleway', sans-serif;
   overflow-x: hidden;
 }
@@ -539,6 +539,8 @@ body {
   display: block;
   background: white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  transform-origin: center top;
+  will-change: transform;
 }
 
 .pdf-floating-controls {
@@ -1246,30 +1248,26 @@ body {
 
 /* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-dark);
+  background: var(--bg2);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
+  background: var(--accent);
   border-radius: 10px;
-
-  /* background: rgba(0, 254, 155, 0.5);
-  border-radius: 10px; */
-
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-light);
+  background: color-mix(in srgb, var(--accent) 80%, white);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) var(--bg-dark);
+  scrollbar-color: var(--accent) var(--bg2);
 }
 
 
@@ -1302,9 +1300,9 @@ a { color: var(--accent); text-decoration: none; }
 
 /* ---------- NAV ---------- */
 .zen-nav {
-  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-  z-index: 50; display: flex; align-items: center; gap: 6px;
-  padding: 8px 10px; background: color-mix(in srgb, var(--bg) 72%, transparent);
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 50; display: flex; align-items: center; gap: 8px;
+  padding: 11px 14px; background: color-mix(in srgb, var(--bg) 72%, transparent);
   backdrop-filter: blur(14px); border: 1px solid var(--line);
   border-radius: 999px; box-shadow: 0 8px 30px rgba(0,0,0,.35);
   max-width: calc(100vw - 24px); white-space: nowrap;
@@ -1312,17 +1310,17 @@ a { color: var(--accent); text-decoration: none; }
 }
 .zen-nav::-webkit-scrollbar { display: none; }
 .zen-navlink {
-  color: var(--muted); font-size: 13px; letter-spacing: .06em;
-  padding: 7px 11px; border-radius: 999px; white-space: nowrap;
+  color: var(--muted); font-size: 15px; letter-spacing: .06em;
+  padding: 9px 15px; border-radius: 999px; white-space: nowrap;
   flex-shrink: 0; transition: color .3s, background .3s; cursor: pointer;
 }
 .zen-navlink:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .zen-navlink.active { color: var(--ink); background: color-mix(in srgb, var(--accent) 22%, transparent); }
-.zen-nav-divider { width: 1px; height: 20px; background: var(--line); margin: 0 4px; flex-shrink: 0; }
+.zen-nav-divider { width: 1px; height: 24px; background: var(--line); margin: 0 5px; flex-shrink: 0; }
 .zen-lang { display: flex; align-items: center; flex-shrink: 0; border-radius: 999px; padding: 3px; background: color-mix(in srgb, var(--bg) 60%, transparent); }
 .zen-lang-btn {
   display: flex; align-items: center; gap: 6px; border: none; border-radius: 999px;
-  padding: 6px 15px; font-family: inherit; font-size: 12px; font-weight: 700;
+  padding: 8px 18px; font-family: inherit; font-size: 13px; font-weight: 700;
   letter-spacing: .1em; cursor: pointer; transition: background .3s, color .3s;
   background: transparent; color: var(--ink);
 }
@@ -1341,18 +1339,19 @@ a { color: var(--accent); text-decoration: none; }
   font-family: 'Outfit', sans-serif; font-size: min(22vh, 180px); font-weight: 800;
   color: color-mix(in srgb, var(--ink) 6%, transparent); line-height: 1; user-select: none;
 }
-.zen-hero-text { position: relative; z-index: 2; flex: 1 1 480px; max-width: 680px; padding: 120px 28px 30px; margin-left: max(6vw, 28px); }
+.zen-hero-text { position: relative; z-index: 2; flex: 1 1 560px; max-width: 840px; padding: 180px 28px 30px; margin-left: max(6vw, 28px); }
 .zen-eyebrow { font-size: 13px; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
 .zen-h1 { font-family: 'Outfit', sans-serif; font-size: clamp(44px, 6vw, 76px); line-height: 1.08; margin: 0; color: var(--ink); }
 .zen-rule { height: 3px; width: 140px; background: linear-gradient(90deg, var(--accent), transparent); border-radius: 2px; margin: 26px 0; }
-.zen-bio { font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 600px; margin: 0 0 32px; text-wrap: pretty; }
+.zen-bio { font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 690px; margin: 0 0 32px; text-wrap: pretty; }
 .zen-cv { display: inline-block; background: var(--accent); color: #0e1116; font-weight: 700; padding: 13px 28px; border-radius: 4px; letter-spacing: .05em; border: none; cursor: pointer; font-family: inherit; font-size: 15px; transition: filter .3s; }
 .zen-cv:hover { filter: brightness(1.12); }
-.zen-photo-outer { position: relative; z-index: 2; flex: 0 0 auto; margin: 110px max(14vw, 60px) 40px auto; align-self: center; }
-.zen-photo-wrap { position: relative; width: clamp(190px, 24vw, 320px); }
+.zen-photo-outer { position: relative; z-index: 2; flex: 0 0 auto; margin: 160px max(11vw, 60px) 40px auto; align-self: center; }
+.zen-photo-wrap { position: relative; width: clamp(240px, 30vw, 420px); }
 .zen-photo-ring { position: absolute; inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); animation: spinRing 12s linear infinite; }
 .zen-photo { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; animation: floatY 5s ease-in-out infinite; }
-.zen-mt { position: absolute; bottom: -2px; left: 0; width: 100%; }
+.zen-mt { position: absolute; bottom: -2px; left: 0; width: 100%; pointer-events: none; }
+.zen-hero-kanji, .zen-scroll { pointer-events: none; }
 .zen-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 5; color: var(--muted); font-size: 12px; letter-spacing: .3em; animation: floatY 3s ease-in-out infinite; }
 
 /* ---------- SECCIÓN (encabezado con kanji) ---------- */

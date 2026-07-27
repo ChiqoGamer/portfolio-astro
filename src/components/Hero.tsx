@@ -11,6 +11,7 @@ export default function Hero() {
   const pdfDocRef = useRef<any>(null);
   const currentPdfUrlRef = useRef<string | null>(null);
   const scaleRef = useRef(1.4);
+  const zoomTimerRef = useRef<number | undefined>(undefined);
   const pageNum = 1;
 
   const lang = useStore(currentLang);
@@ -63,8 +64,36 @@ export default function Hero() {
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).classList.contains('modal')) closeModal();
   };
-  const zoomIn = () => { scaleRef.current += 0.2; renderPage(pageNum); };
-  const zoomOut = () => { scaleRef.current = Math.max(0.5, scaleRef.current - 0.2); renderPage(pageNum); };
+  // Zoom suave: transición CSS inmediata + re-render nítido al terminar
+  const zoomTo = (target: number) => {
+    const clamped = Math.min(4, Math.max(0.3, target));
+    const canvas = pdfCanvasRef.current;
+    const prev = scaleRef.current;
+    scaleRef.current = clamped;
+    if (canvas && prev) {
+      canvas.style.transition = 'transform 0.25s ease';
+      canvas.style.transform = `scale(${clamped / prev})`;
+    }
+    window.clearTimeout(zoomTimerRef.current);
+    zoomTimerRef.current = window.setTimeout(() => {
+      if (canvas) { canvas.style.transition = 'none'; canvas.style.transform = 'none'; }
+      renderPage(pageNum);
+    }, 260);
+  };
+  const zoomIn = () => zoomTo(scaleRef.current + 0.2);
+  const zoomOut = () => zoomTo(scaleRef.current - 0.2);
+  const fitToScreen = () => {
+    const pdfDoc = pdfDocRef.current;
+    const viewer = document.querySelector('.pdf-viewer') as HTMLElement | null;
+    if (!pdfDoc || !viewer) return;
+    pdfDoc.getPage(pageNum).then((page: any) => {
+      const base = page.getViewport({ scale: 1 });
+      const cs = getComputedStyle(viewer);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const availW = viewer.clientWidth - padX;
+      zoomTo(availW / base.width);
+    });
+  };
 
   useEffect(() => { if (modalOpen && pdfDocRef.current) renderPage(pageNum); }, [modalOpen]);
   useEffect(() => { if (modalOpen) loadPdf(cvUrl); }, [cvUrl, modalOpen]);
@@ -192,6 +221,11 @@ export default function Hero() {
             <button onClick={zoomOut} aria-label="Zoom out">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
+              </svg>
+            </button>
+            <button onClick={fitToScreen} aria-label="Ajustar a pantalla" title="Ajustar a pantalla">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4" />
               </svg>
             </button>
             <button onClick={zoomIn} aria-label="Zoom in">
