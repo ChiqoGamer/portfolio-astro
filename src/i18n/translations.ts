@@ -159,6 +159,12 @@ projects: {
 
   items: [
     {
+      title: 'KitDesign',
+      subtitle: 'Diseñador de Equipaciones 3D',
+      description:
+        'Editor web para que clubes amateur diseñen su equipación de fútbol y la vean en 3D, sin depender de un diseñador. Un mismo canvas 2D (el layout UV son las piezas de corte) genera la textura del visor 3D y el archivo de impresión a 300 DPI, con deshacer/versionado y un render determinista.',
+    },
+    {
       title: 'React Botines',
       subtitle: 'E-Commerce',
       description:
@@ -381,6 +387,12 @@ projects: {
   website: 'Website',
 
   items: [
+    {
+      title: 'KitDesign',
+      subtitle: '3D Football Kit Designer',
+      description:
+        'Web editor for amateur clubs to design their football kit and preview it in 3D, without needing a designer. A single 2D canvas (the UV layout is the garment cut pattern) produces both the 3D viewer texture and the 300 DPI print file, with undo/versioning and a deterministic renderer.',
+    },
     {
       title: 'React Football Boots',
       subtitle: 'E-Commerce',

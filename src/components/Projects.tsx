@@ -8,9 +8,16 @@ interface Project {
   githubUrl: string;
   liveUrl?: string;
   image: string;
+  hideGithub?: boolean;
 }
 
 const projects: Project[] = [
+  {
+    techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Tailwind CSS' }],
+    githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
+    image: '/kitdesign.png',
+    hideGithub: true,
+  },
   {
     techs: [{ name: 'React' }, { name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'MockAPI' }, { name: 'LocalStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/React-Botines/tree/master',
@@ -91,16 +98,20 @@ export default function Projects() {
                       <span className="zen-tag" key={tech.name}>{tech.name}</span>
                     ))}
                   </div>
-                  <div className="zen-proj-actions">
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="zen-btn-ghost">
-                      <GithubIcon />GitHub
-                    </a>
-                    {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="zen-btn-accent">
-                        <GlobeIcon />{t.website}
-                      </a>
-                    )}
-                  </div>
+                  {(!project.hideGithub || project.liveUrl) && (
+                    <div className="zen-proj-actions">
+                      {!project.hideGithub && (
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="zen-btn-ghost">
+                          <GithubIcon />GitHub
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="zen-btn-accent">
+                          <GlobeIcon />{t.website}
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             );
