@@ -16,7 +16,6 @@ const projects: Project[] = [
     techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Tailwind CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
     image: '/kitdesign.png',
-    hideGithub: true,
   },
   {
     techs: [{ name: 'React' }, { name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'MockAPI' }, { name: 'LocalStorage' }],
