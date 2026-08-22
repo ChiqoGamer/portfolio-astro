@@ -9,6 +9,9 @@ export default function Experience() {
 
   return (
     <section id="experiencia" className="zen-section">
+      {/* Bonsái decorativo (elemento Tierra) */}
+      <div className="zen-earth-bonsai" aria-hidden="true" />
+
       <div className="zen-wrap">
         <div className="zen-head reveal">
           <span className="zen-kanji">地</span>

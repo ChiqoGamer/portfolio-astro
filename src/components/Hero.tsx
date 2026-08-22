@@ -101,11 +101,18 @@ export default function Hero() {
   // Parallax de montañas + fade del texto del hero
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
       const far = document.getElementById('mt-far');
       const mid = document.getElementById('mt-mid');
       const near = document.getElementById('mt-near');
       const txt = document.getElementById('hero-text');
+      // En tablet/celular no aplicamos parallax ni fade: el hero queda fijo
+      // y el botón "Visualizar CV" siempre visible y clickeable.
+      if (window.innerWidth <= 1023) {
+        [far, mid, near].forEach((el) => { if (el) el.style.transform = ''; });
+        if (txt) { txt.style.transform = ''; txt.style.opacity = ''; }
+        return;
+      }
+      const y = window.scrollY;
       if (far) far.style.transform = `translateY(${y * 0.28}px)`;
       if (mid) mid.style.transform = `translateY(${y * 0.16}px)`;
       if (near) near.style.transform = `translateY(${y * 0.06}px)`;

@@ -16,14 +16,14 @@ export default function Skills() {
       grupo: t.title1,
       items: [
         { name: 'HTML', icon: dv('html5') }, { name: 'CSS', icon: dv('css3') }, { name: 'JavaScript', icon: dv('javascript') },
-        { name: 'Astro', icon: dv('astro') }, { name: 'ReactJS', icon: dv('react') }, { name: 'Bootstrap', icon: dv('bootstrap') },
+        { name: 'Astro', icon: 'https://astro.build/assets/press/astro-icon-light-gradient.svg' }, { name: 'ReactJS', icon: dv('react') }, { name: 'Bootstrap', icon: dv('bootstrap') },
       ],
     },
     {
       grupo: t.title2,
       items: [
-        { name: 'Node JS', icon: dv('nodejs') }, { name: 'C#', icon: dv('csharp') }, { name: 'C++', icon: dv('cplusplus') },
-        { name: 'Java', icon: dv('java') }, { name: '.NET', icon: dv('dotnetcore') },
+        { name: 'Node JS', icon: dv('nodejs') }, { name: 'Express.js', icon: 'https://cdn.simpleicons.org/express/e9e4d8' }, { name: 'C#', icon: dv('csharp') },
+        { name: 'C++', icon: dv('cplusplus') }, { name: 'Java', icon: dv('java') }, { name: '.NET', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/.NET_Core_Logo.svg/3840px-.NET_Core_Logo.svg.png' },
       ],
     },
     {
@@ -36,8 +36,8 @@ export default function Skills() {
     {
       grupo: t.title4,
       items: [
-        { name: 'Express.js', icon: 'https://cdn.simpleicons.org/express/e9e4d8' }, { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs/e9e4d8' }, { name: 'TailwindCSS', icon: dv('tailwindcss') },
-        { name: 'Figma', icon: dv('figma') }, { name: 'TypeScript', icon: dv('typescript') },
+        { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs/e9e4d8' }, { name: 'TailwindCSS', icon: dv('tailwindcss') },
+        { name: 'Figma', icon: dv('figma') }, { name: 'TypeScript', icon: dv('typescript') }, { name: 'Supabase', icon: 'https://cdn.simpleicons.org/supabase/3FCF8E' },
       ],
     },
   ];
@@ -69,7 +69,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="zen-section">
-      <div className="zen-wrap">
+      <div className="zen-wrap wide">
         <div className="zen-head reveal">
           <span className="zen-kanji">火</span>
           <div>
