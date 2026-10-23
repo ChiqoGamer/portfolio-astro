@@ -83,13 +83,13 @@ export const translations = {
         {
           title: 'Data Analytics',
           institution: '5411 LLC',
-          date: 'JUL 2026 — Actualmente',
+          date: 'JUL 2026 — SEP 2026',
           description:
             'Análisis de datos para la toma de decisiones del negocio: recolección, limpieza y modelado de datos, creación de dashboards y reportes, y generación de insights accionables para optimizar procesos y resultados.',
           lineClass: 'linea-EXP',
         },
         {
-          title: 'Docente Auxiliar – Programación I C++',
+          title: 'JTP (Jefe de Trabajos Prácticos) – Programación I C++',
           institution: 'Universidad Tecnológica Nacional FRGP',
           date: 'AGO 2023 — Actualmente',
           description:
@@ -266,7 +266,7 @@ chat: {
         {
           title: 'Data Analytics',
           institution: '5411 LLC',
-          date: 'JUL 2026 — Present',
+          date: 'JUL 2026 — SEP 2026',
           description:
             'Data analysis to support business decision-making: data collection, cleaning, and modeling, dashboard and report building, and generating actionable insights to optimize processes and outcomes.',
           lineClass: 'linea-EXP',
