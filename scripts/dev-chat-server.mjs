@@ -22,16 +22,16 @@ Joel Nicolás Morán — Full Stack Developer con base en la Tecnicatura Univers
 Antes de programar busca escuchar: entiende cómo trabaja un equipo o un cliente para diseñar después la solución que realmente se adapte a sus necesidades. Su rol como docente auxiliar en la facultad desarrolló en él una capacidad poco común entre developers: explicar lo complejo con claridad y sostener el trabajo en equipo bajo presión. Hoy busca crecer no solo en lo técnico, sino en su capacidad de coordinar equipos y aportar una mirada humana al desarrollo de software.
 
 EXPERIENCIA (de más reciente a más antigua)
-- Data Analytics — 5411 LLC (jul 2026 - Actualidad). ES SU EXPERIENCIA ACTUAL Y MÁS IMPORTANTE. Análisis de datos para la toma de decisiones del negocio: recolección, limpieza y modelado de datos, creación de dashboards y reportes, y generación de insights accionables para optimizar procesos y resultados.
-- Docente Auxiliar – Programación I (C++) — Universidad Tecnológica Nacional FRGP (ago 2023 - Actualidad). Dicta clases teóricas y prácticas, asiste a estudiantes, corrige evaluaciones y resuelve dudas.
+- Data Analytics — 5411 LLC (jul 2026 - sep 2026). Experiencia reciente y destacada (ya finalizada). Análisis de datos para la toma de decisiones del negocio: recolección, limpieza y modelado de datos, creación de dashboards y reportes, y generación de insights accionables para optimizar procesos y resultados.
+- JTP (Jefe de Trabajos Prácticos) – Programación I (C++) — Universidad Tecnológica Nacional FRGP (ago 2023 - Actualidad). Dicta clases teóricas y prácticas, asiste a estudiantes, corrige evaluaciones y resuelve dudas.
 - Profesor Particular de Programación — Autónomo (abr 2024 - Actualidad). Clases personalizadas a estudiantes universitarios sobre lógica de programación, diagramas de flujo y ejercicios prácticos.
 - Developer — Colidevs Startup (ago 2024 - dic 2025). Desarrolló la landing page de la empresa con Astro y Tailwind CSS, enfocada en performance, diseño responsive y SEO.
 
 EDUCACIÓN (de más reciente a más antigua)
 - Full Stack Developer — Fundación Pescar (jun 2026 - dic 2026). ES LO QUE ESTÁ CURSANDO ACTUALMENTE. Formación desde los fundamentos web hasta Python, Django, React, MongoDB e Ingeniería de Software con IA, complementada con habilidades blandas: marca personal, autoconocimiento y desarrollo profesional.
-- Node JS — TalentoTech (mar 2026 - jul 2026). Backend con Node.js, Express, bases de datos, autenticación y despliegue.
-- React JS — TalentoTech (ago 2025 - nov 2025). React, hooks, rutas, CRUD, autenticación, consumo de APIs y Bootstrap.
-- Front-End con JavaScript — TalentoTech (mar 2025 - jul 2025). HTML, CSS, JavaScript y diseño responsive.
+- Node JS — TalentoTech (abr 2026 - jul 2026). Backend con Node.js, Express, bases de datos, autenticación y despliegue.
+- React JS — TalentoTech (jul 2025 - dic 2025). React, hooks, rutas, CRUD, autenticación, consumo de APIs y Bootstrap.
+- Front-End con JavaScript — TalentoTech (abr 2025 - jul 2025). HTML, CSS, JavaScript y diseño responsive.
 - Técnico Universitario en Programación — UTN FRGP (ago 2022 - dic 2024). Programación, bases de datos, desarrollo web e ingeniería de software.
 
 PROYECTOS DESTACADOS
@@ -146,7 +146,7 @@ async function generateGeminiReply({ lang, messages }) {
                 'Sos Plumita, la asistente virtual del portfolio de Joel Nicolás Morán.',
                 'Respondés preguntas sobre su perfil, experiencia, educación, proyectos, tecnologías y formas de contacto,',
                 'basándote únicamente en la información del contexto que aparece abajo.',
-                'Si te preguntan por lo que está haciendo ahora, destacá que trabaja como Data Analytics en 5411 LLC y que cursa el Full Stack Developer en Fundación Pescar.',
+                'Si te preguntan por lo que está haciendo ahora, destacá que es JTP (Jefe de Trabajos Prácticos) de Programación I (C++) en la UTN FRGP, que da clases particulares de programación y que cursa el Full Stack Developer en Fundación Pescar.',
                 'Si algo no está en el contexto, decí con naturalidad que no tenés ese dato e invitá a contactarlo.',
                 'Sé conciso y evitá inventar información.',
                 languageInstructions[lang],

@@ -32,6 +32,8 @@ export const translations = {
 
     education: {
       title: 'Educación',
+      certificateLabel: 'Ver certificado',
+      certificateDownload: 'Descargar certificado',
 
       educationItems: [
          {
@@ -45,7 +47,8 @@ export const translations = {
   {
     title: 'Node JS',
     institution: '<TalentoTech>',
-    date: 'MAR 2026 - JUL 2026',
+    date: 'ABR 2026 - JUL 2026',
+    certificateUrl: 'https://openbadgefactory.com/obv3/credentials/367271366cbba71c2317e736f8a3de5c9e133d98',
     description:
       'Formación en desarrollo backend con Node.js, Express, bases de datos, autenticación y despliegue.',
     lineClass: 'linea',
@@ -53,7 +56,8 @@ export const translations = {
   {
     title: 'React JS',
     institution: '<TalentoTech>',
-    date: 'AGO 2025 - NOV 2025',
+    date: 'JUL 2025 - DIC 2025',
+    certificateUrl: 'https://openbadgefactory.com/obv3/credentials/cb6fec998dcd0dc7490b659442f54fa0f6943b1a',
     description:
       'Desarrollo frontend con React, hooks, rutas, CRUD, autenticación, consumo de APIs y aproximación a Bootstrap.',
     lineClass: 'linea',
@@ -61,7 +65,8 @@ export const translations = {
   {
     title: 'Front-End con JavaScript',
     institution: '<TalentoTech>',
-    date: 'MAR 2025 - JUL 2025',
+    date: 'ABR 2025 - JUL 2025',
+    certificateUrl: 'https://openbadgefactory.com/obv3/credentials/a2a1b6f5d20ad12e663041a1fdac0b6c1c7c1885',
     description: 'Formación en desarrollo web, HTML, CSS, JavaScript y diseño responsive.',
     lineClass: 'linea',
   },
@@ -69,6 +74,7 @@ export const translations = {
     title: 'Tecnico Universitario en Programación',
     institution: 'Universidad Tecnológica Nacional FRGP',
     date: 'AGO 2022 - DIC 2024',
+    certificateUrl: '/certificados/tecnicatura-utn-frgp.pdf',
     description:
       'Formación técnica en programación, bases de datos, desarrollo web e ingeniería de software.',
     lineClass: 'linea3',
@@ -272,7 +278,7 @@ chat: {
           lineClass: 'linea-EXP',
         },
         {
-          title: 'Teaching Assistant – Programming I (C++)',
+          title: 'JTP (Practical Work Lead) – Programming I (C++)',
           institution: 'National Technological University (UTN FRGP)',
           date: 'AUG 2023 — Present',
           description:
@@ -305,6 +311,8 @@ chat: {
     },
     education: {
   title: 'Education',
+  certificateLabel: 'View certificate',
+  certificateDownload: 'Download certificate',
 
   educationItems: [
     {
@@ -318,7 +326,8 @@ chat: {
     {
       title: 'Node.js',
       institution: '<TalentTech>',
-      date: 'MAR 2026 - JUL 2026',
+      date: 'APR 2026 - JUL 2026',
+    certificateUrl: 'https://openbadgefactory.com/obv3/credentials/367271366cbba71c2317e736f8a3de5c9e133d98',
       description:
         'Backend development training with Node.js, Express, databases, authentication, and application deployment.',
       lineClass: 'linea',
@@ -326,7 +335,8 @@ chat: {
     {
       title: 'React.js',
       institution: '<TalentTech>',
-      date: 'AUG 2025 - NOV 2025',
+      date: 'JUL 2025 - DEC 2025',
+    certificateUrl: 'https://openbadgefactory.com/obv3/credentials/cb6fec998dcd0dc7490b659442f54fa0f6943b1a',
       description:
         'Frontend development with React, Hooks, routing, CRUD operations, authentication, API integration, and an introduction to Bootstrap.',
       lineClass: 'linea',
@@ -334,7 +344,8 @@ chat: {
     {
       title: 'Front-End with JavaScript',
       institution: '<TalentTech>',
-      date: 'MAR 2025 - JUL 2025',
+      date: 'APR 2025 - JUL 2025',
+    certificateUrl: 'https://openbadgefactory.com/obv3/credentials/a2a1b6f5d20ad12e663041a1fdac0b6c1c7c1885',
       description:
         'Training in web development, HTML, CSS, JavaScript, and responsive design.',
       lineClass: 'linea',
@@ -343,6 +354,7 @@ chat: {
       title: 'University Technician in Programming',
       institution: 'National Technological University (UTN FRGP)',
       date: 'AUG 2022 - DEC 2024',
+    certificateUrl: '/certificados/tecnicatura-utn-frgp.pdf',
       description:
         'Technical education in programming, databases, web development, and software engineering.',
       lineClass: 'linea3',

@@ -2,17 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { useStore } from '@nanostores/react';
 import { currentLang } from '../i18n/store';
 import { translations } from '../i18n/translations';
+import PdfModal from './PdfModal';
 
 export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [pageCount, setPageCount] = useState(1);
-  const pdfCanvasRef = useRef<HTMLCanvasElement>(null);
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
-  const pdfDocRef = useRef<any>(null);
-  const currentPdfUrlRef = useRef<string | null>(null);
-  const scaleRef = useRef(1.4);
-  const zoomTimerRef = useRef<number | undefined>(undefined);
-  const pageNum = 1;
 
   const lang = useStore(currentLang);
   const t = translations[lang].hero;
@@ -20,83 +14,11 @@ export default function Hero() {
   const cvUrl = lang === 'es'
     ? '/JoelMoran_FullStackDeveloper.pdf'
     : '/JoelMoran_FullStackDeveloper_EN.pdf';
-  const cvFileName = cvUrl.replace('/', '');
-
-  const loadPdf = (url: string) => {
-    const pdfjsLib = (window as any).pdfjsLib;
-    if (!pdfjsLib) { setTimeout(() => loadPdf(url), 300); return; }
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    pdfjsLib.getDocument(url).promise.then((pdf: any) => {
-      pdfDocRef.current = pdf;
-      currentPdfUrlRef.current = url;
-      setPageCount(pdf.numPages || 1);
-      renderPage(pageNum);
-    });
-  };
-
-  const renderPage = (num: number) => {
-    const pdfDoc = pdfDocRef.current;
-    const canvas = pdfCanvasRef.current;
-    if (!pdfDoc || !canvas) return;
-    pdfDoc.getPage(num).then((page: any) => {
-      const viewport = page.getViewport({ scale: scaleRef.current });
-      const tempCanvas = document.createElement('canvas');
-      const tempCtx = tempCanvas.getContext('2d')!;
-      tempCanvas.height = viewport.height;
-      tempCanvas.width = viewport.width;
-      page.render({ canvasContext: tempCtx, viewport }).promise.then(() => {
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-        canvas.getContext('2d')!.drawImage(tempCanvas, 0, 0);
-      });
-    });
-  };
 
   const openModal = (e: React.MouseEvent) => {
     e.preventDefault();
-    scaleRef.current = window.innerWidth < 768 ? 0.6 : 1.4;
     setModalOpen(true);
-    if (!pdfDocRef.current || currentPdfUrlRef.current !== cvUrl) loadPdf(cvUrl);
-    else renderPage(pageNum);
   };
-  const closeModal = () => setModalOpen(false);
-  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).classList.contains('modal')) closeModal();
-  };
-  // Zoom suave: transición CSS inmediata + re-render nítido al terminar
-  const zoomTo = (target: number) => {
-    const clamped = Math.min(4, Math.max(0.3, target));
-    const canvas = pdfCanvasRef.current;
-    const prev = scaleRef.current;
-    scaleRef.current = clamped;
-    if (canvas && prev) {
-      canvas.style.transition = 'transform 0.25s ease';
-      canvas.style.transform = `scale(${clamped / prev})`;
-    }
-    window.clearTimeout(zoomTimerRef.current);
-    zoomTimerRef.current = window.setTimeout(() => {
-      if (canvas) { canvas.style.transition = 'none'; canvas.style.transform = 'none'; }
-      renderPage(pageNum);
-    }, 260);
-  };
-  const zoomIn = () => zoomTo(scaleRef.current + 0.2);
-  const zoomOut = () => zoomTo(scaleRef.current - 0.2);
-  const fitToScreen = () => {
-    const pdfDoc = pdfDocRef.current;
-    const viewer = document.querySelector('.pdf-viewer') as HTMLElement | null;
-    if (!pdfDoc || !viewer) return;
-    pdfDoc.getPage(pageNum).then((page: any) => {
-      const base = page.getViewport({ scale: 1 });
-      const cs = getComputedStyle(viewer);
-      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-      const availW = viewer.clientWidth - padX;
-      zoomTo(availW / base.width);
-    });
-  };
-
-  useEffect(() => { if (modalOpen && pdfDocRef.current) renderPage(pageNum); }, [modalOpen]);
-  useEffect(() => { if (modalOpen) loadPdf(cvUrl); }, [cvUrl, modalOpen]);
 
   // Parallax de montañas + fade del texto del hero
   useEffect(() => {
@@ -195,54 +117,7 @@ export default function Hero() {
       <div className="zen-scroll">▼ {z.scroll}</div>
 
       {/* ===== CV Modal (PDF.js) ===== */}
-      <div className={`modal ${modalOpen ? 'open' : ''}`} onClick={handleModalClick}>
-        <div className="modal-content">
-          <div className="pdf-topbar">
-            <div className="pdf-file-info">
-              <button className="pdf-icon-button" onClick={closeModal} aria-label="Cerrar modal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                </svg>
-              </button>
-              <span className="pdf-badge">PDF</span>
-              <span className="pdf-file-name">{cvFileName}</span>
-            </div>
-            <div className="pdf-actions">
-              <a href={cvUrl} download className="pdf-icon-button" aria-label={t.downloadCV}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
-                  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-          <div className="pdf-viewer">
-            <canvas ref={pdfCanvasRef} id="pdfCanvas" className="pdf-page-canvas" />
-          </div>
-          <div className="pdf-floating-controls">
-            <span className="pdf-page-label">Page</span>
-            <span className="pdf-page-current">{pageNum}</span>
-            <span className="pdf-page-separator">/</span>
-            <span className="pdf-page-total">{pageCount}</span>
-            <span className="pdf-control-divider" />
-            <button onClick={zoomOut} aria-label="Zoom out">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
-              </svg>
-            </button>
-            <button onClick={fitToScreen} aria-label="Ajustar a pantalla" title="Ajustar a pantalla">
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                <path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4" />
-              </svg>
-            </button>
-            <button onClick={zoomIn} aria-label="Zoom in">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+      <PdfModal url={cvUrl} open={modalOpen} onClose={() => setModalOpen(false)} downloadLabel={t.downloadCV} />
     </section>
   );
 }
