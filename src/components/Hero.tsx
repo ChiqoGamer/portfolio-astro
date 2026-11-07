@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 import PdfModal from './PdfModal';
 
-export default function Hero() {
+// Respeta la preferencia del sistema "reducir movimiento"
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+export default function Hero({ lang }: { lang: Lang }) {
   const [modalOpen, setModalOpen] = useState(false);
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  const lang = useStore(currentLang);
   const t = translations[lang].hero;
   const z = translations[lang].zen;
   const cvUrl = lang === 'es'
@@ -22,6 +24,7 @@ export default function Hero() {
 
   // Parallax de montañas + fade del texto del hero
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const onScroll = () => {
       const far = document.getElementById('mt-far');
       const mid = document.getElementById('mt-mid');
@@ -47,7 +50,7 @@ export default function Hero() {
   // Canvas de partículas (brasas)
   useEffect(() => {
     const canvas = heroCanvasRef.current;
-    if (!canvas) return;
+    if (!canvas || prefersReducedMotion()) return;
     const ctx = canvas.getContext('2d')!;
     let parts: any[] = [];
     let raf = 0;
@@ -90,8 +93,9 @@ export default function Hero() {
         <h1 className="zen-h1">{t.greeting}<br />Joel Nicolás Morán</h1>
         <div className="zen-rule" />
         <p className="zen-bio">{t.desc}</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center' }}>
+        <div className="zen-hero-actions">
           <button onClick={openModal} className="zen-cv">{t.cvBtn}</button>
+          <a href="#contacto" className="zen-cv-ghost">{t.contactBtn}</a>
         </div>
       </div>
 
@@ -101,7 +105,7 @@ export default function Hero() {
             <circle cx="50" cy="50" r="48.5" fill="none" stroke="var(--accent)" strokeWidth="1.6" strokeLinecap="round"
               strokeDasharray="30 9 8 16 42 6 14 22 5 11 36 18 10 7 24 13 4 20 17 8" />
           </svg>
-          <img src="/foto.png" alt="Joel Morán" className="zen-photo" />
+          <img src="/foto.webp" alt="Joel Morán" width="840" height="594" className="zen-photo" />
         </div>
       </div>
 

@@ -1,9 +1,7 @@
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 
-export default function Footer() {
-  const lang = useStore(currentLang);
+export default function Footer({ lang }: { lang: Lang }) {
   const t = translations[lang].footer;
   const z = translations[lang].zen;
 

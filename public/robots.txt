@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joelmoran.com.ar/sitemap.xml

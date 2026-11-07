@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 import PdfModal from './PdfModal';
 
-export default function Education() {
+export default function Education({ lang }: { lang: Lang }) {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const lang = useStore(currentLang);
   const t = translations[lang].education;
   const z = translations[lang].zen;
 

@@ -1,5 +1,4 @@
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 
 interface Tech { name: string; }
@@ -15,41 +14,41 @@ const projects: Project[] = [
   {
     techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Tailwind CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
-    image: '/kitdesign.png',
+    image: '/kitdesign.webp',
   },
   {
     techs: [{ name: 'React' }, { name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'MockAPI' }, { name: 'LocalStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/React-Botines/tree/master',
     liveUrl: 'https://react-botines.vercel.app',
-    image: '/ecommerce-botines.png',
+    image: '/ecommerce-botines.webp',
   },
   {
     techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'Tailwind CSS' }, { name: 'TypeScript' }, { name: 'API Gemini' }, { name: 'Node JS' }, { name: 'Express' }],
     githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
     liveUrl: 'https://www.joelmoran.com.ar',
-    image: '/portfolio.jpeg',
+    image: '/portfolio.webp',
   },
   {
     techs: [{ name: 'Java' }, { name: 'MySQL' }, { name: 'Eclipse' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }],
     githubUrl: 'https://github.com/ChiqoGamer/Banco-XYZ',
-    image: '/banco.png',
+    image: '/banco.webp',
   },
   {
     techs: [{ name: 'C#' }, { name: 'Framework .NET' }, { name: 'SQL' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'Visual Basic' }],
     githubUrl: 'https://github.com/ChiqoGamer/Hospital-UTN-FRGP',
-    image: '/hospital.png',
+    image: '/hospital.webp',
   },
   {
     techs: [{ name: 'Astro' }, { name: 'Tailwind CSS' }, { name: 'JavaScript' }],
     githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
     liveUrl: 'https://www.coli.com.ar',
-    image: '/colidevs.png',
+    image: '/colidevs.webp',
   },
   {
     techs: [{ name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'DummyJson' }, { name: 'LocalStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/Ecommerce-Botines',
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
-    image: '/tecnoflash.png',
+    image: '/tecnoflash.webp',
   },
 ];
 
@@ -65,8 +64,7 @@ const GlobeIcon = () => (
   </svg>
 );
 
-export default function Projects() {
-  const lang = useStore(currentLang);
+export default function Projects({ lang }: { lang: Lang }) {
   const t = translations[lang].projects;
   const z = translations[lang].zen;
 
@@ -87,7 +85,7 @@ export default function Projects() {
             const item = t.items[index];
             return (
               <div className="zen-proj-card reveal" key={index} style={{ transitionDelay: `${(index % 3) * 0.08}s` }}>
-                <div className="zen-proj-img" role="img" aria-label={item.title} style={{ backgroundImage: `url('${project.image}')` }} />
+                <img className="zen-proj-img" src={project.image} alt={item.title} loading="lazy" decoding="async" width="895" height="504" />
                 <div className="zen-proj-body">
                   <h3 className="zen-proj-title">{item.title}</h3>
                   <div className="zen-proj-type">{item.subtitle}</div>

@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 const API_URL = import.meta.env.PUBLIC_CHAT_API_URL;
 
@@ -31,13 +30,13 @@ function JoelAvatar({ size = 56, pulse = false }: { size?: number; pulse?: boole
             width: size,
             height: size,
             borderRadius: '50%',
-            background: 'rgba(210,74,53,0.25)',
+            background: 'rgba(221,88,67,0.25)',
             animation: 'pulse-ring 2s ease-out infinite',
             zIndex: 0,
           }} />
         )}
         <img
-          src="/avatar.png"
+          src="/avatar.webp"
           alt="Joel avatar"
           style={{
             width: '100%',
@@ -60,11 +59,11 @@ function JoelAvatar({ size = 56, pulse = false }: { size?: number; pulse?: boole
       borderRadius: '50%',
       overflow: 'hidden',
       background: '#161c24',
-      border: '1.5px solid rgba(210,74,53,0.4)',
+      border: '1.5px solid rgba(221,88,67,0.4)',
       flexShrink: 0,
     }}>
       <img
-        src="/plumita.png"
+        src="/plumita.webp"
         alt="Plumita"
         style={{
           width: '110%',
@@ -86,7 +85,7 @@ function TypingDots() {
       {[0, 1, 2].map(i => (
         <span key={i} style={{
           width: 7, height: 7, borderRadius: '50%',
-          background: '#d24a35',
+          background: '#dd5843',
           animation: `typingBounce 1.2s ease-in-out infinite`,
           animationDelay: `${i * 0.2}s`,
           display: 'block',
@@ -97,8 +96,16 @@ function TypingDots() {
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
-export default function AIChat() {
+export default function AIChat({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(false);
+  // En celular el botón aparece recién al pasar el inicio, para no tapar los botones del hero
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setPastHero(window.scrollY > 240);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -106,7 +113,6 @@ export default function AIChat() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const lang = useStore(currentLang);
 const t = translations[lang].chat;
   const welcomeMessages = [translations.es.chat.welcome, translations.en.chat.welcome];
 
@@ -213,14 +219,13 @@ const t = translations[lang].chat;
         .ai-msg-user   { animation: msgFadeIn 0.25s ease; }
         .ai-msg-bot    { animation: msgFadeIn 0.25s ease; }
         .ai-input-area { resize: none; outline: none; }
-        .ai-input-area:focus { box-shadow: 0 0 0 1px rgba(210,74,53,0.4); }
+        .ai-input-area:focus { box-shadow: 0 0 0 1px rgba(221,88,67,0.4); }
         .ai-send-btn:hover:not(:disabled) { background: #e0563f !important; }
         .ai-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .ai-suggestion:hover { background: rgba(210,74,53,0.12) !important; border-color: rgba(210,74,53,0.5) !important; }
+        .ai-suggestion:hover { background: rgba(221,88,67,0.12) !important; border-color: rgba(221,88,67,0.5) !important; }
         .ai-toggle-btn:hover { transform: scale(1.05); }
-        .ai-toggle-btn { transition: transform 0.2s ease; }
+        .ai-toggle-btn { transition: transform 0.2s ease, opacity 0.25s ease; }
 
-        // Dentro del <style> agregá al final
 .ai-toggle-btn {
   transition: transform 0.2s ease;
 }
@@ -247,13 +252,15 @@ const t = translations[lang].chat;
 
   /* El chat ocupa todo el ancho en mobile */
   /* y el avatar se superpone arriba a la derecha */
+  .ai-toggle-btn { right: 12px !important; bottom: 12px !important; }
+  .ai-toggle-btn.ai-hide-mobile { opacity: 0; pointer-events: none; transform: translateY(16px); }
 }
       `}</style>
 
 
       {/* ── Sticky toggle button ── */}
 <button
-  className="ai-toggle-btn"
+  className={`ai-toggle-btn ${!pastHero && !open ? 'ai-hide-mobile' : ''}`}
   onClick={() => setOpen(o => !o)}
   aria-label="Chat con Joel IA"
   style={{
@@ -265,7 +272,7 @@ const t = translations[lang].chat;
     border: 'none',
     cursor: 'pointer',
     padding: 0,
-    filter: open ? 'drop-shadow(0 0 14px rgba(210,74,53,0.6))' : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
+    filter: open ? 'drop-shadow(0 0 14px rgba(221,88,67,0.6))' : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))',
   }}
 >
   {/* Desktop: tamaño grande */}
@@ -274,7 +281,7 @@ const t = translations[lang].chat;
   </div>
   {/* Mobile: tamaño reducido */}
   <div className="hidden-desktop">
-    <JoelAvatar size={100} pulse={!open} />
+    <JoelAvatar size={72} pulse={!open} />
   </div>
 </button>
 
@@ -295,8 +302,8 @@ const t = translations[lang].chat;
       overflow: 'hidden',
       animation: 'chatSlideUp 0.3s ease',
       background: '#161c24',
-      border: '1px solid rgba(210,74,53,0.2)',
-      boxShadow: '0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(210,74,53,0.06)',
+      border: '1px solid rgba(221,88,67,0.2)',
+      boxShadow: '0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(221,88,67,0.06)',
     }}
   >
           {/* Header */}
@@ -305,16 +312,16 @@ const t = translations[lang].chat;
             alignItems: 'center',
             gap: 10,
             padding: '12px 16px',
-            background: 'rgba(210,74,53,0.05)',
-            borderBottom: '1px solid rgba(210,74,53,0.12)',
+            background: 'rgba(221,88,67,0.05)',
+            borderBottom: '1px solid rgba(221,88,67,0.12)',
             flexShrink: 0,
           }}>
             <JoelAvatar size={36} />
             <div style={{ flex: 1 }}>
-              <p style={{ margin: 0, fontWeight: 700, fontSize: 14, color: 'white', fontFamily: 'Raleway, sans-serif' }}>
+              <p style={{ margin: 0, fontWeight: 700, fontSize: 14, color: 'white', fontFamily: "'Zen Kaku Gothic New', sans-serif" }}>
                 {t.header.title}
               </p>
-              <p style={{ margin: 0, fontSize: 11, color: '#d24a35', fontFamily: 'Raleway, sans-serif' }}>
+              <p style={{ margin: 0, fontSize: 11, color: '#dd5843', fontFamily: "'Zen Kaku Gothic New', sans-serif" }}>
                 {t.header.status}
               </p>
             </div>
@@ -353,14 +360,14 @@ const t = translations[lang].chat;
                     className="ai-suggestion"
                     onClick={() => { setInput(s); inputRef.current?.focus(); }}
                     style={{
-                      background: 'rgba(210,74,53,0.06)',
-                      border: '1px solid rgba(210,74,53,0.25)',
+                      background: 'rgba(221,88,67,0.06)',
+                      border: '1px solid rgba(221,88,67,0.25)',
                       borderRadius: 20,
                       padding: '5px 12px',
                       fontSize: 11,
                       color: '#ccc',
                       cursor: 'pointer',
-                      fontFamily: 'Raleway, sans-serif',
+                      fontFamily: "'Zen Kaku Gothic New', sans-serif",
                       transition: '0.2s',
                     }}
                   >
@@ -397,7 +404,7 @@ const t = translations[lang].chat;
                     color: msg.role === 'user' ? '#0d1a12' : '#e8e8f0',
                     fontSize: 13,
                     lineHeight: 1.55,
-                    fontFamily: 'Raleway, sans-serif',
+                    fontFamily: "'Zen Kaku Gothic New', sans-serif",
                     whiteSpace: 'pre-wrap',
                     wordBreak: 'break-word',
                     border: msg.role === 'assistant' ? '1px solid rgba(255,255,255,0.08)' : 'none',
@@ -422,7 +429,7 @@ const t = translations[lang].chat;
             )}
 
             {error && (
-              <p style={{ color: '#ff6b6b', fontSize: 12, textAlign: 'center', fontFamily: 'Raleway, sans-serif' }}>
+              <p style={{ color: '#ff6b6b', fontSize: 12, textAlign: 'center', fontFamily: "'Zen Kaku Gothic New', sans-serif" }}>
                 {error}
               </p>
             )}
@@ -456,7 +463,7 @@ const t = translations[lang].chat;
                 padding: '9px 12px',
                 color: 'white',
                 fontSize: 13,
-                fontFamily: 'Raleway, sans-serif',
+                fontFamily: "'Zen Kaku Gothic New', sans-serif",
                 maxHeight: 90,
                 lineHeight: 1.5,
                 transition: '0.2s',
@@ -472,7 +479,7 @@ const t = translations[lang].chat;
               onClick={sendMessage}
               disabled={loading || !input.trim()}
               style={{
-                background: '#d24a35',
+                background: '#dd5843',
                 border: 'none',
                 borderRadius: 12,
                 width: 38,
@@ -498,7 +505,7 @@ const t = translations[lang].chat;
             padding: '4px 0 8px',
             fontSize: 10,
             color: '#444',
-            fontFamily: 'Raleway, sans-serif',
+            fontFamily: "'Zen Kaku Gothic New', sans-serif",
             background: '#12161c',
             flexShrink: 0,
           }}>

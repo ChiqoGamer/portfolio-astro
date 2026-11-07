@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 
 const dv = (n: string, v?: string) =>
-  `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${n}/${n}-${v || 'original'}.svg`;
+  `https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/${n}/${n}-${v || 'original'}.svg`;
 
-export default function Skills() {
-  const lang = useStore(currentLang);
+export default function Skills({ lang }: { lang: Lang }) {
   const t = translations[lang].skill;
   const z = translations[lang].zen;
 
@@ -23,7 +21,7 @@ export default function Skills() {
       grupo: t.title2,
       items: [
         { name: 'Node JS', icon: dv('nodejs') }, { name: 'Express.js', icon: 'https://cdn.simpleicons.org/express/e9e4d8' }, { name: 'C#', icon: dv('csharp') },
-        { name: 'C++', icon: dv('cplusplus') }, { name: 'Java', icon: dv('java') }, { name: '.NET', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/.NET_Core_Logo.svg/3840px-.NET_Core_Logo.svg.png' },
+        { name: 'C++', icon: dv('cplusplus') }, { name: 'Java', icon: dv('java') }, { name: '.NET', icon: dv('dot-net') },
       ],
     },
     {

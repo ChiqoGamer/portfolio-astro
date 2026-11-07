@@ -1,9 +1,7 @@
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
 
-export default function Experience() {
-  const lang = useStore(currentLang);
+export default function Experience({ lang }: { lang: Lang }) {
   const t = translations[lang].exp;
   const z = translations[lang].zen;
 

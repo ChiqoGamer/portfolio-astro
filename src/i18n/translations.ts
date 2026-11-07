@@ -13,8 +13,9 @@ export const translations = {
     hero: {
       subtitle: 'Full Stack Developer',
       greeting: 'Hola, soy',
-      desc: 'Full Stack Developer con base en la Tecnicatura Universitaria en Programación (UTN FRGP), que antes de programar busca escuchar: entender cómo trabaja un equipo o un cliente para diseñar después la solución que realmente se adapte a sus necesidades. Mi rol como docente auxiliar en la facultad desarrolló en mí una capacidad poco común en developers: explicar lo complejo con claridad y sostener el trabajo en equipo bajo presión. Hoy busco crecer no solo en lo técnico, sino en mi capacidad de coordinar equipos y aportar una mirada humana al desarrollo de software.',
+      desc: 'Full Stack Developer y Técnico Universitario en Programación (UTN FRGP). Antes de programar escucho: entiendo cómo trabaja el equipo o el cliente y diseño la solución que realmente necesita. Como JTP en la UTN aprendí a explicar lo complejo con claridad y a sostener al equipo bajo presión.',
       cvBtn: 'Visualizar CV',
+      contactBtn: 'Contactame',
       downloadCV: 'Descargar CV',
     },
 
@@ -248,8 +249,9 @@ chat: {
     hero: {
       subtitle: 'Full Stack Developer',
       greeting: "Hi, I'm",
-      desc: 'Full Stack Developer with a foundation in the University Technical Degree in Programming (UTN FRGP), who listens before coding: understanding how a team or a client works in order to then design the solution that truly fits their needs. My role as a teaching assistant at the university developed in me a skill uncommon among developers: explaining the complex with clarity and holding teamwork together under pressure. Today I aim to grow not only technically, but also in my ability to coordinate teams and bring a human perspective to software development.',
+      desc: 'Full Stack Developer and University Technician in Programming (UTN FRGP). I listen before I code: I learn how a team or client works, then design the solution they actually need. As a JTP (practical work lead) at UTN, I learned to explain complex ideas clearly and keep a team steady under pressure.',
       cvBtn: 'View CV',
+      contactBtn: 'Contact me',
       downloadCV: 'Download CV',
     },
 

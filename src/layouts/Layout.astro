@@ -1,79 +1,120 @@
 ---
 import '../styles/global.css';
+import type { Lang } from '../i18n/translations';
 
 interface Props {
-  title?: string;
-  description?: string;
+  lang: Lang;
 }
 
-const {
-  title = 'Joel Moran - FullStack Developer',
-  description = 'Porfolio de Joel Nicolas Moran - Software Developer',
-} = Astro.props;
+const { lang } = Astro.props;
+const SITE = 'https://joelmoran.com.ar';
+
+const meta = {
+  es: {
+    title: 'Joel Morán · Full Stack Developer',
+    description:
+      'Portfolio de Joel Nicolás Morán, Full Stack Developer y Técnico Universitario en Programación (UTN FRGP). Proyectos con React, Node.js, Astro y .NET.',
+    path: '/',
+    locale: 'es_AR',
+  },
+  en: {
+    title: 'Joel Morán · Full Stack Developer',
+    description:
+      'Portfolio of Joel Nicolás Morán, Full Stack Developer and University Technician in Programming (UTN FRGP). Projects built with React, Node.js, Astro and .NET.',
+    path: '/en/',
+    locale: 'en_US',
+  },
+}[lang];
+
+const canonical = SITE + meta.path;
+const ogImage = `${SITE}/perfil-SEO.png`;
+
+// Datos estructurados para que Google entienda quién es la persona del sitio
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Joel Nicolás Morán',
+  jobTitle: 'Full Stack Developer',
+  url: SITE,
+  image: ogImage,
+  email: 'mailto:joel.programador@hotmail.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Buenos Aires', addressCountry: 'AR' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidad Tecnológica Nacional - FRGP' },
+  sameAs: ['https://www.linkedin.com/in/joel-moran', 'https://github.com/ChiqoGamer'],
+};
 ---
 
-
-
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <link rel="shortcut icon" href="/icono.png" type="image/x-icon" />
-    <meta name="description" content={description} />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Joel Moran - FullStack Developer" />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://joelmoran.com.ar/perfil-SEO.png" />
-    <meta property="og:url" content="https://joelmoran.com.ar" />
-    <meta property="og:type" content="website" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={`${SITE}/`} />
+    <link rel="alternate" hreflang="en" href={`${SITE}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE}/`} />
+    <meta name="theme-color" content="#0e1116" />
     <meta name="format-detection" content="telephone=no" />
-    <link rel="icon" type="image/png" href="/icono.png" />
 
-    <!-- EmailJS -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-    ></script>
-    <script type="text/javascript">
-      emailjs.init('n5R3fiRRMyiPp10nv');
-    </script>
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
 
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Open Graph / redes -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={meta.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Material Symbols -->
+    <!-- Fuentes (sin @import en el CSS, que bloquea el render) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+
+    {
+      lang === 'es' && (
+        <script is:inline>
+          // Si el visitante eligió inglés antes, lo llevamos a /en/
+          try {
+            if (localStorage.getItem('lang') === 'en' && !new URLSearchParams(location.search).has('es')) {
+              location.replace('/en/' + location.hash);
+            }
+          } catch (e) {}
+        </script>
+      )
+    }
   </head>
 
   <body>
+    <a href="#main" class="skip-link">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
     <slot />
     <script>
-      function initReveal() {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.1 }
-        );
-
-        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-      }
-
-      // Esperá a que React hidrate los componentes
-      document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(initReveal, 100);
-      });
+      // Aparición al hacer scroll. Observa también los elementos que se hidratan después.
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      const watch = () =>
+        document.querySelectorAll('.reveal:not(.visible)').forEach((el) => observer.observe(el));
+      watch();
+      new MutationObserver(watch).observe(document.body, { childList: true, subtree: true });
     </script>
   </body>
 </html>

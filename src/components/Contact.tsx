@@ -1,32 +1,46 @@
 import { useState, useRef } from 'react';
-import { useStore } from '@nanostores/react';
-import { currentLang } from '../i18n/store';
+import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
+import { loadScript, EMAILJS_SRC, EMAILJS_PUBLIC_KEY } from '../lib/loadScript';
 
 type AlertState = { message: string; visible: boolean; type: 'success' | 'error' | 'loading'; };
 
-export default function Contact() {
-  const lang = useStore(currentLang);
+export default function Contact({ lang }: { lang: Lang }) {
   const t = translations[lang].contact;
   const z = translations[lang].zen;
 
   const formRef = useRef<HTMLFormElement>(null);
   const [alert, setAlert] = useState<AlertState>({ message: '', visible: false, type: 'success' });
 
+  const [sending, setSending] = useState(false);
+  const hideTimer = useRef<number | undefined>(undefined);
+
+  // El éxito se oculta solo; el error queda visible hasta el próximo intento
   const mostrarAlerta = (mensaje: string, type: AlertState['type'] = 'success') => {
+    window.clearTimeout(hideTimer.current);
     setAlert({ message: mensaje, visible: true, type });
-    if (type !== 'loading') setTimeout(() => setAlert((prev) => ({ ...prev, visible: false })), 3000);
+    if (type === 'success') hideTimer.current = window.setTimeout(() => setAlert((prev) => ({ ...prev, visible: false })), 5000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const emailjs = (window as any).emailjs;
-    if (!emailjs || !formRef.current) return;
+    if (sending || !formRef.current) return;
+    setSending(true);
     mostrarAlerta(t.alerts.loading, 'loading');
-    emailjs.sendForm('default_service', 'template_ryjs36n', formRef.current).then(
-      () => { mostrarAlerta(t.alerts.success, 'success'); formRef.current?.reset(); },
-      (err: unknown) => { mostrarAlerta(t.alerts.error, 'error'); console.error(err); }
-    );
+    try {
+      // EmailJS se descarga recién cuando alguien envía el formulario
+      await loadScript(EMAILJS_SRC);
+      const emailjs = (window as any).emailjs;
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      await emailjs.sendForm('default_service', 'template_ryjs36n', formRef.current);
+      mostrarAlerta(t.alerts.success, 'success');
+      formRef.current?.reset();
+    } catch (err) {
+      mostrarAlerta(t.alerts.error, 'error');
+      console.error(err);
+    } finally {
+      setSending(false);
+    }
   };
 
   const alertClass = [
@@ -104,15 +118,31 @@ export default function Contact() {
           {/* Formulario EmailJS */}
           <form ref={formRef} onSubmit={handleSubmit} className="zen-form reveal">
             <h3 className="zen-form-title">{t.formTitle}</h3>
-            <input className="zen-input" type="text" name="nombre" placeholder={t.name} aria-label={t.name} required />
-            <input className="zen-input" type="email" name="correo" placeholder={t.emailLabel} aria-label={t.emailLabel} required />
-            <textarea className="zen-textarea" name="mensaje" rows={6} placeholder={t.message} aria-label={t.message} required />
-            <button type="submit" className="zen-submit">{t.send}</button>
+            <label className="zen-field">
+              <span className="zen-label">{t.name}</span>
+              <input className="zen-input" type="text" name="nombre" autoComplete="name" required />
+            </label>
+            <label className="zen-field">
+              <span className="zen-label">{t.emailLabel}</span>
+              <input className="zen-input" type="email" name="correo" autoComplete="email" required />
+            </label>
+            <label className="zen-field">
+              <span className="zen-label">{t.message}</span>
+              <textarea className="zen-textarea" name="mensaje" rows={6} required />
+            </label>
+            <button type="submit" className="zen-submit" disabled={sending} aria-busy={sending}>
+              {sending ? t.alerts.loading : t.send}
+            </button>
           </form>
         </div>
       </div>
 
-      <div id="alerta" className={alertClass}>{alert.message}</div>
+      <div id="alerta" className={alertClass} role={alert.type === 'error' ? 'alert' : 'status'} aria-live="polite">
+        {alert.message}
+        {alert.type === 'error' && alert.visible && (
+          <button type="button" className="alerta-cerrar" aria-label="Cerrar" onClick={() => setAlert((p) => ({ ...p, visible: false }))}>×</button>
+        )}
+      </div>
     </section>
   );
 }

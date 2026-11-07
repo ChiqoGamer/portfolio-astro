@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
+/* Fuentes: se cargan con <link> en Layout.astro (Outfit + Zen Kaku Gothic New) */
 
 :root {
   /* ===== Tema "Portfolio Noche" (rediseño zen) ===== */
@@ -9,7 +8,7 @@
   --line: #2a2f36;
   --ink: #e9e4d8;
   --muted: #a7a297;
-  --accent: #d24a35;
+  --accent: #dd5843; /* antes #d24a35: sube el contraste a 4.5:1 en textos chicos */
   --mt1: #232b36;
   --mt2: #1a212b;
   --mt3: #121820;
@@ -43,7 +42,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
   overflow-x: hidden;
 }
 
@@ -385,7 +384,7 @@ body {
   overflow: hidden;
   transition: var(--transition-speed-long);
   cursor: pointer;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
 }
 
 .btn-cv svg { margin-left: 10px; fill: currentColor; }
@@ -1040,7 +1039,7 @@ body {
   border-radius: 0.75rem;
   padding: 0.9rem 1.1rem;
   color: var(--text-white);
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
   font-size: 1rem;
 }
 
@@ -1353,6 +1352,9 @@ a { color: var(--accent); text-decoration: none; }
 .zen-bio { font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 690px; margin: 0 0 32px; text-wrap: pretty; }
 .zen-cv { display: inline-block; background: var(--accent); color: #0e1116; font-weight: 700; padding: 13px 28px; border-radius: 4px; letter-spacing: .05em; border: none; cursor: pointer; font-family: inherit; font-size: 15px; transition: filter .3s; }
 .zen-cv:hover { filter: brightness(1.12); }
+.zen-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.zen-cv-ghost { display: inline-block; padding: 12px 26px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); font-weight: 700; font-size: 15px; letter-spacing: .05em; transition: border-color .3s, background .3s; }
+.zen-cv-ghost:hover { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .zen-photo-outer { position: relative; z-index: 2; flex: 0 0 auto; margin: 160px max(11vw, 60px) 40px auto; align-self: center; }
 .zen-photo-wrap { position: relative; width: clamp(240px, 30vw, 420px); }
 .zen-photo-ring { position: absolute; inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); animation: spinRing 12s linear infinite; }
@@ -1380,8 +1382,8 @@ a { color: var(--accent); text-decoration: none; }
   width: clamp(540px, 60vw, 1120px);
   aspect-ratio: 1324 / 1188;
   background: var(--accent);
-  -webkit-mask: url('/bonsai.png') center / contain no-repeat;
-  mask: url('/bonsai.png') center / contain no-repeat;
+  -webkit-mask: url('/bonsai.webp') center / contain no-repeat;
+  mask: url('/bonsai.webp') center / contain no-repeat;
   opacity: 0.08;
   pointer-events: none;
   z-index: 0;
@@ -1402,7 +1404,7 @@ a { color: var(--accent); text-decoration: none; }
 .zen-proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 30px; }
 .zen-proj-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .4s ease, border-color .4s; }
 .zen-proj-card:hover { transform: translateY(-6px); border-color: var(--accent); }
-.zen-proj-img { width: 100%; aspect-ratio: 16/9; background-color: var(--bg); background-size: cover; background-position: top; filter: saturate(.9); }
+.zen-proj-img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; background-color: var(--bg); object-fit: cover; object-position: top; filter: saturate(.9); }
 .zen-proj-body { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .zen-proj-title { font-family: 'Outfit', sans-serif; font-size: 21px; margin: 0; color: var(--ink); }
 .zen-proj-type { font-size: 12px; letter-spacing: .15em; color: var(--accent); text-transform: uppercase; }
@@ -1512,4 +1514,39 @@ a { color: var(--accent); text-decoration: none; }
 @media (max-width: 600px) {
   .zen-hero-kanji { display: none; }
   .zen-h1 { font-size: clamp(36px, 11vw, 52px); }
+  /* Foto más chica para que nombre y botones entren antes en pantalla */
+  .zen-photo-outer { margin: 88px auto 0; }
+  .zen-photo-wrap { width: 168px; }
+  .zen-hero-text { padding: 36px 20px 32px; }
+  .zen-rule { margin: 18px 0; }
+  .zen-bio { font-size: 16px; line-height: 1.65; margin-bottom: 24px; }
+  .zen-hero-actions .zen-cv, .zen-hero-actions .zen-cv-ghost { flex: 1 1 140px; text-align: center; min-height: 48px; box-sizing: border-box; }
+}
+
+/* ---------- FORMULARIO: etiquetas visibles y estados ---------- */
+.zen-field { display: flex; flex-direction: column; gap: 6px; }
+.zen-label { font-size: 13px; letter-spacing: .08em; color: var(--ink); }
+.zen-submit:disabled { cursor: progress; filter: saturate(.6) brightness(.85); }
+.alerta-cerrar { margin-left: 12px; background: none; border: none; color: inherit; font-size: 20px; line-height: 1; cursor: pointer; padding: 0 4px; vertical-align: middle; }
+
+/* ---------- ACCESIBILIDAD ---------- */
+/* Enlace para saltar la navegación con teclado */
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 10000; background: var(--accent); color: #0e1116; font-weight: 700; padding: 10px 16px; border-radius: 6px; transition: top .2s; }
+.skip-link:focus { top: 16px; }
+
+/* Foco visible al navegar con teclado (no aparece con el mouse) */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.zen-input:focus-visible, .zen-textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+::selection { background: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--ink); }
+
+/* Áreas de toque de al menos 44px */
+.zen-proj-actions .zen-btn-ghost, .zen-proj-actions .zen-btn-accent, .zen-cert-btn { min-height: 44px; box-sizing: border-box; }
+.zen-lang-btn { min-height: 36px; }
+@media (max-width: 1023px) { .zen-lang-btn { min-height: 44px; } .zen-nav-toggle { width: 44px; height: 44px; } }
+
+/* Reducir movimiento: sin animaciones decorativas ni apariciones */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .zen-hero-canvas { display: none; }
 }

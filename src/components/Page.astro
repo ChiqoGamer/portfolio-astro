@@ -1,0 +1,35 @@
+---
+// Página completa del portfolio; la usan / (español) y /en/ (inglés)
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.tsx';
+import Hero from './Hero.tsx';
+import Experience from './Experience.tsx';
+import Projects from './Projects.tsx';
+import Education from './Education.tsx';
+import Skills from './Skills.tsx';
+import Contact from './Contact.tsx';
+import Footer from './Footer.tsx';
+import AIChat from './AIChat.tsx';
+import type { Lang } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <Header lang={lang} client:load />
+  <main id="main">
+    <Hero lang={lang} client:load />
+    <!-- Sin interacción: HTML estático, sin JavaScript -->
+    <Experience lang={lang} />
+    <Projects lang={lang} />
+    <!-- Interactivos: se hidratan recién al entrar en pantalla -->
+    <Skills lang={lang} client:visible />
+    <Education lang={lang} client:visible />
+    <Contact lang={lang} client:visible />
+  </main>
+  <Footer lang={lang} />
+  <AIChat lang={lang} client:idle />
+</Layout>

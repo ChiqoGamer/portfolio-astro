@@ -53,13 +53,13 @@ src/
 ## 📦 Assets estáticos
 
 Copiá estos archivos a la carpeta `/public/`:
-- `foto.png` — foto de perfil
+- `foto.webp` — foto de perfil
 - `icono.png` — favicon
 - `JoelMoran_FullStackDeveloper.pdf` — CV en PDF
-- `banco.png` — captura proyecto Banco XYZ
-- `hospital.png` — captura proyecto Hospital
+- `banco.webp` — captura proyecto Banco XYZ
+- `hospital.webp` — captura proyecto Hospital
 - `ecommerce.png` — captura proyecto React Botines
-- `tecnoflash.png` — captura proyecto TecnoFlash
+- `tecnoflash.webp` — captura proyecto TecnoFlash
 
 ## ⚙️ Directivas de Astro
 

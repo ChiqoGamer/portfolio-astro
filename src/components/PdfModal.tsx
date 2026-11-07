@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { loadScript, PDFJS_SRC, PDFJS_WORKER_SRC } from '../lib/loadScript';
 
 type Props = {
   url: string;
@@ -38,11 +39,11 @@ export default function PdfModal({ url, open, onClose, downloadLabel, fileName }
     });
   };
 
-  const loadPdf = (pdfUrl: string) => {
+  const loadPdf = async (pdfUrl: string) => {
+    // PDF.js se descarga recién la primera vez que se abre un PDF
+    await loadScript(PDFJS_SRC);
     const pdfjsLib = (window as any).pdfjsLib;
-    if (!pdfjsLib) { setTimeout(() => loadPdf(pdfUrl), 300); return; }
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_SRC;
     pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
       pdfDocRef.current = pdf;
       currentPdfUrlRef.current = pdfUrl;
