@@ -11,23 +11,23 @@ npm run dev
 
 Abre [http://localhost:4321](http://localhost:4321) en el navegador.
 
-### Chat IA en desarrollo
+### Chat IA (Plumita)
 
-Para probar el chat localmente, levantá el servidor del chat en otra terminal:
+El chat corre como **función de Vercel** en este mismo repo: `api/chat.js`. El prompt con todo el contexto está en `api/_lib/prompt.js` (actualizalo cuando cambie tu experiencia, educación o proyectos) y la lógica de los modelos en `api/_lib/chat.js`.
+
+- **Groq** es el modelo principal (gratis y muy rápido) y **Gemini** el respaldo: si uno falla o se queda sin cuota, responde el otro.
+- La respuesta llega en streaming, así que se ve mientras se escribe.
+- En producción el chat llama a `/api/chat` del mismo dominio, sin servidor aparte (ya no se usa Render).
+
+**Variables en Vercel** (Settings → Environment Variables): `GROQ_API_KEY` y `GEMINI_API_KEY`. Opcionales: `GROQ_MODEL`, `GEMINI_MODEL`.
+
+**En desarrollo**, levantá el servidor local del chat en otra terminal (usa la misma lógica y el mismo prompt):
 
 ```bash
 npm run dev:chat
 ```
 
-Tu `.env` debe tener esta URL:
-
-```bash
-PUBLIC_CHAT_API_URL=http://localhost:3001/api/chat
-```
-
-Si agregás `GEMINI_API_KEY=tu_api_key_de_gemini`, el chat usa Gemini real en desarrollo. Si no hay API key, responde con un mock en el idioma activo para poder probar el cambio entre español e inglés sin subir a producción.
-
-Después de cambiar variables en `.env`, reiniciá `npm run dev:chat` para que el servidor local vuelva a leerlas. Si Gemini devuelve un error de cuota, key o red, el servidor local responde con un fallback en el idioma activo e incluye el motivo del error.
+Copiá `.env.example` a `.env` y poné al menos una clave. Sin claves, el servidor local responde un mensaje de prueba en el idioma activo. Después de cambiar el `.env`, reiniciá `npm run dev:chat`.
 
 ## 📁 Estructura
 

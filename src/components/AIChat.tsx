@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import type { Lang } from '../i18n/translations';
 import { translations } from '../i18n/translations';
-const API_URL = import.meta.env.PUBLIC_CHAT_API_URL;
+// En producción el chat es una función de Vercel en el mismo dominio (api/chat.js).
+// En desarrollo apunta al servidor local (npm run dev:chat).
+const API_URL = import.meta.env.DEV
+  ? import.meta.env.PUBLIC_CHAT_API_URL || 'http://localhost:3001/api/chat'
+  : '/api/chat';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Message {
@@ -169,15 +173,30 @@ const t = translations[lang].chat;
         body: JSON.stringify({ messages: apiMessages, lang }),
       });
 
-      // Agregá estas dos líneas para ver qué devuelve el servidor
-      console.log('Status:', response.status);
-      const data = await response.json();
-      console.log('Data:', data);  // ← mirá esto en el DevTools
+      if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
 
-      const reply = data.reply || t.errors.noResponse;
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      // La respuesta llega en partes: se muestra a medida que el modelo la escribe
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let reply = '';
+      let started = false;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        reply += decoder.decode(value, { stream: true });
+        if (!reply) continue;
+        if (!started) {
+          started = true;
+          setLoading(false); // se ocultan los puntitos cuando empieza el texto
+          setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+        } else {
+          const text = reply;
+          setMessages(prev => [...prev.slice(0, -1), { role: 'assistant', content: text }]);
+        }
+      }
+      if (!started) setMessages(prev => [...prev, { role: 'assistant', content: t.errors.noResponse }]);
     } catch (err) {
-      console.error('Error completo:', err);  // ← y esto
+      console.error('Error del chat:', err);
       setError(t.errors.connection);
     } finally {
       setLoading(false);
@@ -399,7 +418,7 @@ const t = translations[lang].chat;
                     padding: '9px 13px',
                     borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                     background: msg.role === 'user'
-                      ? 'linear-gradient(135deg, #d24a35, #b8402c)'
+                      ? 'linear-gradient(135deg, #dd5843, #c24a36)'
                       : 'rgba(255,255,255,0.06)',
                     color: msg.role === 'user' ? '#0d1a12' : '#e8e8f0',
                     fontSize: 13,
