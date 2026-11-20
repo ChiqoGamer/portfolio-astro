@@ -187,7 +187,7 @@ projects: {
       title: 'Portfolio Personal',
       subtitle: 'Landing Page Personal | Proyecto Destacado',
       description:
-        'Portfolio personal desarrollado con Astro, React y Tailwind CSS, migrado desde JavaScript Vanilla para maximizar el rendimiento con mínimo JavaScript en el cliente. Integra un chat con IA potenciado por la API de Gemini mediante un backend propio en Node.js y Express, además de un formulario de contacto con EmailJS y visualización directa del CV en PDF.',
+        'Portfolio personal desarrollado con Astro, React y Tailwind CSS, migrado desde JavaScript Vanilla para maximizar el rendimiento con mínimo JavaScript en el cliente. Integra un chat con IA potenciado por la API de Gemini mediante una función serverless propia en Vercel (Node.js), con respuesta en streaming, además de un formulario de contacto con EmailJS y visualización directa del CV en PDF.',
     },
     {
       title: 'Banco XYZ',
@@ -429,7 +429,7 @@ projects: {
       title: 'Personal Portfolio',
       subtitle: 'Personal Landing Page | Featured Project',
       description:
-        'Personal portfolio built with Astro, React, and Tailwind CSS, migrated from Vanilla JavaScript to maximize performance with minimal client-side JavaScript. It includes an AI-powered chat using the Gemini API with a custom Node.js and Express backend, EmailJS contact form integration, and embedded PDF resume viewing.',
+        'Personal portfolio built with Astro, React, and Tailwind CSS, migrated from Vanilla JavaScript to maximize performance with minimal client-side JavaScript. It includes an AI-powered chat using the Gemini API through a custom serverless function on Vercel (Node.js) with streaming responses, EmailJS contact form integration, and embedded PDF resume viewing.',
     },
     {
       title: 'XYZ Bank',

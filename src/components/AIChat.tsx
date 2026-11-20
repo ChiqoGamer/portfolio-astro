@@ -184,6 +184,7 @@ const t = translations[lang].chat;
         const { done, value } = await reader.read();
         if (done) break;
         reply += decoder.decode(value, { stream: true });
+        reply = reply.split("**").join(""); // el chat es texto plano: se sacan las negritas de markdown
         if (!reply) continue;
         if (!started) {
           started = true;

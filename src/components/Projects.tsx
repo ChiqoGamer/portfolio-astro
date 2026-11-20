@@ -30,7 +30,7 @@ const projects: Project[] = [
     image: '/ecommerce-botines.webp',
   },
   {
-    techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'Tailwind CSS' }, { name: 'TypeScript' }, { name: 'API Gemini' }, { name: 'Node JS' }, { name: 'Express' }],
+    techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'Tailwind CSS' }, { name: 'TypeScript' }, { name: 'API Gemini' }, { name: 'Node JS' }, { name: 'Vercel Functions' }],
     githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
     liveUrl: 'https://www.joelmoran.com.ar',
     image: '/portfolio.webp',
