@@ -105,7 +105,7 @@ export default function Hero({ lang }: { lang: Lang }) {
             <circle cx="50" cy="50" r="48.5" fill="none" stroke="var(--accent)" strokeWidth="1.6" strokeLinecap="round"
               strokeDasharray="30 9 8 16 42 6 14 22 5 11 36 18 10 7 24 13 4 20 17 8" />
           </svg>
-          <img src="/foto.webp" alt="Joel Morán" width="840" height="594" className="zen-photo" />
+          <img src="/foto.webp" alt="Joel Morán" width="999" height="707" className="zen-photo" />
         </div>
       </div>
 
