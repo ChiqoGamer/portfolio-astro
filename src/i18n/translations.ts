@@ -166,6 +166,12 @@ projects: {
 
   items: [
     {
+      title: 'wouü Importaciones',
+      subtitle: 'E-Commerce para Cliente | Tiendanube',
+      description:
+        'Tienda online en producción para una marca de accesorios deportivos. Diseñé y desarrollé una interfaz propia sobre Tiendanube, pensada para celular: galería por color, packs con precio en vivo y calculador de envío, integrados al carrito nativo. También configuré pagos, envíos y SEO.',
+    },
+    {
       title: 'KitDesign',
       subtitle: 'Diseñador de Equipaciones 3D',
       description:
@@ -401,6 +407,12 @@ projects: {
   website: 'Website',
 
   items: [
+    {
+      title: 'wouü Importaciones',
+      subtitle: 'Client E-Commerce | Tiendanube',
+      description:
+        'Live online store for a sports accessories brand. I designed and built a custom, mobile-first interface on Tiendanube: color-based gallery, live bundle pricing, and a shipping calculator, all wired to the native cart. I also set up payments, shipping, and SEO.',
+    },
     {
       title: 'KitDesign',
       subtitle: '3D Football Kit Designer',

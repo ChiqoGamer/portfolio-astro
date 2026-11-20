@@ -12,6 +12,13 @@ interface Project {
 
 const projects: Project[] = [
   {
+    techs: [{ name: 'Tiendanube' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'Python' }, { name: 'Playwright' }],
+    githubUrl: 'https://github.com/ChiqoGamer/wou-',
+    liveUrl: 'https://wouustore.com',
+    image: '/wouu.webp',
+    hideGithub: true, // el repo solo guarda imágenes y videos de la tienda
+  },
+  {
     techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Tailwind CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
     image: '/kitdesign.webp',
