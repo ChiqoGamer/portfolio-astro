@@ -45,13 +45,14 @@ const server = createServer(async (req, res) => {
   const started = Date.now();
 
   try {
-    const iterator = streamReply(messages);
+    let provider = '';
+    const iterator = streamReply(messages, process.env, (p) => (provider = p));
     const first = await iterator.next(); // si ningún proveedor anda, salta al catch
-    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Chat-Provider': provider });
     if (!first.done) res.write(first.value);
     for await (const chunk of iterator) res.write(chunk);
     res.end();
-    console.log(`[chat] respuesta en ${Date.now() - started} ms`);
+    console.log(`[chat] ${provider} respondió en ${Date.now() - started} ms`);
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
     console.error('[chat] sin respuesta real:', msg);

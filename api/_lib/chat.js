@@ -2,15 +2,19 @@
 // y por el servidor local de desarrollo (scripts/dev-chat-server.mjs).
 //
 // Proveedores (ambos con plan gratuito):
-//   1. Groq   → principal, muy rápido.            Variables: GROQ_API_KEY, GROQ_MODEL
+//   1. Groq   → principal, muy rápido.            Variables: GROQ_API_KEY, GROQ_MODEL (uno o varios, separados por coma)
 //   2. Gemini → respaldo si Groq falla o no está. Variables: GEMINI_API_KEY, GEMINI_MODEL
 // Si el principal falla antes de mandar texto, responde el siguiente.
+// El plan gratis de Groq limita los tokens por minuto POR MODELO, así que se encadenan dos
+// modelos de Groq (cada uno con su propia cuota) antes de pasar a Gemini.
+const DEFAULT_GROQ_MODELS = 'openai/gpt-oss-120b,openai/gpt-oss-20b,qwen/qwen3.8-27b';
 
 import { SYSTEM_PROMPT } from './prompt.js';
 
 const MAX_MESSAGES = 12; // historial que se manda al modelo
 const MAX_CHARS = 1000; // largo máximo de cada mensaje
-const MAX_OUTPUT_TOKENS = 500;
+const MAX_OUTPUT_TOKENS = 400; // las respuestas son cortas; además cuenta para el límite por minuto de Groq
+const MAX_RETRY_WAIT_MS = 3000; // si Groq pide esperar menos que esto, se espera y se reintenta
 
 export class ChatInputError extends Error {}
 
@@ -41,7 +45,8 @@ export function sanitizeMessages(raw) {
 export function configuredProviders(env = process.env) {
   const list = [];
   if (env.GROQ_API_KEY) {
-    list.push({ name: 'groq', model: env.GROQ_MODEL || 'openai/gpt-oss-20b', key: env.GROQ_API_KEY, stream: streamGroq });
+    const models = (env.GROQ_MODEL || DEFAULT_GROQ_MODELS).split(',').map((m) => m.trim()).filter(Boolean);
+    for (const model of models) list.push({ name: 'groq', model, key: env.GROQ_API_KEY, stream: streamGroq });
   }
   if (env.GEMINI_API_KEY) {
     list.push({ name: 'gemini', model: env.GEMINI_MODEL || 'gemini-2.5-flash-lite', key: env.GEMINI_API_KEY, stream: streamGemini });
@@ -53,7 +58,7 @@ export function configuredProviders(env = process.env) {
  * Genera la respuesta en partes (streaming). Prueba cada proveedor en orden;
  * si uno falla antes de emitir texto, pasa al siguiente.
  */
-export async function* streamReply(messages, env = process.env) {
+export async function* streamReply(messages, env = process.env, onProvider = () => {}) {
   const providers = configuredProviders(env);
   if (!providers.length) throw new Error('No hay GROQ_API_KEY ni GEMINI_API_KEY configuradas.');
 
@@ -63,6 +68,7 @@ export async function* streamReply(messages, env = process.env) {
     try {
       for await (const chunk of provider.stream(messages, provider)) {
         if (!chunk) continue;
+        if (!emitted) onProvider(`${provider.name}:${provider.model}`);
         emitted = true;
         yield chunk;
       }
@@ -72,8 +78,8 @@ export async function* streamReply(messages, env = process.env) {
       const msg = error instanceof Error ? error.message : String(error);
       // Si ya se mandó texto no se puede cambiar de proveedor a mitad de respuesta
       if (emitted) throw error;
-      errors.push(`${provider.name}: ${msg}`);
-      console.error(`[chat] ${provider.name} falló, probando el siguiente:`, msg);
+      errors.push(`${provider.name}:${provider.model}: ${msg.slice(0, 160)}`);
+      console.error(`[chat] ${provider.name}:${provider.model} falló, probando el siguiente:`, msg.slice(0, 160));
     }
   }
   throw new Error(errors.join(' | '));
@@ -93,12 +99,24 @@ async function* streamGroq(messages, { key, model }) {
     body.reasoning_effort = 'low';
     body.include_reasoning = false;
   }
+  // Qwen también razona: se oculta el razonamiento
+  if (model.startsWith('qwen/')) body.reasoning_format = 'hidden';
 
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
-    body: JSON.stringify(body),
-  });
+  const send = () =>
+    fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+      body: JSON.stringify(body),
+    });
+  let res = await send();
+  // Límite por minuto: si Groq indica una espera corta, se espera y se reintenta una vez
+  if (res.status === 429) {
+    const waitMs = Number(res.headers.get('retry-after')) * 1000;
+    if (waitMs > 0 && waitMs <= MAX_RETRY_WAIT_MS) {
+      await new Promise((r) => setTimeout(r, waitMs));
+      res = await send();
+    }
+  }
   if (!res.ok) throw new Error(`HTTP ${res.status} ${await safeText(res)}`);
 
   for await (const data of readSSE(res)) {

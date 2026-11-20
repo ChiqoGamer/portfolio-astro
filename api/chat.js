@@ -14,7 +14,8 @@ export async function POST(request) {
     return Response.json({ error: msg }, { status: 400 });
   }
 
-  const iterator = streamReply(messages);
+  let provider = '';
+  const iterator = streamReply(messages, process.env, (p) => (provider = p));
 
   // Se espera el primer fragmento antes de responder: si ningún proveedor anda,
   // se devuelve un error 502 en vez de un stream vacío.
@@ -45,6 +46,7 @@ export async function POST(request) {
       'Content-Type': 'text/plain; charset=utf-8',
       'Cache-Control': 'no-store',
       'X-Content-Type-Options': 'nosniff',
+      'X-Chat-Provider': provider, // qué modelo respondió (para verificar Groq/Gemini)
     },
   });
 }

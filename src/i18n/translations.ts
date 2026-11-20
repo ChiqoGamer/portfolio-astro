@@ -235,6 +235,7 @@ chat: {
 
   errors: {
     connection: 'Error de conexión. Intentá de nuevo.',
+    busy: 'Plumita está atendiendo muchas consultas 🐾. Probá de nuevo en un minuto o escribile a Joel desde Contacto.',
     noResponse: 'No pude generar una respuesta.',
   },
 
@@ -477,6 +478,7 @@ chat: {
 
   errors: {
     connection: 'Connection error. Please try again.',
+    busy: 'Plumita is handling a lot of questions right now 🐾. Please try again in a minute or reach Joel through Contact.',
     noResponse: "I couldn't generate a response.",
   },
 

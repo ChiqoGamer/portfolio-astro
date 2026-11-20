@@ -173,6 +173,8 @@ const t = translations[lang].chat;
         body: JSON.stringify({ messages: apiMessages, lang }),
       });
 
+      // 502: ningún modelo disponible (límite de los planes gratis); se muestra un aviso amable
+      if (response.status === 502) { setError(t.errors.busy); return; }
       if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
 
       // La respuesta llega en partes: se muestra a medida que el modelo la escribe

@@ -15,7 +15,8 @@ Abre [http://localhost:4321](http://localhost:4321) en el navegador.
 
 El chat corre como **función de Vercel** en este mismo repo: `api/chat.js`. El prompt con todo el contexto está en `api/_lib/prompt.js` (actualizalo cuando cambie tu experiencia, educación o proyectos) y la lógica de los modelos en `api/_lib/chat.js`.
 
-- **Groq** es el modelo principal (gratis y muy rápido) y **Gemini** el respaldo: si uno falla o se queda sin cuota, responde el otro.
+- **Groq** es el principal (gratis y muy rápido): prueba `gpt-oss-120b`, después `gpt-oss-20b` y `qwen3.8-27b`, porque el plan gratis limita los tokens por minuto de cada modelo. **Gemini** queda de último respaldo (su plan gratis solo da ~20 pedidos por día).
+- Cada respuesta trae el header `X-Chat-Provider` con el modelo que respondió.
 - La respuesta llega en streaming, así que se ve mientras se escribe.
 - En producción el chat llama a `/api/chat` del mismo dominio, sin servidor aparte (ya no se usa Render).
 
