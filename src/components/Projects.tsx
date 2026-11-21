@@ -8,7 +8,18 @@ interface Project {
   liveUrl?: string;
   image: string;
   hideGithub?: boolean;
+  logo?: () => JSX.Element; // logo opcional al lado del título
 }
+
+// Isotipo de Origami Design (copiado de app/icon.svg del repo kitdesign):
+// una hoja plegada en diagonal, en el verde lima de la marca.
+const OrigamiLogo = () => (
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" className="zen-proj-logo">
+    <rect width="24" height="24" rx="5" fill="#c6f24e" />
+    <path d="M5 18 12 5l7 13z" fill="#0b0d10" opacity="0.92" />
+    <path d="M12 5v13h7z" fill="#0b0d10" opacity="0.55" />
+  </svg>
+);
 
 const projects: Project[] = [
   {
@@ -23,6 +34,7 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
     liveUrl: 'https://origami-design-rosy.vercel.app/editor',
     image: '/kitdesign.webp',
+    logo: OrigamiLogo,
   },
   {
     techs: [{ name: 'React' }, { name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'MockAPI' }, { name: 'LocalStorage' }],
@@ -95,7 +107,10 @@ export default function Projects({ lang }: { lang: Lang }) {
               <div className="zen-proj-card reveal" key={index} style={{ transitionDelay: `${(index % 3) * 0.08}s` }}>
                 <img className="zen-proj-img" src={project.image} alt={item.title} loading="lazy" decoding="async" width="895" height="504" />
                 <div className="zen-proj-body">
-                  <h3 className="zen-proj-title">{item.title}</h3>
+                  <h3 className="zen-proj-title">
+                    {project.logo && <project.logo />}
+                    {item.title}
+                  </h3>
                   <div className="zen-proj-type">{item.subtitle}</div>
                   <p className="zen-proj-desc">{item.description}</p>
                   <div className="zen-tags">

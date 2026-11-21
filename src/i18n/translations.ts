@@ -172,7 +172,7 @@ projects: {
         'Tienda online en producción para una marca de accesorios deportivos. Diseñé y desarrollé una interfaz propia sobre Tiendanube, pensada para celular: galería por color, packs con precio en vivo y calculador de envío, integrados al carrito nativo. También configuré pagos, envíos y SEO.',
     },
     {
-      title: 'KitDesign',
+      title: 'Origami Design',
       subtitle: 'Diseñador de Equipaciones 3D',
       description:
         'Editor web para que clubes amateur diseñen su equipación de fútbol y la vean en 3D, sin depender de un diseñador. Un mismo canvas 2D (el layout UV son las piezas de corte) genera la textura del visor 3D y el archivo de impresión a 300 DPI, con deshacer/versionado y un render determinista.',
@@ -415,7 +415,7 @@ projects: {
         'Live online store for a sports accessories brand. I designed and built a custom, mobile-first interface on Tiendanube: color-based gallery, live bundle pricing, and a shipping calculator, all wired to the native cart. I also set up payments, shipping, and SEO.',
     },
     {
-      title: 'KitDesign',
+      title: 'Origami Design',
       subtitle: '3D Football Kit Designer',
       description:
         'Web editor for amateur clubs to design their football kit and preview it in 3D, without needing a designer. A single 2D canvas (the UV layout is the garment cut pattern) produces both the 3D viewer texture and the 300 DPI print file, with undo/versioning and a deterministic renderer.',
