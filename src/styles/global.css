@@ -1553,4 +1553,4 @@ a { color: var(--accent); text-decoration: none; }
 
 /* Logo opcional al lado del título de un proyecto (ej.: Origami Design) */
 .zen-proj-title:has(.zen-proj-logo) { display: flex; align-items: center; gap: 10px; }
-.zen-proj-logo { flex-shrink: 0; border-radius: 6px; }
+.zen-proj-logo { flex-shrink: 0; }

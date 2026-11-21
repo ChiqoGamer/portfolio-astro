@@ -11,13 +11,25 @@ interface Project {
   logo?: () => JSX.Element; // logo opcional al lado del título
 }
 
-// Isotipo de Origami Design (copiado de app/icon.svg del repo kitdesign):
-// una hoja plegada en diagonal, en el verde lima de la marca.
+// Logo de Origami Design (el mismo del encabezado de origami-design-rosy.vercel.app):
+// una camiseta de origami sobre un círculo de papel.
 const OrigamiLogo = () => (
-  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" className="zen-proj-logo">
-    <rect width="24" height="24" rx="5" fill="#c6f24e" />
-    <path d="M5 18 12 5l7 13z" fill="#0b0d10" opacity="0.92" />
-    <path d="M12 5v13h7z" fill="#0b0d10" opacity="0.55" />
+  <svg viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" className="zen-proj-logo">
+    <defs>
+      <radialGradient id="origami-paper-portfolio" cx="50%" cy="45%" r="60%">
+        <stop offset="0" stopColor="#ffffff" />
+        <stop offset="1" stopColor="#d9dbde" />
+      </radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="50" fill="url(#origami-paper-portfolio)" />
+    <g transform="translate(50 51) scale(0.78) translate(-50 -51)" stroke="#eceef0" strokeWidth="1.6" strokeLinejoin="round">
+      <polygon points="13,40 34,21 30,49" fill="#0b0d10" fillOpacity="0.82" />
+      <polygon points="87,40 66,21 70,49" fill="#0b0d10" fillOpacity="0.62" />
+      <polygon points="34,21 50,35 31,81" fill="#0b0d10" fillOpacity="0.9" />
+      <polygon points="50,35 50,81 31,81" fill="#0b0d10" fillOpacity="1" />
+      <polygon points="66,21 50,35 69,81" fill="#0b0d10" fillOpacity="1" />
+      <polygon points="50,35 50,81 69,81" fill="#0b0d10" fillOpacity="0.72" />
+    </g>
   </svg>
 );
 
