@@ -21,6 +21,7 @@ const projects: Project[] = [
   {
     techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Tailwind CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
+    liveUrl: 'https://origami-design-rosy.vercel.app/editor',
     image: '/kitdesign.webp',
   },
   {
