@@ -173,9 +173,9 @@ projects: {
     },
     {
       title: 'Origami Design',
-      subtitle: 'Diseñador de Equipaciones 3D',
+      subtitle: 'Editor de Equipaciones en 3D | Producto Propio',
       description:
-        'Editor web para que clubes amateur diseñen su equipación de fútbol y la vean en 3D, sin depender de un diseñador. Un mismo canvas 2D (el layout UV son las piezas de corte) genera la textura del visor 3D y el archivo de impresión a 300 DPI, con deshacer/versionado y un render determinista.',
+        'Editor web para que clubes amateur diseñen su equipación completa (camiseta, short y medias) y la vean en 3D en tiempo real, sin depender de un diseñador. Un mismo canvas genera la textura del visor 3D y el archivo de impresión a 300 DPI: lo que se ve es lo que se imprime. Incluye capas, patrones, paleta de colores, deshacer y versionado, exportación en PNG y links para compartir el diseño.',
     },
     {
       title: 'React Botines',
@@ -416,9 +416,9 @@ projects: {
     },
     {
       title: 'Origami Design',
-      subtitle: '3D Football Kit Designer',
+      subtitle: '3D Kit Editor | Own Product',
       description:
-        'Web editor for amateur clubs to design their football kit and preview it in 3D, without needing a designer. A single 2D canvas (the UV layout is the garment cut pattern) produces both the 3D viewer texture and the 300 DPI print file, with undo/versioning and a deterministic renderer.',
+        'Web editor for amateur clubs to design their full kit (jersey, shorts, and socks) and preview it in 3D in real time, without needing a designer. A single canvas produces both the 3D viewer texture and the 300 DPI print file: what you see is what gets printed. It includes layers, patterns, a color palette, undo and versioning, PNG export, and shareable design links.',
     },
     {
       title: 'React Football Boots',

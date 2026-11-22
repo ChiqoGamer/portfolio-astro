@@ -46,7 +46,7 @@ const projects: Project[] = [
     hideGithub: true, // el repo solo guarda imágenes y videos de la tienda
   },
   {
-    techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Tailwind CSS' }],
+    techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Immer' }, { name: 'Tailwind CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
     liveUrl: 'https://origami-design-rosy.vercel.app/editor',
     image: '/kitdesign.webp',
