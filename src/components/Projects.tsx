@@ -11,6 +11,7 @@ interface Project {
   // Logo al lado del título: un componente SVG o la ruta del favicon del sitio (en /public/logos)
   logo?: (() => JSX.Element) | string;
   logoRound?: boolean; // recorta el favicon en círculo (si trae fondo en las esquinas)
+  logoWide?: boolean; // logo apaisado: se muestra a la altura del título, sin forzarlo a cuadrado
 }
 
 // Logo de Origami Design (el mismo del encabezado de origami-design-rosy.vercel.app):
@@ -89,6 +90,7 @@ const projects: Project[] = [
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.webp',
     logo: '/logos/apx-electronics.webp',
+    logoWide: true,
   },
 ];
 
@@ -132,10 +134,10 @@ export default function Projects({ lang }: { lang: Lang }) {
                       <img
                         src={project.logo}
                         alt=""
-                        width="28"
+                        width={project.logoWide ? 70 : 28}
                         height="28"
                         loading="lazy"
-                        className={`zen-proj-logo${project.logoRound ? ' round' : ''}`}
+                        className={`zen-proj-logo${project.logoRound ? ' round' : ''}${project.logoWide ? ' wide' : ''}`}
                       />
                     ) : (
                       project.logo && <project.logo />

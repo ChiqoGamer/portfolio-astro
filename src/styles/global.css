@@ -1556,3 +1556,4 @@ a { color: var(--accent); text-decoration: none; }
 .zen-proj-logo { flex-shrink: 0; }
 img.zen-proj-logo { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; }
 img.zen-proj-logo.round { border-radius: 50%; object-fit: cover; }
+img.zen-proj-logo.wide { width: auto; height: 24px; border-radius: 0; }
