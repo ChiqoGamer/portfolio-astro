@@ -8,7 +8,9 @@ interface Project {
   liveUrl?: string;
   image: string;
   hideGithub?: boolean;
-  logo?: () => JSX.Element; // logo opcional al lado del título
+  // Logo al lado del título: un componente SVG o la ruta del favicon del sitio (en /public/logos)
+  logo?: (() => JSX.Element) | string;
+  logoRound?: boolean; // recorta el favicon en círculo (si trae fondo en las esquinas)
 }
 
 // Logo de Origami Design (el mismo del encabezado de origami-design-rosy.vercel.app):
@@ -39,6 +41,7 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/ChiqoGamer/wou-',
     liveUrl: 'https://wouustore.com',
     image: '/wouu.webp',
+    logo: '/logos/wouu.webp',
     hideGithub: true, // el repo solo guarda imágenes y videos de la tienda
   },
   {
@@ -53,12 +56,14 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/ChiqoGamer/React-Botines/tree/master',
     liveUrl: 'https://react-botines.vercel.app',
     image: '/ecommerce-botines.webp',
+    logo: '/logos/react-botines.webp',
   },
   {
     techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'Tailwind CSS' }, { name: 'TypeScript' }, { name: 'API Gemini' }, { name: 'Node JS' }, { name: 'Vercel Functions' }],
     githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
     liveUrl: 'https://www.joelmoran.com.ar',
     image: '/portfolio.webp',
+    logo: '/favicon.png', // el favicon de este mismo portfolio
   },
   {
     techs: [{ name: 'Java' }, { name: 'MySQL' }, { name: 'Eclipse' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }],
@@ -75,12 +80,15 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/ChiqoGamer/paginaColidevs',
     liveUrl: 'https://www.coli.com.ar',
     image: '/colidevs.webp',
+    logo: '/logos/colidevs.webp',
+    logoRound: true,
   },
   {
     techs: [{ name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'DummyJson' }, { name: 'LocalStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/Ecommerce-Botines',
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.webp',
+    logo: '/logos/apx-electronics.webp',
   },
 ];
 
@@ -120,7 +128,18 @@ export default function Projects({ lang }: { lang: Lang }) {
                 <img className="zen-proj-img" src={project.image} alt={item.title} loading="lazy" decoding="async" width="895" height="504" />
                 <div className="zen-proj-body">
                   <h3 className="zen-proj-title">
-                    {project.logo && <project.logo />}
+                    {typeof project.logo === 'string' ? (
+                      <img
+                        src={project.logo}
+                        alt=""
+                        width="28"
+                        height="28"
+                        loading="lazy"
+                        className={`zen-proj-logo${project.logoRound ? ' round' : ''}`}
+                      />
+                    ) : (
+                      project.logo && <project.logo />
+                    )}
                     {item.title}
                   </h3>
                   <div className="zen-proj-type">{item.subtitle}</div>
