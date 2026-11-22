@@ -46,7 +46,7 @@ const projects: Project[] = [
     hideGithub: true, // el repo solo guarda imágenes y videos de la tienda
   },
   {
-    techs: [{ name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Zustand' }, { name: 'Immer' }, { name: 'Tailwind CSS' }],
+    techs: [{ name: 'Three.js' }, { name: 'React Three Fiber' }, { name: 'Next.js' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Zustand' }, { name: 'Immer' }, { name: 'Tailwind CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/kitdesign',
     liveUrl: 'https://origami-design-rosy.vercel.app/editor',
     image: '/kitdesign.webp',
@@ -60,19 +60,19 @@ const projects: Project[] = [
     logo: '/logos/react-botines.webp',
   },
   {
-    techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'Tailwind CSS' }, { name: 'TypeScript' }, { name: 'API Gemini' }, { name: 'Node JS' }, { name: 'Vercel Functions' }],
+    techs: [{ name: 'Astro' }, { name: 'React' }, { name: 'TypeScript' }, { name: 'Tailwind CSS' }, { name: 'Vercel Functions' }, { name: 'Groq' }, { name: 'Gemini' }],
     githubUrl: 'https://github.com/ChiqoGamer/portfolio-astro',
     liveUrl: 'https://www.joelmoran.com.ar',
     image: '/portfolio.webp',
     logo: '/favicon.png', // el favicon de este mismo portfolio
   },
   {
-    techs: [{ name: 'Java' }, { name: 'MySQL' }, { name: 'Eclipse' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }],
+    techs: [{ name: 'Java' }, { name: 'JSP' }, { name: 'Servlets' }, { name: 'MySQL' }, { name: 'JavaScript' }, { name: 'jQuery' }],
     githubUrl: 'https://github.com/ChiqoGamer/Banco-XYZ',
     image: '/banco.webp',
   },
   {
-    techs: [{ name: 'C#' }, { name: 'Framework .NET' }, { name: 'SQL' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'Visual Basic' }],
+    techs: [{ name: 'C#' }, { name: 'ASP.NET Web Forms' }, { name: '.NET Framework' }, { name: 'SQL Server' }, { name: 'HTML' }, { name: 'CSS' }],
     githubUrl: 'https://github.com/ChiqoGamer/Hospital-UTN-FRGP',
     image: '/hospital.webp',
   },
@@ -85,7 +85,7 @@ const projects: Project[] = [
     logoRound: true,
   },
   {
-    techs: [{ name: 'HTML' }, { name: 'CSS' }, { name: 'JavaScript' }, { name: 'DummyJson' }, { name: 'LocalStorage' }],
+    techs: [{ name: 'JavaScript' }, { name: 'HTML' }, { name: 'CSS' }, { name: 'DummyJSON API' }, { name: 'localStorage' }],
     githubUrl: 'https://github.com/ChiqoGamer/Ecommerce-Botines',
     liveUrl: 'https://chiqogamer.github.io/Ecommerce-Botines',
     image: '/tecnoflash.webp',

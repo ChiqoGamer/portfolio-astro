@@ -167,51 +167,51 @@ projects: {
   items: [
     {
       title: 'wouü Importaciones',
-      subtitle: 'E-Commerce para Cliente | Tiendanube',
+      subtitle: 'E-Commerce para Cliente Real | Tiendanube',
       description:
-        'Tienda online en producción para una marca de accesorios deportivos. Diseñé y desarrollé una interfaz propia sobre Tiendanube, pensada para celular: galería por color, packs con precio en vivo y calculador de envío, integrados al carrito nativo. También configuré pagos, envíos y SEO.',
+        'Tienda online en producción para una marca de accesorios deportivos. Diseñé y desarrollé una interfaz mobile-first a medida dentro de los límites de Tiendanube: un pipeline propio en Python genera los bloques de código, la UI sincroniza color, packs y precio en vivo con el carrito nativo, y cada publicación se valida con pruebas automatizadas en Playwright.',
     },
     {
       title: 'Origami Design',
       subtitle: 'Editor de Equipaciones en 3D | Producto Propio',
       description:
-        'Editor web para que clubes amateur diseñen su equipación completa (camiseta, short y medias) y la vean en 3D en tiempo real, sin depender de un diseñador. Un mismo canvas genera la textura del visor 3D y el archivo de impresión a 300 DPI: lo que se ve es lo que se imprime. Incluye capas, patrones, paleta de colores, deshacer y versionado, exportación en PNG y links para compartir el diseño.',
+        'Producto propio: editor web donde un club diseña su equipación y la ve en 3D en tiempo real. Renderizo con Three.js y React Three Fiber un modelo GLB de la camiseta y geometría procedural para short y medias; un mismo canvas genera la textura del 3D y el archivo de impresión a 300 DPI. Estado con Zustand e Immer para deshacer y versionado, exportación en PNG y links para compartir.',
     },
     {
       title: 'React Botines',
       subtitle: 'E-Commerce + Panel de Administración (CRUD)',
       description:
-        'Tienda de botines de fútbol con panel de administración. El catálogo se consume desde una API REST (MockAPI) con búsqueda, filtro por marca, orden por precio, paginación, detalle de producto y carrito con cantidades. Incluye login con ruta protegida y un dashboard para crear, editar y eliminar productos (CRUD completo con GET, POST, PUT y DELETE).',
+        'SPA en React con panel de administración: login con ruta protegida y CRUD completo de productos contra una API REST (GET, POST, PUT y DELETE). La tienda consume ese catálogo con búsqueda, filtro por marca, orden por precio, paginación y carrito, con estado global en Context API y navegación con React Router.',
     },
     {
       title: 'Portfolio Personal',
-      subtitle: 'Landing Page Personal | Proyecto Destacado',
+      subtitle: 'Sitio Bilingüe con Asistente IA | Proyecto Destacado',
       description:
-        'Portfolio personal desarrollado con Astro, React y Tailwind CSS, migrado desde JavaScript Vanilla para maximizar el rendimiento con mínimo JavaScript en el cliente. Integra un chat con IA potenciado por la API de Gemini mediante una función serverless propia en Vercel (Node.js), con respuesta en streaming, además de un formulario de contacto con EmailJS y visualización directa del CV en PDF.',
+        'Sitio bilingüe (ES/EN) en Astro y React con arquitectura de islas: solo se hidrata lo interactivo. Incluye un asistente con IA propio, una función serverless en Vercel con cadena de modelos (Groq → Gemini) y respuesta en streaming, visor de PDF, SEO técnico (hreflang, sitemap, datos estructurados) y foco en accesibilidad y rendimiento.',
     },
     {
       title: 'Banco XYZ',
-      subtitle: 'Sistema de gestión bancaria',
+      subtitle: 'Sistema de Gestión Bancaria | Trabajo Integrador UTN',
       description:
-        'Aplicación web desarrollada como trabajo integrador en la UTN FRGP para simular operaciones bancarias: gestión de clientes, cuentas, depósitos, extracciones y transferencias, con una interfaz clara y validaciones en línea.',
+        'Aplicación web en Java EE (JSP y Servlets) con arquitectura en capas (presentación, negocio, DAO y entidades) sobre MySQL. Roles de administrador y cliente: alta y baja de clientes y cuentas, transferencias, movimientos, pedido, aprobación y pago de préstamos, e informes. Desarrollada en equipo.',
     },
     {
       title: 'Hospital UTN FRGP',
-      subtitle: 'Sistema de gestión hospitalaria',
+      subtitle: 'Sistema de Gestión Hospitalaria | Trabajo Integrador UTN',
       description:
-        'Aplicación web académica para administrar pacientes, médicos, especialidades y turnos, con formularios validados y navegación fluida entre pantallas.',
+        'Aplicación web en ASP.NET Web Forms (C#) con arquitectura en tres capas y SQL Server. Login por rol: el administrador gestiona médicos, pacientes y turnos y genera informes; el médico consulta su agenda de turnos. Desarrollada en equipo.',
     },
     {
       title: 'Landing Colidevs',
-      subtitle: 'Landing Page Corporativa | Startup de Servicios TI',
+      subtitle: 'Landing Corporativa en Producción | Startup',
       description:
-        'Landing page institucional desarrollada para Colidevs, startup orientada a la digitalización y automatización de negocios, con foco en conversión, diseño responsive y llamados a la acción.',
+        'Landing en producción para una startup de control y trazabilidad de la producción. Sitio estático en Astro y Tailwind CSS: carga rápida, diseño responsive, SEO y llamados a la acción orientados a conversión.',
     },
     {
       title: 'APX Electronics',
-      subtitle: 'E-Commerce - Proyecto Final | TalentoTech',
+      subtitle: 'E-Commerce en JavaScript Puro | Proyecto Final TalentoTech',
       description:
-        'Tienda online de productos tecnológicos con catálogo dinámico, carrito persistente, formulario de contacto y diseño responsive desarrollada como proyecto final.',
+        'Tienda online hecha con JavaScript puro, sin frameworks, que consume los productos desde la API de DummyJSON. Catálogo dinámico, carrito persistente en localStorage y diseño responsive. Proyecto final del curso Front-End de TalentoTech.',
     },
   ],
 },
@@ -412,49 +412,49 @@ projects: {
       title: 'wouü Importaciones',
       subtitle: 'Client E-Commerce | Tiendanube',
       description:
-        'Live online store for a sports accessories brand. I designed and built a custom, mobile-first interface on Tiendanube: color-based gallery, live bundle pricing, and a shipping calculator, all wired to the native cart. I also set up payments, shipping, and SEO.',
+        'Live online store for a sports accessories brand. I designed and built a custom, mobile-first interface within Tiendanube’s constraints: a Python build pipeline generates the code blocks, the UI syncs color, bundles, and live pricing with the native cart, and every release is checked with automated Playwright tests.',
     },
     {
       title: 'Origami Design',
       subtitle: '3D Kit Editor | Own Product',
       description:
-        'Web editor for amateur clubs to design their full kit (jersey, shorts, and socks) and preview it in 3D in real time, without needing a designer. A single canvas produces both the 3D viewer texture and the 300 DPI print file: what you see is what gets printed. It includes layers, patterns, a color palette, undo and versioning, PNG export, and shareable design links.',
+        'Own product: a web editor where a club designs its kit and sees it in 3D in real time. I render a GLB jersey model plus procedural geometry for shorts and socks with Three.js and React Three Fiber; a single canvas produces both the 3D texture and the 300 DPI print file. State with Zustand and Immer for undo and versioning, PNG export, and shareable links.',
     },
     {
       title: 'React Football Boots',
       subtitle: 'E-Commerce + Admin Dashboard (CRUD)',
       description:
-        'Football boots store with an admin dashboard. The catalog is consumed from a REST API (MockAPI) with search, brand filter, price sorting, pagination, product detail, and a cart with quantities. It includes login with a protected route and a dashboard to create, edit, and delete products (full CRUD with GET, POST, PUT, and DELETE).',
+        'React SPA with an admin dashboard: login with a protected route and full product CRUD against a REST API (GET, POST, PUT, and DELETE). The store consumes that catalog with search, brand filter, price sorting, pagination, and a cart, using Context API for global state and React Router for navigation.',
     },
     {
       title: 'Personal Portfolio',
-      subtitle: 'Personal Landing Page | Featured Project',
+      subtitle: 'Bilingual Site with AI Assistant | Featured Project',
       description:
-        'Personal portfolio built with Astro, React, and Tailwind CSS, migrated from Vanilla JavaScript to maximize performance with minimal client-side JavaScript. It includes an AI-powered chat using the Gemini API through a custom serverless function on Vercel (Node.js) with streaming responses, EmailJS contact form integration, and embedded PDF resume viewing.',
+        'Bilingual site (ES/EN) built with Astro and React using islands architecture: only interactive parts are hydrated. It includes a custom AI assistant, a Vercel serverless function with a model chain (Groq → Gemini) and streaming responses, a PDF viewer, technical SEO (hreflang, sitemap, structured data), and a focus on accessibility and performance.',
     },
     {
       title: 'XYZ Bank',
-      subtitle: 'Bank Management System',
+      subtitle: 'Bank Management System | UTN Capstone Project',
       description:
-        'Web application developed as a final university project to simulate banking operations including customer management, accounts, deposits, withdrawals, and transfers through a clean and intuitive interface.',
+        'Java EE web application (JSP and Servlets) with a layered architecture (presentation, business, DAO, and entities) on MySQL. Admin and customer roles: create and close customers and accounts, transfers, account activity, loan requests, approval and payments, plus reports. Built as a team.',
     },
     {
       title: 'UTN FRGP Hospital',
-      subtitle: 'Hospital Management System',
+      subtitle: 'Hospital Management System | UTN Capstone Project',
       description:
-        'Academic web application for managing patients, doctors, specialties, and appointments with validated forms and intuitive navigation.',
+        'ASP.NET Web Forms (C#) web application with a three-layer architecture and SQL Server. Role-based login: the admin manages doctors, patients, and appointments and generates reports; doctors check their appointment schedule. Built as a team.',
     },
     {
       title: 'Colidevs Landing Page',
-      subtitle: 'Corporate Landing Page | IT Services Startup',
+      subtitle: 'Live Corporate Landing Page | Startup',
       description:
-        'Corporate landing page developed for Colidevs, an IT startup focused on business digitalization and automation, emphasizing conversion, responsive design, and clear value proposition.',
+        'Live landing page for a startup focused on production control and traceability. Static site built with Astro and Tailwind CSS: fast loading, responsive design, SEO, and conversion-focused calls to action.',
     },
     {
       title: 'APX Electronics',
-      subtitle: 'E-Commerce - Final Project | TalentTech',
+      subtitle: 'Vanilla JavaScript E-Commerce | TalentoTech Final Project',
       description:
-        'Functional online electronics store featuring a dynamic catalog, persistent shopping cart, working contact form, and responsive design, developed as a final educational project.',
+        'Online store built with plain JavaScript, no frameworks, consuming products from the DummyJSON API. Dynamic catalog, cart persisted in localStorage, and responsive design. Final project of TalentoTech’s Front-End course.',
     },
   ],
 },
