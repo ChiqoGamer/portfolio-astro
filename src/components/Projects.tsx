@@ -53,7 +53,7 @@ const projects: Project[] = [
     logo: OrigamiLogo,
   },
   {
-    techs: [{ name: 'React' }, { name: 'JavaScript' }, { name: 'Bootstrap' }, { name: 'MockAPI' }, { name: 'LocalStorage' }],
+    techs: [{ name: 'React' }, { name: 'React Router' }, { name: 'Context API' }, { name: 'React Bootstrap' }, { name: 'MockAPI (REST)' }, { name: 'Vite' }],
     githubUrl: 'https://github.com/ChiqoGamer/React-Botines/tree/master',
     liveUrl: 'https://react-botines.vercel.app',
     image: '/ecommerce-botines.webp',

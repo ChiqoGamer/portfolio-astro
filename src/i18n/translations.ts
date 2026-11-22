@@ -179,9 +179,9 @@ projects: {
     },
     {
       title: 'React Botines',
-      subtitle: 'E-Commerce',
+      subtitle: 'E-Commerce + Panel de Administración (CRUD)',
       description:
-        'Tienda en línea funcional enfocada en productos de fútbol, con catálogo dinámico y paginación, carrito de compras persistente, formulario de contacto operativo y navegación responsiva, diseñada como prototipo de e-commerce completo.',
+        'Tienda de botines de fútbol con panel de administración. El catálogo se consume desde una API REST (MockAPI) con búsqueda, filtro por marca, orden por precio, paginación, detalle de producto y carrito con cantidades. Incluye login con ruta protegida y un dashboard para crear, editar y eliminar productos (CRUD completo con GET, POST, PUT y DELETE).',
     },
     {
       title: 'Portfolio Personal',
@@ -422,9 +422,9 @@ projects: {
     },
     {
       title: 'React Football Boots',
-      subtitle: 'E-Commerce',
+      subtitle: 'E-Commerce + Admin Dashboard (CRUD)',
       description:
-        'Fully functional online football store featuring a dynamic catalog with pagination, persistent shopping cart, working contact form, and responsive navigation, designed as a complete e-commerce prototype.',
+        'Football boots store with an admin dashboard. The catalog is consumed from a REST API (MockAPI) with search, brand filter, price sorting, pagination, product detail, and a cart with quantities. It includes login with a protected route and a dashboard to create, edit, and delete products (full CRUD with GET, POST, PUT, and DELETE).',
     },
     {
       title: 'Personal Portfolio',
