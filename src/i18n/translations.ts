@@ -39,10 +39,11 @@ export const translations = {
       educationItems: [
          {
     title: 'Full Stack Developer',
-    institution: 'Fundacion Pescar',
-    date: 'JUN 2026 - DIC 2026',
+    institution: 'Fundación Pescar · Centro Pescar J.P. Morgan',
+    date: 'JUN 2026 - NOV 2026',
+    certificateUrl: '/certificados/full-stack-fundacion-pescar.pdf',
     description:
-      'Formación desde los fundamentos web hasta tecnologías como Python, Django, React, MongoDB e Ingeniería de Software con IA. Complementada con un enfoque integral en habilidades blandas: construcción de marca personal, autoconocimiento y desarrollo profesional..',
+      'Formación desde los fundamentos web hasta tecnologías como Python, Django, React, MongoDB e Ingeniería de Software con IA. Complementada con un enfoque integral en habilidades blandas: construcción de marca personal, autoconocimiento y desarrollo profesional.',
     lineClass: 'linea',
   },
   {
@@ -75,7 +76,7 @@ export const translations = {
     title: 'Tecnico Universitario en Programación',
     institution: 'Universidad Tecnológica Nacional FRGP',
     date: 'AGO 2022 - DIC 2024',
-    certificateUrl: '/certificados/tecnicatura-utn-frgp.pdf',
+    certificateUrl: '/certificados/titulo-tup-utn-frgp.pdf',
     description:
       'Formación técnica en programación, bases de datos, desarrollo web e ingeniería de software.',
     lineClass: 'linea3',
@@ -326,8 +327,9 @@ chat: {
   educationItems: [
     {
       title: 'Full Stack Developer',
-      institution: 'Foundation Pescar',
-      date: 'JUN 2026 - DEC 2026',
+      institution: 'Fundación Pescar · Centro Pescar J.P. Morgan',
+      date: 'JUN 2026 - NOV 2026',
+    certificateUrl: '/certificados/full-stack-fundacion-pescar.pdf',
       description:
         'Training covering web development fundamentals through technologies such as Python, Django, React, MongoDB, and AI-assisted Software Engineering. Complemented by a strong focus on soft skills, including personal branding, self-awareness, and professional development.',
       lineClass: 'linea',
@@ -363,7 +365,7 @@ chat: {
       title: 'University Technician in Programming',
       institution: 'National Technological University (UTN FRGP)',
       date: 'AUG 2022 - DEC 2024',
-    certificateUrl: '/certificados/tecnicatura-utn-frgp.pdf',
+    certificateUrl: '/certificados/titulo-tup-utn-frgp.pdf',
       description:
         'Technical education in programming, databases, web development, and software engineering.',
       lineClass: 'linea3',
