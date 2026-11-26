@@ -93,22 +93,82 @@ export default function PdfModal({ url, open, onClose, downloadLabel, fileName, 
     if ((e.target as HTMLElement).classList.contains('modal')) onClose();
   };
 
-  // Zoom suave: transición CSS inmediata + re-render nítido al terminar
-  const zoomTo = (target: number) => {
-    const clamped = Math.min(4, Math.max(0.3, target));
+  // Zoom: cambia al instante el tamaño mostrado de la hoja (manteniendo fijo el punto bajo el
+  // cursor, o el centro si se usan los botones) y después la vuelve a dibujar nítida.
+  const zoomTo = (target: number, anchor?: { x: number; y: number }) => {
+    const clamped = Math.min(5, Math.max(0.2, target));
     const canvas = pdfCanvasRef.current;
+    const viewer = viewerRef.current;
     const prev = scaleRef.current;
     scaleRef.current = clamped;
-    if (canvas && prev) {
-      canvas.style.transition = 'transform 0.25s ease';
-      canvas.style.transform = `scale(${clamped / prev})`;
+    const shownW = canvas ? parseFloat(canvas.style.width) : NaN;
+    if (canvas && viewer && prev && shownW) {
+      const before = canvas.getBoundingClientRect();
+      const vr = viewer.getBoundingClientRect();
+      const ax = anchor?.x ?? vr.left + viewer.clientWidth / 2;
+      const ay = anchor?.y ?? vr.top + viewer.clientHeight / 2;
+      // Posición del punto de referencia dentro de la hoja (0 a 1)
+      const fx = (ax - before.left) / before.width;
+      const fy = (ay - before.top) / before.height;
+      const baseW = shownW / prev;
+      const baseH = parseFloat(canvas.style.height) / prev;
+      canvas.style.width = `${baseW * clamped}px`;
+      canvas.style.height = `${baseH * clamped}px`;
+      const after = canvas.getBoundingClientRect();
+      viewer.scrollLeft += after.left + fx * after.width - ax;
+      viewer.scrollTop += after.top + fy * after.height - ay;
     }
     window.clearTimeout(zoomTimerRef.current);
-    zoomTimerRef.current = window.setTimeout(() => {
-      if (canvas) { canvas.style.transition = 'none'; canvas.style.transform = 'none'; }
-      renderPage(pageNum);
-    }, 260);
+    zoomTimerRef.current = window.setTimeout(() => renderPage(pageNum), 180);
   };
+
+  // Rueda del mouse = zoom (como en Google Drive). Arrastrar con el click = moverse por la hoja.
+  useEffect(() => {
+    const viewer = viewerRef.current;
+    if (!open || !viewer) return;
+
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      // deltaMode 1 = líneas (algunos mouse): se pasa a píxeles aproximados
+      const dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
+      const factor = Math.exp(-Math.max(-120, Math.min(120, dy)) * 0.0022);
+      zoomTo(scaleRef.current * factor, { x: e.clientX, y: e.clientY });
+    };
+
+    let drag: { x: number; y: number; left: number; top: number; id: number } | null = null;
+    const onDown = (e: PointerEvent) => {
+      // Solo mouse y botón izquierdo; en celular se mantiene el desplazamiento táctil normal
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      e.preventDefault();
+      drag = { x: e.clientX, y: e.clientY, left: viewer.scrollLeft, top: viewer.scrollTop, id: e.pointerId };
+      viewer.setPointerCapture(e.pointerId);
+      viewer.classList.add('is-dragging');
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      viewer.scrollLeft = drag.left - (e.clientX - drag.x);
+      viewer.scrollTop = drag.top - (e.clientY - drag.y);
+    };
+    const onUp = (e: PointerEvent) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      drag = null;
+      viewer.classList.remove('is-dragging');
+      if (viewer.hasPointerCapture(e.pointerId)) viewer.releasePointerCapture(e.pointerId);
+    };
+
+    viewer.addEventListener('wheel', onWheel, { passive: false });
+    viewer.addEventListener('pointerdown', onDown);
+    viewer.addEventListener('pointermove', onMove);
+    viewer.addEventListener('pointerup', onUp);
+    viewer.addEventListener('pointercancel', onUp);
+    return () => {
+      viewer.removeEventListener('wheel', onWheel);
+      viewer.removeEventListener('pointerdown', onDown);
+      viewer.removeEventListener('pointermove', onMove);
+      viewer.removeEventListener('pointerup', onUp);
+      viewer.removeEventListener('pointercancel', onUp);
+    };
+  }, [open]);
   const zoomIn = () => zoomTo(scaleRef.current + 0.2);
   const zoomOut = () => zoomTo(scaleRef.current - 0.2);
   const fitToScreen = () => {
