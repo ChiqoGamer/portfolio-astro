@@ -7,10 +7,13 @@ type Props = {
   onClose: () => void;
   downloadLabel: string;
   fileName?: string;
+  // 'page': al abrir, el zoom se ajusta para que la hoja entera entre en pantalla (certificados).
+  // Sin valor: zoom fijo de lectura (CV).
+  fit?: 'page';
 };
 
 // Visor de PDF en modal (PDF.js), compartido por el CV y los certificados.
-export default function PdfModal({ url, open, onClose, downloadLabel, fileName }: Props) {
+export default function PdfModal({ url, open, onClose, downloadLabel, fileName, fit }: Props) {
   const [pageCount, setPageCount] = useState(1);
   const pdfCanvasRef = useRef<HTMLCanvasElement>(null);
   const viewerRef = useRef<HTMLDivElement>(null);
@@ -26,7 +29,9 @@ export default function PdfModal({ url, open, onClose, downloadLabel, fileName }
     const canvas = pdfCanvasRef.current;
     if (!pdfDoc || !canvas) return;
     pdfDoc.getPage(num).then((page: any) => {
-      const viewport = page.getViewport({ scale: scaleRef.current });
+      // Se dibuja a la densidad real de la pantalla (retina/celulares) para que se vea nítido
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const viewport = page.getViewport({ scale: scaleRef.current * dpr });
       const tempCanvas = document.createElement('canvas');
       const tempCtx = tempCanvas.getContext('2d')!;
       tempCanvas.height = viewport.height;
@@ -34,9 +39,33 @@ export default function PdfModal({ url, open, onClose, downloadLabel, fileName }
       page.render({ canvasContext: tempCtx, viewport }).promise.then(() => {
         canvas.height = viewport.height;
         canvas.width = viewport.width;
+        canvas.style.width = `${viewport.width / dpr}px`;
+        canvas.style.height = `${viewport.height / dpr}px`;
         canvas.getContext('2d')!.drawImage(tempCanvas, 0, 0);
       });
     });
+  };
+
+  // Zoom para que la hoja entera entre en el área visible del visor (ancho y alto)
+  const pageFitScale = async () => {
+    const pdfDoc = pdfDocRef.current;
+    const viewer = viewerRef.current;
+    if (!pdfDoc || !viewer) return null;
+    const page = await pdfDoc.getPage(pageNum);
+    const base = page.getViewport({ scale: 1 });
+    const cs = getComputedStyle(viewer);
+    const availW = viewer.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const availH = viewer.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    if (availW <= 0 || availH <= 0) return null;
+    return Math.min(availW / base.width, availH / base.height);
+  };
+
+  const showFirstPage = async () => {
+    if (fit === 'page') {
+      const s = await pageFitScale();
+      if (s) scaleRef.current = s;
+    }
+    renderPage(pageNum);
   };
 
   const loadPdf = async (pdfUrl: string) => {
@@ -48,7 +77,7 @@ export default function PdfModal({ url, open, onClose, downloadLabel, fileName }
       pdfDocRef.current = pdf;
       currentPdfUrlRef.current = pdfUrl;
       setPageCount(pdf.numPages || 1);
-      renderPage(pageNum);
+      showFirstPage();
     });
   };
 
@@ -57,7 +86,7 @@ export default function PdfModal({ url, open, onClose, downloadLabel, fileName }
     if (!open) return;
     scaleRef.current = window.innerWidth < 768 ? 0.6 : 1.4;
     if (!pdfDocRef.current || currentPdfUrlRef.current !== url) loadPdf(url);
-    else renderPage(pageNum);
+    else showFirstPage();
   }, [open, url]);
 
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {

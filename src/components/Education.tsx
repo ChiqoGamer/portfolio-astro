@@ -59,6 +59,7 @@ export default function Education({ lang }: { lang: Lang }) {
         open={pdfUrl !== null}
         onClose={() => setPdfUrl(null)}
         downloadLabel={t.certificateDownload}
+        fit="page"
       />
     </section>
   );
